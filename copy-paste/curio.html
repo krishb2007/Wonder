@@ -1,0 +1,2196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f7f9">
+    <title>Curio — Follow your curiosity</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap');
+
+:root {
+  font-family:'DM Sans',sans-serif;
+  color:#252637;
+  background:#f6f7f9;
+  font-synthesis:none;
+  --purple:#7153cf;
+  --muted:#787b8b;
+  --border:#e8e9ef;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+body {
+  margin:0;
+}
+
+button,input,select {
+  font:inherit;
+}
+
+button,a,input,select {
+  -webkit-tap-highlight-color:transparent;
+}
+
+button {
+  cursor:pointer;
+}
+
+button {
+  color:inherit;
+}
+
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible {
+  outline:3px solid #9473e6;
+  outline-offset:4px;
+}
+
+button {
+  border:0;
+}
+
+a {
+  color:var(--purple);
+}
+
+.sidebar {
+  position:fixed;
+  inset:0 auto 0 0;
+  width:232px;
+  background:white;
+  border-right:1px solid var(--border);
+  padding:34px 22px;
+  display:flex;
+  flex-direction:column;
+}
+
+.brand {
+  font:800 35px 'Manrope',sans-serif;
+  text-decoration:none;
+  color:#272536;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  letter-spacing:-2px;
+}
+
+.brand-dot {
+  color:var(--purple);
+  margin-left:-10px;
+}
+
+.brand-icon {
+  display:grid;
+  place-items:center;
+  background:var(--purple);
+  color:white;
+  width:35px;
+  height:38px;
+  border-radius:12px;
+  font-size:32px;
+  line-height:1;
+  transform:rotate(-9deg);
+  margin-right:2px;
+}
+
+.sidebar-label {
+  font-size:10px;
+  letter-spacing:1.8px;
+  color:#9293a0;
+  margin:52px 14px 16px;
+}
+
+nav {
+  display:grid;
+  gap:8px;
+}
+
+.nav-item {
+  display:flex;
+  gap:13px;
+  align-items:center;
+  background:none;
+  padding:14px;
+  border-radius:10px;
+  text-align:left;
+  font-size:14px;
+  color:#686b7b;
+}
+
+.nav-item>span:first-child {
+  font-size:21px;
+  width:23px;
+}
+
+.nav-item.active {
+  background:#f0ebfc;
+  color:#6548bb;
+  font-weight:650;
+}
+
+.count {
+  margin-left:auto;
+  font-size:11px;
+  background:#e5dcf9;
+  padding:3px 7px;
+  border-radius:5px;
+}
+
+.sidebar-note {
+  margin-top:auto;
+  padding:25px 13px 30px;
+}
+
+.small-star {
+  color:var(--purple);
+  font-size:31px;
+}
+
+.sidebar-note h3 {
+  font-size:17px;
+  font-weight:550;
+  line-height:1.6;
+}
+
+.sidebar-note p {
+  font-size:12px;
+  line-height:1.8;
+  color:var(--muted);
+}
+
+.profile {
+  border-top:1px solid var(--border);
+  padding-top:24px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.avatar {
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  width:36px;
+  height:36px;
+  background:#ece6f8;
+  color:#6e50b7;
+  border-radius:50%;
+  font-size:13px;
+  font-weight:700;
+}
+
+.profile strong {
+  font-size:12px;
+}
+
+.profile small {
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.profile>span:last-child {
+  margin-left:auto;
+}
+
+.workspace {
+  margin-left:232px;
+}
+
+.topbar {
+  height:85px;
+  padding:0 44px;
+  display:flex;
+  align-items:center;
+  gap:24px;
+  background:#ffffffb0;
+  border-bottom:1px solid var(--border);
+}
+
+.breadcrumb {
+  font-size:12px;
+  color:var(--muted);
+  margin-right:auto;
+}
+
+.search {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  background:#f1f2f5;
+  padding:10px 15px;
+  border-radius:9px;
+  width:300px;
+}
+
+.search span {
+  font-size:24px;
+  line-height:1;
+}
+
+.search input {
+  width:100%;
+  border:none;
+  background:none;
+  outline:none;
+  font-size:12px;
+  color:#343543;
+}
+
+.search:focus-within {
+  outline:2px solid #9473e6;
+}
+
+.avatar-button {
+  width:34px;
+  height:34px;
+}
+
+main {
+  max-width:1360px;
+  margin:auto;
+  padding:40px 44px;
+}
+
+.page-heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:34px;
+}
+
+.eyebrow {
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:var(--purple);
+}
+
+h1 {
+  font:750 clamp(25px,2.5vw,35px) 'Manrope',sans-serif;
+  letter-spacing:-1.3px;
+  margin:12px 0;
+}
+
+h1 span {
+  color:var(--purple);
+}
+
+.page-heading p {
+  font-size:12px;
+  color:var(--muted);
+  margin:0;
+  line-height:1.7;
+}
+
+.demo-badge {
+  font-size:10px;
+  color:#6a617b;
+  background:#edeaf4;
+  border:1px solid #e2ddeb;
+  border-radius:20px;
+  padding:8px 12px;
+  white-space:nowrap;
+}
+
+.content-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 270px;
+  gap:30px;
+}
+
+.feed-toolbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  margin-bottom:19px;
+}
+
+.feed-tabs {
+  display:flex;
+  gap:25px;
+}
+
+.feed-tabs button {
+  background:none;
+  color:var(--muted);
+  padding:0 0 15px;
+  font-size:13px;
+  border-bottom:2px solid transparent;
+}
+
+.feed-tabs button.selected {
+  color:#343042;
+  border-bottom-color:var(--purple);
+  font-weight:650;
+}
+
+.feed-tabs span {
+  color:var(--purple);
+  margin-left:5px;
+}
+
+.format-label {
+  font-size:10px;
+  color:var(--muted);
+  padding-bottom:13px;
+}
+
+.topics {
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding:0 2px 21px;
+}
+
+.topic-chip {
+  white-space:nowrap;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:8px 14px;
+  font-size:11px;
+}
+
+.topic-chip.selected {
+  background:#292b3e;
+  color:white;
+  border-color:#292b3e;
+}
+
+.post {
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:white;
+  overflow:hidden;
+  margin-bottom:23px;
+}
+
+.post-head {
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.publisher-icon {
+  width:35px;
+  height:35px;
+  border:1px solid #e8e5ef;
+  background:#faf9fc;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  font:750 15px 'Manrope',sans-serif;
+}
+
+.publisher-name {
+  font-size:12px;
+  font-weight:650;
+}
+
+.post-meta {
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.follow-button {
+  margin-left:auto;
+  background:none;
+  color:var(--purple);
+  font-size:11px;
+  font-weight:650;
+}
+
+.hide-button {
+  background:none;
+  font-size:19px;
+  color:#818391;
+  padding:4px 8px;
+}
+
+.story-art {
+  height:255px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:32px;
+  color:#fff;
+  background:#22233b;
+  isolation:isolate;
+}
+
+.story-art:after {
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(90deg,#191c38aa,transparent);
+}
+
+.story-art .art-kicker {
+  font-size:9px;
+  letter-spacing:2.4px;
+  opacity:.75;
+  margin-bottom:13px;
+}
+
+.story-art .art-title {
+  font:600 31px/1.15 'Manrope',sans-serif;
+  letter-spacing:-1px;
+  max-width:240px;
+}
+
+.art-badge {
+  position:absolute;
+  bottom:17px;
+  left:22px;
+  font-size:8px;
+  letter-spacing:1px;
+  background:#ffffff19;
+  border:1px solid #ffffff40;
+  padding:6px 9px;
+  border-radius:5px;
+}
+
+.art-decoration {
+  position:absolute;
+  right:25px;
+  top:30px;
+  width:195px;
+  height:195px;
+  z-index:-1;
+}
+
+.art-ai {
+  background:radial-gradient(ellipse at 80% 80%,#7662ac,#22243c 70%);
+}
+
+.art-ai .art-decoration {
+  border:1px solid #d7c1ff77;
+  border-radius:50%;
+  box-shadow:0 0 70px #ba8dff44,inset 0 0 45px #ac6fea77;
+  transform:rotate(-25deg);
+}
+
+.art-ai .art-decoration:before,.art-ai .art-decoration:after {
+  content:'';
+  position:absolute;
+  inset:17px -20px;
+  border:1px solid #e2caff88;
+  border-radius:50%;
+  transform:rotate(65deg);
+}
+
+.art-ai .art-decoration:after {
+  inset:-15px 32px;
+  transform:rotate(-10deg);
+  border-width:2px;
+}
+
+.art-space {
+  background:radial-gradient(circle at 80% 15%,#b85b3c33,transparent 55%),#171f2f;
+}
+
+.art-space .art-decoration {
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#e8c0aa,#a75b4d 40%,#283044 70%);
+  box-shadow:0 0 60px #db9a6244;
+  right:30px;
+  top:28px;
+}
+
+.art-space .art-decoration:after {
+  content:'';
+  position:absolute;
+  inset:65px -45px;
+  border:9px solid #bea89566;
+  border-radius:50%;
+  transform:rotate(-30deg);
+}
+
+.art-learning {
+  background:#dce7d7;
+  color:#2b443b;
+}
+
+.art-learning:after {
+  background:linear-gradient(90deg,#dce7d7,transparent);
+}
+
+.art-learning .art-decoration {
+  border:22px solid #86a58a;
+  border-radius:50%;
+  right:13px;
+  top:40px;
+  box-shadow:0 0 0 20px #b8cbb0,0 0 0 40px #c9d6bd;
+}
+
+.art-climate {
+  background:#e5b887;
+  color:#493a32;
+}
+
+.art-climate:after {
+  background:linear-gradient(90deg,#e5b887,transparent);
+}
+
+.art-climate .art-decoration {
+  border-radius:50% 50% 0 0;
+  background:linear-gradient(#8ba696,#466b5d);
+  top:80px;
+  right:20px;
+  box-shadow:-40px 50px 0 #687d58,50px 10px 0 #aac0a2;
+}
+
+.post-body {
+  padding:20px 23px 16px;
+}
+
+.source-type {
+  display:flex;
+  gap:9px;
+  align-items:center;
+  font-size:9px;
+  color:#7a688e;
+}
+
+.source-type span:first-child {
+  background:#f2eff8;
+  border-radius:4px;
+  padding:4px 7px;
+}
+
+.story-open {
+  display:block;
+  text-align:left;
+  background:none;
+  padding:0;
+  width:100%;
+}
+
+.story-open h2 {
+  font:750 20px/1.4 'Manrope',sans-serif;
+  letter-spacing:-.5px;
+  margin:12px 0 8px;
+}
+
+.story-open:hover h2 {
+  color:var(--purple);
+}
+
+.post-body p {
+  font-size:12px;
+  line-height:1.8;
+  color:#737583;
+  margin:0 0 13px;
+}
+
+.tag-list {
+  display:flex;
+  gap:12px;
+  font-size:10px;
+  color:var(--purple);
+}
+
+.post-actions {
+  display:flex;
+  align-items:center;
+  gap:16px;
+  border-top:1px solid #f0f0f4;
+  padding:13px 22px;
+}
+
+.action-button {
+  display:flex;
+  align-items:center;
+  gap:5px;
+  background:none;
+  font-size:11px;
+  padding:4px 0;
+  color:#777887;
+}
+
+.action-button span {
+  font-size:19px;
+  line-height:1;
+}
+
+.action-button[aria-pressed=true] {
+  color:var(--purple);
+}
+
+.post-actions .save {
+  margin-left:auto;
+}
+
+.read-link {
+  font-size:11px;
+  color:var(--purple);
+  background:none;
+  font-weight:600;
+}
+
+.welcome-card {
+  background:#ece6fa;
+  border:1px solid #e3daf5;
+  border-radius:14px;
+  padding:24px 23px;
+  position:relative;
+  overflow:hidden;
+  min-height:286px;
+}
+
+.welcome-card h2 {
+  font:700 23px/1.35 'Manrope',sans-serif;
+  letter-spacing:-.8px;
+  position:relative;
+  z-index:1;
+}
+
+.welcome-card p {
+  font-size:12px;
+  line-height:1.8;
+  max-width:195px;
+  position:relative;
+  z-index:1;
+  color:#7c708f;
+}
+
+.welcome-card button {
+  margin-top:10px;
+  background:white;
+  border-radius:8px;
+  padding:12px 13px;
+  color:#6b4bb4;
+  font-size:11px;
+  font-weight:650;
+  position:relative;
+  z-index:1;
+  display:flex;
+  gap:13px;
+}
+
+.orbit {
+  position:absolute;
+  right:-40px;
+  bottom:37px;
+  width:130px;
+  height:130px;
+  border:1px solid #cebbea;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  transform:rotate(-25deg);
+  box-shadow:0 0 0 15px #dccff344,0 0 0 30px #dccff333;
+}
+
+.orbit span {
+  font-size:80px;
+  color:#bca4e1;
+}
+
+.rail-section {
+  padding:28px 2px 22px;
+}
+
+.section-heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.section-heading h2 {
+  font-size:13px;
+  font-weight:650;
+}
+
+.section-heading>span {
+  color:var(--muted);
+}
+
+.explore-topic {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:none;
+  width:100%;
+  text-align:left;
+  padding:11px 0;
+}
+
+.topic-symbol {
+  display:grid;
+  place-items:center;
+  width:39px;
+  height:39px;
+  border-radius:10px;
+  font-size:20px;
+}
+
+.lavender {
+  background:#eae6f7;
+  color:#8566bf;
+}
+
+.peach {
+  background:#f8e9df;
+  color:#b77e52;
+}
+
+.mint {
+  background:#e5eee8;
+  color:#5b8b74;
+}
+
+.explore-topic strong {
+  font-size:12px;
+  font-weight:600;
+}
+
+.explore-topic small {
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.explore-topic>span:last-child {
+  margin-left:auto;
+  color:#999aaa;
+}
+
+.source-note {
+  border-top:1px solid var(--border);
+  padding:22px 2px;
+}
+
+.source-note>span {
+  color:var(--purple);
+  font-size:23px;
+}
+
+.source-note h3 {
+  font-size:12px;
+  font-weight:600;
+}
+
+.source-note p,.source-note small {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.9;
+}
+
+.source-note small {
+  font-size:9px;
+}
+
+.rail-footer {
+  font-size:10px;
+  color:#9a9ba7;
+  padding-top:10px;
+}
+
+.feed-footer {
+  text-align:center;
+  color:#9994a5;
+  font-size:11px;
+  margin:30px 0;
+}
+
+.empty-state {
+  border:1px dashed #d7d1e3;
+  border-radius:14px;
+  padding:45px 25px;
+  text-align:center;
+  background:white;
+}
+
+.empty-state h2 {
+  font-size:20px;
+}
+
+.empty-state p {
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.empty-state button {
+  background:#eee8fa;
+  color:var(--purple);
+  padding:10px 16px;
+  border-radius:8px;
+}
+
+dialog {
+  border:1px solid var(--border);
+  border-radius:20px;
+  width:min(620px,calc(100% - 28px));
+  padding:35px;
+  max-height:88vh;
+  color:#252637;
+  box-shadow:0 20px 100px #17102f33;
+}
+
+dialog::backdrop {
+  background:#20213388;
+  backdrop-filter:blur(4px);
+}
+
+dialog h2 {
+  font:750 27px/1.35 'Manrope',sans-serif;
+  margin:15px 0;
+}
+
+dialog p,dialog li {
+  font-size:14px;
+  line-height:1.85;
+  color:#686b7a;
+}
+
+.close-dialog {
+  position:absolute;
+  right:12px;
+  top:9px;
+  background:none;
+  font-size:27px;
+  padding:3px 9px;
+  color:#777;
+}
+
+.detail-source {
+  background:#f5f3f9;
+  border:1px solid #e8e2f1;
+  padding:18px;
+  border-radius:10px;
+  margin:25px 0;
+}
+
+.detail-source strong {
+  font-size:13px;
+}
+
+.detail-source p {
+  font-size:12px;
+  margin:7px 0;
+}
+
+.detail-source a {
+  font-size:12px;
+}
+
+.detail-tags {
+  color:var(--purple);
+  font-size:11px;
+}
+
+.primary-button {
+  background:var(--purple);
+  color:white;
+  border-radius:9px;
+  padding:13px 18px;
+  display:flex;
+  align-items:center;
+  gap:22px;
+  font-size:13px;
+}
+
+.interest-options {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.interest-options label {
+  font-size:12px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px;
+  display:flex;
+  gap:7px;
+  align-items:center;
+}
+
+.interest-options input {
+  accent-color:var(--purple);
+}
+
+fieldset {
+  border:0;
+  padding:10px 0;
+  margin:18px 0;
+}
+
+legend,.field-label {
+  font-size:12px;
+  font-weight:600;
+}
+
+.field-label {
+  display:block;
+  margin:18px 0 8px;
+}
+
+select {
+  width:100%;
+  padding:11px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:white;
+}
+
+.form-note {
+  font-size:11px!important;
+  margin:23px 0;
+}
+
+#toast {
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#292638;
+  color:white;
+  padding:12px 20px;
+  border-radius:10px;
+  font-size:12px;
+  z-index:10;
+  box-shadow:0 5px 30px #0002;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s;
+}
+
+#toast.visible {
+  opacity:1;
+}
+
+.skip-link {
+  position:fixed;
+  top:-100px;
+  left:15px;
+  background:white;
+  padding:15px;
+  z-index:20;
+}
+
+.skip-link:focus {
+  top:15px;
+}
+
+@media(min-width:1500px) {
+  .story-art {
+    height:290px;
+  }
+}
+
+@media(max-width:1150px) {
+  .sidebar {
+    width:200px;
+    padding:30px 15px;
+  }
+  .workspace {
+    margin-left:200px;
+  }
+  .topbar {
+    padding:0 28px;
+  }
+  main {
+    padding:32px 28px;
+  }
+  .content-layout {
+    grid-template-columns:minmax(0,1fr) 235px;
+    gap:22px;
+  }
+  .welcome-card {
+    padding:22px 17px;
+  }
+  .breadcrumb {
+    display:none;
+  }
+  .search {
+    margin-left:auto;
+  }
+  .demo-badge {
+    display:none;
+  }
+  .story-art .art-title {
+    font-size:28px;
+  }
+  .art-decoration {
+    right:-20px;
+  }
+}
+
+@media(max-width:950px) {
+  .right-rail {
+    display:none;
+  }
+  .content-layout {
+    display:block;
+  }
+  .feed-column {
+    max-width:650px;
+    margin:auto;
+  }
+  .page-heading {
+    max-width:650px;
+    margin:0 auto 28px;
+  }
+  .topbar {
+    height:70px;
+  }
+  .search {
+    width:min(100%,350px);
+  }
+}
+
+@media(max-width:600px) {
+  .sidebar {
+    width:100%;
+    height:65px;
+    inset:auto 0 0;
+    padding:4px 14px 7px;
+    z-index:5;
+    border:0;
+    border-top:1px solid var(--border);
+  }
+  .sidebar>.brand,.sidebar-label,.sidebar-note,.profile {
+    display:none;
+  }
+  .sidebar nav {
+    display:flex;
+    justify-content:space-around;
+    height:100%;
+  }
+  .nav-item {
+    font-size:9px;
+    padding:5px 12px;
+    gap:3px;
+    flex-direction:column;
+    border-radius:8px;
+  }
+  .nav-item>span:first-child {
+    font-size:21px;
+    height:24px;
+    text-align:center;
+  }
+  .count {
+    display:none;
+  }
+  .workspace {
+    margin-left:0;
+  }
+  .topbar {
+    height:65px;
+    padding:0 20px;
+    gap:13px;
+  }
+  .search {
+    width:100%;
+    margin:0;
+  }
+  .search input {
+    font-size:11px;
+  }
+  main {
+    padding:27px 16px 80px;
+  }
+  .eyebrow {
+    font-size:8px;
+  }
+  h1 {
+    font-size:28px;
+  }
+  .page-heading p {
+    font-size:11px;
+    max-width:290px;
+  }
+  .feed-toolbar {
+    margin-bottom:16px;
+  }
+  .topics {
+    gap:7px;
+    padding-bottom:18px;
+  }
+  .topic-chip {
+    padding:8px 12px;
+    font-size:10px;
+  }
+  .post-head {
+    padding:15px;
+  }
+  .post-body {
+    padding:18px;
+  }
+  .post-body h2 {
+    font-size:19px;
+  }
+  .post-actions {
+    padding:11px 18px;
+  }
+  .story-art {
+    height:240px;
+    padding:25px;
+  }
+  .story-art .art-title {
+    font-size:28px;
+    max-width:210px;
+  }
+  .art-decoration {
+    right:-30px;
+  }
+  .art-space .art-decoration {
+    right:-25px;
+  }
+  .source-type {
+    font-size:8px;
+  }
+  dialog {
+    padding:30px 23px;
+  }
+  .feed-tabs {
+    gap:22px;
+  }
+  #toast {
+    bottom:82px;
+    max-width:90%;
+    width:max-content;
+    text-align:center;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  * {
+    scroll-behavior:auto!important;
+    transition:none!important;
+  }
+}
+
+[hidden] {
+  display:none!important;
+}
+
+/* Shared navigation and separate page layouts. */
+:root {
+  background: #fff;
+  color: #202024;
+  --purple: #7654c6;
+}
+.sidebar {
+  width: 245px;
+  padding: 35px 22px 22px;
+}
+.sidebar .brand {
+  margin: 0 12px 48px;
+}
+.sidebar nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+a.nav-item {
+  text-decoration: none;
+  font-size: 15px;
+  color: #242427;
+  padding: 14px 12px;
+  gap: 16px;
+  min-height: 54px;
+}
+a.nav-item > span:first-child {
+  font-size: 28px;
+  width: 28px;
+  line-height: 1;
+  text-align: center;
+}
+a.nav-item:hover {
+  background: #f5f5f5;
+}
+a.nav-item.active {
+  background: #f3f0f8;
+  color: #222;
+  font-weight: 750;
+}
+a.settings-link {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.workspace {
+  margin-left: 245px;
+}
+.topbar {
+  background: #fff;
+  height: 74px;
+}
+.breadcrumb {
+  font-weight: 650;
+  color: #333;
+}
+main {
+  max-width: 1160px;
+  padding-top: 30px;
+}
+#discover-page .content-layout {
+  grid-template-columns: minmax(0, 580px) 260px;
+  justify-content: center;
+  gap: 48px;
+}
+#discover-page .page-heading {
+  margin-bottom: 25px;
+}
+#discover-page .page-heading .eyebrow {
+  display: none;
+}
+#discover-page h1 {
+  font-size: 25px;
+}
+.post {
+  border: 0;
+  border-bottom: 1px solid #dedee2;
+  border-radius: 0;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+.post-head {
+  padding: 14px 0;
+}
+.publisher-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  outline: 2px solid #ccb8e2;
+  outline-offset: 2px;
+  margin: 4px;
+}
+.story-art {
+  height: 340px;
+  border-radius: 5px;
+}
+.post-body {
+  padding: 18px 0 12px;
+}
+.post-actions {
+  padding: 12px 0;
+}
+.saved-link {
+  text-decoration: none;
+  font-size: 12px;
+  padding-bottom: 14px;
+}
+.saved-link span,
+#portfolio-count {
+  background: #efecf4;
+  border-radius: 10px;
+  padding: 2px 6px;
+  margin-left: 4px;
+}
+.route-page {
+  animation: page-appear .18s ease-out;
+}
+.section-intro {
+  margin: 12px 0 32px;
+}
+.section-intro h1 {
+  font-size: 32px;
+}
+.section-intro > p:last-child {
+  font-size: 14px;
+  color: #74747c;
+  line-height: 1.7;
+}
+.page-tabs {
+  display: flex;
+  gap: 30px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 22px;
+}
+.page-tabs button {
+  background: none;
+  border-bottom: 2px solid transparent;
+  padding: 13px 0;
+  font-size: 14px;
+  color: #777;
+}
+.page-tabs button[aria-pressed="true"] {
+  color: #202024;
+  border-bottom-color: #202024;
+  font-weight: 700;
+}
+.sample-notice {
+  color: #77747d;
+  font-size: 11px;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.page-card {
+  border: 1px solid #e5e5e9;
+  border-radius: 12px;
+  padding: 25px;
+  background: #fff;
+}
+.page-card h2 {
+  font: 700 19px/1.5 'Manrope', sans-serif;
+  margin: 12px 0 7px;
+  letter-spacing: -.4px;
+}
+.page-card p {
+  font-size: 13px;
+  color: #73737d;
+  line-height: 1.8;
+}
+.person-card {
+  position: relative;
+}
+.person-avatar {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  background: #ede7f5;
+  color: #74578c;
+  border-radius: 50%;
+  font-size: 19px;
+  margin-bottom: 22px;
+}
+.person-card:nth-child(2n) .person-avatar {
+  background: #e7ede5;
+  color: #5e7d5c;
+}
+.person-card small {
+  color: #817d87;
+  font-size: 11px;
+}
+.profile-topic {
+  position: absolute;
+  right: 22px;
+  top: 25px;
+  font-size: 10px;
+  border-radius: 15px;
+  background: #f6f5f8;
+  padding: 7px 10px;
+}
+.outline-button {
+  background: #f5f3f8;
+  color: #66507e;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 7px;
+  width: 100%;
+  padding: 11px;
+  margin-top: 10px;
+}
+.outline-button[aria-pressed="true"] {
+  background: #28252e;
+  color: white;
+}
+.learning-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #eeebf5;
+  padding: 32px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+.learning-banner h2 {
+  font: 700 28px/1.4 'Manrope', sans-serif;
+  letter-spacing: -.7px;
+}
+.learning-banner p {
+  font-size: 13px;
+  color: #7c738b;
+}
+.learning-banner > span {
+  font-size: 150px;
+  color: #c3b1dd;
+  margin: 0 20px;
+}
+.lesson-card {
+  overflow: hidden;
+  padding: 0;
+}
+.lesson-cover {
+  min-height: 150px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px;
+}
+.lesson-cover span {
+  font-size: 48px;
+  font-weight: 750;
+}
+.lesson-cover small {
+  font-size: 12px;
+}
+.lesson-cover.art-learning,
+.lesson-cover.art-climate {
+  color: #384135;
+}
+.lesson-content {
+  padding: 25px;
+}
+.lesson-content .eyebrow {
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+.text-button {
+  padding: 8px 0;
+  background: none;
+  color: var(--purple);
+  font-size: 12px;
+  font-weight: 650;
+}
+.practice-link {
+  display: block;
+  font-size: 11px;
+  margin-top: 12px;
+  color: #666;
+}
+.practice-prompt {
+  padding: 22px 0 28px;
+  max-width: 640px;
+}
+.practice-prompt h2 {
+  font: 700 25px 'Manrope', sans-serif;
+}
+.practice-prompt p {
+  color: #72727c;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.practice-prompt a {
+  font-size: 12px;
+}
+#reflection-form {
+  max-width: 720px;
+}
+#reflection-form input,
+#reflection-form textarea {
+  width: 100%;
+  border: 1px solid #dfdfe6;
+  border-radius: 8px;
+  padding: 12px;
+  font: inherit;
+  font-size: 14px;
+}
+#reflection-form textarea {
+  resize: vertical;
+  line-height: 1.8;
+}
+.portfolio-entry p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.portfolio-entry h2 {
+  overflow-wrap: anywhere;
+}
+.portfolio-entry small {
+  color: #8a8493;
+  font-size: 10px;
+}
+#portfolio-items .empty-state {
+  grid-column: 1 / -1;
+}
+#settings-page {
+  max-width: 750px;
+  margin: auto;
+}
+#settings-page .page-card {
+  margin-bottom: 20px;
+}
+.settings-card {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+.settings-avatar {
+  background: #ede8f5;
+  color: var(--purple);
+  border-radius: 50%;
+  min-width: 65px;
+  height: 65px;
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+}
+.text-link {
+  font-size: 13px;
+}
+@keyframes page-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (max-width: 1150px) {
+  .sidebar { width: 215px; padding-left: 12px; padding-right: 12px; }
+  .workspace { margin-left: 215px; }
+  a.nav-item { font-size: 13px; gap: 12px; }
+  #discover-page .content-layout { gap: 26px; grid-template-columns: minmax(0, 1fr) 220px; }
+}
+@media (max-width: 950px) {
+  #discover-page .content-layout { display: block; }
+  .story-art { height: 310px; }
+  .learning-banner > span { font-size: 100px; margin: 0; }
+  .tile-grid { gap: 15px; }
+  .lesson-content { padding: 20px; }
+}
+@media (max-width: 600px) {
+  .sidebar { width: 100%; padding: 4px 8px max(7px, env(safe-area-inset-bottom)); height: auto; min-height: 65px; }
+  .sidebar nav { flex-direction: row; gap: 0; }
+  a.nav-item { font-size: 9px; gap: 6px; padding: 7px 4px; min-height: 50px; flex: 1; text-align: center; }
+  a.nav-item > span:first-child { font-size: 23px; height: 24px; }
+  a.settings-link { margin: 0; }
+  a.nav-item > span:last-child { max-width: 78px; line-height: 1.2; }
+  .workspace { margin-left: 0; }
+  .topbar { height: 62px; }
+  .topbar .breadcrumb { display: block; margin-right: auto; }
+  body[data-page="discover"] .breadcrumb { display: none; }
+  main { padding-bottom: 100px; }
+  .section-intro h1 { font-size: 28px; }
+  .tile-grid { grid-template-columns: 1fr; }
+  .learning-banner { padding: 24px; }
+  .learning-banner h2 { font-size: 23px; }
+  .learning-banner > span { display: none; }
+  .story-art { height: 310px; }
+  .page-tabs { gap: 24px; }
+  .page-tabs button { font-size: 13px; }
+  .settings-card { gap: 15px; }
+  #discover-page .page-heading p { max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .route-page { animation: none; }
+}
+
+/* Profile editing */
+#profile-form input,
+#profile-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dfdfe6;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+}
+#profile-form textarea {
+  resize: vertical;
+}
+#cv-file {
+  width: 100%;
+  padding: 16px;
+  border: 1px dashed #c9c2d8;
+  border-radius: 8px;
+  font-size: 12px;
+  background: #faf9fc;
+}
+#cv-file::file-selector-button {
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-right: 12px;
+  background: #ede7f6;
+  color: #60438f;
+  cursor: pointer;
+}
+.save-status {
+  min-height: 20px;
+}
+
+</style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <aside class="sidebar">
+      <a class="brand" href="./"><span class="brand-icon">c</span>curio<span class="brand-dot">.</span></a>
+      <nav aria-label="Main navigation">
+        <a class="nav-item" href="#/discover" data-route="discover"><span aria-hidden="true">⌂</span><span>Discover</span></a>
+        <a class="nav-item" href="#/connect" data-route="connect"><span aria-hidden="true">♧</span><span>Connect</span></a>
+        <a class="nav-item" href="#/learn" data-route="learn"><span aria-hidden="true">▤</span><span>Learn</span></a>
+        <a class="nav-item" href="#/practice" data-route="practice"><span aria-hidden="true">▦</span><span>Practice & Portfolio</span></a>
+        <a class="nav-item settings-link" href="#/settings" data-route="settings"><span aria-hidden="true">☰</span><span>Settings</span></a>
+      </nav>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><span class="breadcrumb">Your daily dose of discovery</span><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search your next rabbit hole…" aria-label="Search stories"></label><button class="avatar avatar-button" id="profile-button" aria-label="Open Settings">Y</button></header>
+      <main id="main" tabindex="-1">
+        <section id="discover-page" class="route-page">
+        <div class="page-heading"><div><div class="eyebrow">GOOD IDEAS START HERE</div><h1 id="page-title">Follow your curiosity<span>.</span></h1><p id="page-description">Fresh perspectives. Deeper understanding. Something worth your time.</p></div><span class="demo-badge">✧ Sample content</span></div>
+        <div class="content-layout">
+          <section class="feed-column" aria-label="Story feed">
+            <div class="feed-toolbar"><div class="feed-tabs" role="group" aria-label="Feed selection"><button class="selected" data-feed="for-you" aria-pressed="true">For you <span>✦</span></button><button data-feed="following" aria-pressed="false">Following</button></div><a class="saved-link" href="#/discover/saved">Saved <span id="saved-count">0</span></a></div>
+            <div class="topics" id="topics" role="group" aria-label="Filter stories by topic"></div>
+            <div id="feed" aria-live="polite"></div>
+            <p class="feed-footer">You’ve made a little more room for curiosity. ✳</p>
+          </section>
+          <aside class="right-rail" aria-label="Discovery suggestions">
+            <section class="welcome-card"><span class="eyebrow">MAKE IT YOURS</span><h2>Your interests.<br>Your next discovery.</h2><p>Choose what sparks your curiosity. We’ll help you explore it.</p><button id="personalize">Personalize your feed <span aria-hidden="true">↗</span></button><div class="orbit" aria-hidden="true"><span>✳</span></div></section>
+            <section class="rail-section"><div class="section-heading"><h2>Explore a little further</h2><span aria-hidden="true">↗</span></div><button class="explore-topic" data-topic="Technology"><span class="topic-symbol lavender">⌘</span><span><strong>Technology</strong><small>Ideas shaping what’s next</small></span><span>→</span></button><button class="explore-topic" data-topic="Science"><span class="topic-symbol peach">⚛</span><span><strong>Science</strong><small>A world of questions</small></span><span>→</span></button><button class="explore-topic" data-topic="Learning"><span class="topic-symbol mint">✳</span><span><strong>Learning</strong><small>Understand a little more</small></span><span>→</span></button></section>
+            <section class="source-note"><span aria-hidden="true">◎</span><h3>Curiosity, with context.</h3><p>Every sample story links to its source. Look for the publication type and inspect the original material.</p><small>Frontend preview · Stories are illustrative summaries.</small></section>
+            <footer class="rail-footer">curio. &nbsp; Made for curious minds.</footer>
+          </aside>
+        </div>
+        </section>
+        <section id="connect-page" class="route-page" hidden aria-labelledby="connect-title">
+          <header class="section-intro"><p class="eyebrow">BETTER TOGETHER</p><h1 id="connect-title">Find your people.</h1><p>Different perspectives. Shared curiosity.</p></header>
+          <div class="page-tabs" role="group" aria-label="Connection categories">
+            <button data-connect="peers" aria-pressed="true">Peers</button>
+            <button data-connect="mentors" aria-pressed="false">Mentors</button>
+            <button data-connect="community" aria-pressed="false">Community</button>
+          </div>
+          <p class="sample-notice">Illustrative profiles and communities · Follows are saved only in this browser.</p>
+          <div id="connections" class="tile-grid"></div>
+        </section>
+        <section id="learn-page" class="route-page" hidden aria-labelledby="learn-title">
+          <header class="section-intro"><p class="eyebrow">KEEP EXPLORING</p><h1 id="learn-title">A little more understanding.</h1><p>Turn something that caught your eye into something you understand.</p></header>
+          <div class="learning-banner"><div><span class="eyebrow">YOUR NEXT CHAPTER</span><h2>Start with a question.<br>Leave with a new idea.</h2><p>Short reads with key takeaways and original sources.</p></div><span aria-hidden="true">✳</span></div>
+          <div class="section-heading"><h2>Your learning collection</h2><span class="sample-notice">Sample learning resources</span></div>
+          <div id="lessons" class="tile-grid"></div>
+        </section>
+        <section id="practice-page" class="route-page" hidden aria-labelledby="practice-title">
+          <header class="section-intro"><p class="eyebrow">FROM IDEAS TO ACTION</p><h1 id="practice-title">Practice & Portfolio</h1><p>Try an idea. Make it yours. Keep a record of what you create.</p></header>
+          <div class="page-tabs" role="group" aria-label="Practice and portfolio views">
+            <button data-work="practice" aria-pressed="true">Practice</button>
+            <button data-work="portfolio" aria-pressed="false">My portfolio <span id="portfolio-count">0</span></button>
+          </div>
+          <div id="practice-panel">
+            <div class="practice-prompt"><span class="eyebrow">A FIVE-MINUTE REFLECTION</span><h2>Explain it in your own words.</h2><p>Choose a story, describe its main idea, and suggest one way you could apply it. Add your reflection to your portfolio when you’re ready.</p><a href="#/learn">Explore the learning collection →</a></div>
+            <form id="reflection-form" class="page-card">
+              <label class="field-label" for="reflection-title">Give your reflection a title</label><input id="reflection-title" name="title" required maxlength="100" placeholder="What I learned about…">
+              <label class="field-label" for="reflection-topic">Related topic</label><select id="reflection-topic" name="topic"><option>Technology</option><option>Science</option><option>Learning</option><option>Environment</option></select>
+              <label class="field-label" for="reflection-body">Your reflection</label><textarea id="reflection-body" name="body" required minlength="20" maxlength="5000" rows="6" placeholder="The main idea is… One question I still have is… I could apply this by…"></textarea>
+              <p class="form-note">Private to this browser. This saves your writing locally, without automated grading or publishing.</p><button class="primary-button" type="submit">Add to my portfolio →</button>
+            </form>
+          </div>
+          <div id="portfolio-panel" hidden><p class="sample-notice">Your work is stored on this device. Entries are visible only in this browser.</p><div id="portfolio-items" class="tile-grid"></div></div>
+        </section>
+        <section id="settings-page" class="route-page" hidden aria-labelledby="settings-title">
+          <header class="section-intro"><p class="eyebrow">YOUR PROFILE</p><h1 id="settings-title">Settings</h1><p>Update your profile, CV, and interests.</p></header>
+          <form id="profile-form" class="page-card">
+            <h2>Edit profile</h2>
+            <label class="field-label" for="profile-name">Name</label>
+            <input id="profile-name" name="name" autocomplete="name" maxlength="80" required placeholder="Your name">
+            <label class="field-label" for="profile-headline">Headline</label>
+            <input id="profile-headline" name="headline" maxlength="160" placeholder="Student, developer, lifelong learner…">
+            <label class="field-label" for="profile-bio">About you</label>
+            <textarea id="profile-bio" name="bio" maxlength="2000" rows="4" placeholder="What are you learning or working on?"></textarea>
+            <p class="form-note">Your profile is saved in this browser.</p>
+            <button class="primary-button" type="submit">Save profile</button>
+            <p id="profile-status" class="save-status" role="status"></p>
+          </form>
+          <section class="page-card" aria-labelledby="cv-title">
+            <h2 id="cv-title">Your CV</h2>
+            <p>Add your CV to your local profile. PDF, DOC, or DOCX, up to 5 MB.</p>
+            <label class="field-label" for="cv-file">Upload or replace your CV</label>
+            <input id="cv-file" type="file" accept=".pdf,.doc,.docx" aria-describedby="cv-status">
+            <p id="cv-status" class="save-status" role="status">Loading saved CV…</p>
+            <a id="cv-download" class="text-link" hidden>Download saved CV</a>
+            <p class="form-note">Your CV file stays in this browser’s storage. Account syncing requires backend integration.</p>
+          </section>
+          <section class="page-card"><h2>Feed preferences</h2><p>Choose your interests, learning goal, and experience level.</p><p id="current-interests"></p><button id="settings-preferences" class="primary-button">Edit preferences</button></section>
+          <section class="page-card"><h2>Your saved discoveries</h2><p>Revisit the stories you want to spend more time with.</p><a class="text-link" href="#/discover/saved">Open saved stories →</a></section>
+          <section class="page-card"><h2>Privacy & account</h2><p>Saved stories, follows, preferences, and portfolio entries stay in this browser. Signing in, account syncing, and public profiles will require the team’s backend integration.</p></section>
+        </section>
+      </main>
+    </div>
+    <dialog id="story-dialog" aria-labelledby="story-title"><button class="close-dialog" data-close="story-dialog" aria-label="Close story">×</button><div id="story-content"></div></dialog>
+    <dialog id="preferences-dialog" aria-labelledby="preferences-title"><button class="close-dialog" data-close="preferences-dialog" aria-label="Close preferences">×</button><div class="eyebrow">A FEED THAT FEELS LIKE YOU</div><h2 id="preferences-title">What are you curious about?</h2><p>Pick your interests to prioritize stories in your feed. You can explore every topic at any time.</p><form id="preferences-form"><fieldset><legend>Your interests</legend><div id="interest-options" class="interest-options"></div></fieldset><label class="field-label" for="goal">Your learning goal</label><select id="goal" name="goal"><option>Explore new ideas</option><option>Build career skills</option><option>Support my studies</option><option>Find a project idea</option></select><label class="field-label" for="level">Experience level</label><select id="level" name="level"><option>Just getting started</option><option>Some experience</option><option>Ready to go deeper</option></select><p class="form-note">Preferences and saved stories stay in this browser. Audio, video, and account syncing are planned for later phases.</p><button class="primary-button" type="submit">Make it my feed <span>→</span></button></form></dialog>
+    <div id="toast" role="status"></div>
+  <script>
+// Replace this sample array with your team's API response when the backend is ready.
+const stories = [
+  { id: 'attention', publisher: 'arXiv', initials: 'ax', date: 'June 12, 2017', topic: 'Technology', type: 'Research preprint', minutes: 5, art: 'ai', kicker: 'THE IDEAS BEHIND AI', visual: 'A new way<br>to pay attention.', title: 'The idea that changed how machines understand language', summary: 'Before the chatbot came a different way of connecting words. Meet the attention mechanism behind the transformer architecture.', tags: ['Artificial intelligence', 'Deep learning'], url: 'https://arxiv.org/abs/1706.03762', sourceTitle: 'Attention Is All You Need', detail: 'The transformer architecture uses attention to represent relationships between elements in a sequence. Its original paper focused on machine translation, describing an approach without the recurrent or convolutional layers that earlier systems often used.', takeaways: ['Attention lets a model weigh relationships between different positions in a sequence.', 'The original evaluation focused on translation tasks. Results should be understood in that context.', 'This paper is a foundation for later models, rather than a description of every modern AI system.'], caveat: 'This illustrative summary simplifies a technical research paper. Consult the original for experiments, assumptions, and limitations.' },
+  { id: 'webb', publisher: 'NASA', initials: 'N', date: 'July 12, 2022', topic: 'Science', type: 'Agency reporting', minutes: 4, art: 'space', kicker: 'A DIFFERENT PERSPECTIVE', visual: 'The universe has<br>more to show us.', title: 'What looking farther into space can teach us', summary: 'The James Webb Space Telescope’s first images opened a new window on distant galaxies, stellar nurseries, and planetary atmospheres.', tags: ['Space', 'Astronomy'], url: 'https://science.nasa.gov/mission/webb/first-images/', sourceTitle: 'Webb’s First Images', detail: 'Webb observes infrared light, helping scientists study objects and processes that are difficult to examine using visible light alone. Its first images and spectra illustrated several kinds of observations, from distant galaxies to the atmosphere of an exoplanet.', takeaways: ['Different wavelengths reveal different information about astronomical objects.', 'Images and spectra are complementary tools for investigating the universe.', 'Scientific images often use assigned colors to communicate information from wavelengths our eyes cannot see.'], caveat: 'This is an illustrative overview of an image collection, not a report of a new discovery.' },
+  { id: 'learning', publisher: 'Learning Scientists', initials: 'LS', date: 'Undated resource', topic: 'Learning', type: 'Expert resource', minutes: 3, art: 'learning', kicker: 'SMALL HABITS, DEEPER LEARNING', visual: 'Learn it.<br>Leave it.<br>Come back to it.', title: 'Give your learning a little breathing room', summary: 'Spacing out practice and recalling ideas from memory can help you build a more durable understanding of what you study.', tags: ['Study habits', 'Memory'], url: 'https://www.learningscientists.org/downloadable-materials', sourceTitle: 'Downloadable Materials — Six Strategies for Effective Learning', detail: 'Learning resources from the Learning Scientists explain study approaches including spaced practice and retrieval practice. Instead of relying only on repeated reading, you can try recalling an idea, checking it, and returning to it after a delay.', takeaways: ['Spread study sessions across time.', 'Try recalling what you know before checking the source.', 'Use feedback to correct misunderstandings, and adjust practice to the material.'], caveat: 'These are general learning strategies. Their effectiveness depends on the learner, material, and how they are used.' },
+  { id: 'climate', publisher: 'IPCC', initials: 'IP', date: 'March 20, 2023', topic: 'Environment', type: 'Assessment report', minutes: 6, art: 'climate', kicker: 'UNDERSTANDING OUR CHANGING PLANET', visual: 'A bigger picture.<br>A shared future.', title: 'How thousands of studies become one climate assessment', summary: 'A climate assessment brings together many lines of evidence. Understanding that process helps us read its findings with more context.', tags: ['Climate', 'Research'], url: 'https://www.ipcc.ch/report/ar6/syr/', sourceTitle: 'AR6 Synthesis Report: Climate Change 2023', detail: 'The IPCC’s synthesis report draws together findings from its assessment cycle. It examines climate change, its impacts and risks, and options for adaptation and mitigation, communicating both conclusions and the confidence attached to them.', takeaways: ['Assessments synthesize published research across many fields.', 'Confidence and likelihood language communicate how evidence is interpreted.', 'Adaptation and mitigation address different, related parts of the climate challenge.'], caveat: 'This sample introduces the report. Read the original summary and figures for specific findings and calibrated uncertainty.' }
+];
+const topics = ['All topics', 'Technology', 'Science', 'Learning', 'Environment'];
+const storageKey = 'curio-demo-v1';
+function readState() {
+  try {
+    const data = JSON.parse(localStorage.getItem(storageKey)) || {};
+    const strings = value => Array.isArray(value) ? value.filter(item => typeof item === 'string') : [];
+    return { saved: strings(data.saved), liked: strings(data.liked), followed: strings(data.followed), hidden: strings(data.hidden), interests: strings(data.interests), goal: typeof data.goal === 'string' ? data.goal : '', level: typeof data.level === 'string' ? data.level : '' };
+  } catch { return { saved: [], liked: [], followed: [], hidden: [], interests: [], goal: '', level: '' }; }
+}
+const state = readState();
+let view = 'discover';
+let feedMode = 'for-you';
+let selectedTopic = 'All topics';
+let search = '';
+let toastTimer;
+const feed = document.querySelector('#feed');
+function toast(message) {
+  const element = document.querySelector('#toast');
+  element.textContent = message;
+  element.classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => element.classList.remove('visible'), 3500);
+}
+function persist() {
+  try { localStorage.setItem(storageKey, JSON.stringify(state)); }
+  catch { toast('Browser storage is unavailable. Changes will last for this visit.'); }
+}
+function toggle(list, value) {
+  const index = list.indexOf(value);
+  if (index === -1) list.push(value);
+  else list.splice(index, 1);
+  persist();
+}
+function renderTopics() {
+  document.querySelector('#topics').innerHTML = topics.map(topic => `<button class="topic-chip ${selectedTopic === topic ? 'selected' : ''}" data-topic="${topic}" aria-pressed="${selectedTopic === topic}">${topic}</button>`).join('');
+}
+function card(story) {
+  const saved = state.saved.includes(story.id);
+  const liked = state.liked.includes(story.id);
+  const followed = state.followed.includes(story.publisher);
+  return `<article class="post" data-id="${story.id}">
+    <div class="post-head"><span class="publisher-icon" aria-hidden="true">${story.initials}</span><div><div class="publisher-name">${story.publisher}</div><div class="post-meta">${story.date} · ${story.minutes} min read</div></div><button class="follow-button" data-action="follow" aria-pressed="${followed}" aria-label="${followed ? 'Unfollow' : 'Follow'} ${story.publisher}">${followed ? 'Following' : '+ Follow'}</button><button class="hide-button" data-action="hide" aria-label="Show less like this story" title="Show less like this">⋯</button></div>
+    <div class="story-art art-${story.art}" aria-hidden="true"><span class="art-kicker">${story.kicker}</span><span class="art-title">${story.visual}</span><span class="art-badge">THE CURIO EDIT</span><div class="art-decoration"></div></div>
+    <div class="post-body"><div class="source-type"><span>${story.type}</span><span>AI-written sample summary</span></div><button class="story-open" data-action="open"><h2>${story.title}</h2></button><p>${story.summary}</p><div class="tag-list">${story.tags.map(tag => `<span>#${tag.replaceAll(' ', '')}</span>`).join('')}</div></div>
+    <div class="post-actions"><button class="action-button" data-action="like" aria-pressed="${liked}" aria-label="${liked ? 'Unlike' : 'Like'} story"><span aria-hidden="true">${liked ? '♥' : '♡'}</span>${liked ? 'Liked' : 'Like'}</button><button class="action-button" data-action="share"><span aria-hidden="true">↗</span>Share source</button><button class="action-button save" data-action="save" aria-pressed="${saved}"><span aria-hidden="true">${saved ? '▰' : '▱'}</span>${saved ? 'Saved' : 'Save'}</button><button class="read-link" data-action="open" aria-label="Read ${story.title}">Read →</button></div>
+  </article>`;
+}
+function render() {
+  renderTopics();
+  let visible = stories.filter(story => {
+    const inView = view === 'saved' ? state.saved.includes(story.id) : !state.hidden.includes(story.id);
+    const inFeed = view === 'saved' || feedMode !== 'following' || state.followed.includes(story.publisher);
+    const inTopic = selectedTopic === 'All topics' || selectedTopic === story.topic;
+    const matchesSearch = `${story.title} ${story.summary} ${story.publisher} ${story.tags.join(' ')} ${story.topic}`.toLowerCase().includes(search);
+    return inView && inFeed && inTopic && matchesSearch;
+  });
+  if (view === 'discover' && feedMode === 'for-you') {
+    visible = visible.toSorted((a, b) => Number(state.interests.includes(b.topic)) - Number(state.interests.includes(a.topic)));
+  }
+  feed.innerHTML = visible.length ? visible.map(card).join('') : `<div class="empty-state"><div class="small-star">✳</div><h2>${view === 'saved' ? 'A place for your next deep dive' : 'A little room for discovery'}</h2><p>${view === 'saved' ? 'Save a story from Discover to find it here. Try clearing any search or topic filters.' : feedMode === 'following' ? 'Follow a publisher from For you to see their stories here. You can also clear your filters.' : 'No stories match this view. Reset your filters and hidden stories to explore again.'}</p><button id="reset-feed">Explore all stories</button></div>`;
+  document.querySelector('#saved-count').textContent = state.saved.length;
+  document.querySelector('#page-title').textContent = view === 'saved' ? 'Worth coming back to.' : 'Follow your curiosity.';
+  document.querySelector('#page-description').textContent = view === 'saved' ? 'Your saved discoveries, ready when you are.' : 'Fresh perspectives. Deeper understanding. Something worth your time.';
+  document.querySelector('.feed-tabs').hidden = view === 'saved';
+  document.querySelectorAll('[data-view]').forEach(button => {
+    const active = button.dataset.view === view;
+    button.classList.toggle('active', active);
+    if (active) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  });
+  document.querySelectorAll('[data-feed]').forEach(button => {
+    button.classList.toggle('selected', button.dataset.feed === feedMode);
+    button.setAttribute('aria-pressed', button.dataset.feed === feedMode);
+  });
+}
+function openStory(story) {
+  document.querySelector('#story-content').innerHTML = `<div class="eyebrow">${story.topic.toUpperCase()} · ${story.minutes} MIN READ</div><h2 id="story-title">${story.title}</h2><div class="detail-tags">AI-written sample summary · ${story.type}</div><p>${story.detail}</p><h3>Take a little more with you</h3><ul>${story.takeaways.map(item => `<li>${item}</li>`).join('')}</ul><div class="detail-source"><strong>Go to the source</strong><p>${story.sourceTitle}<br>${story.publisher} · ${story.date}</p><a href="${story.url}" target="_blank" rel="noopener noreferrer">Read the original publication ↗</a><p>${story.caveat}</p></div><button class="primary-button" id="detail-save" aria-pressed="${state.saved.includes(story.id)}">${state.saved.includes(story.id) ? 'Saved to your stories' : 'Save for later'}</button>`;
+  document.querySelector('#detail-save').addEventListener('click', event => {
+    toggle(state.saved, story.id);
+    const saved = state.saved.includes(story.id);
+    event.currentTarget.textContent = saved ? 'Saved to your stories' : 'Save for later';
+    event.currentTarget.setAttribute('aria-pressed', saved);
+    render();
+  });
+  document.querySelector('#story-dialog').showModal();
+}
+function openPreferences() {
+  document.querySelector('#interest-options').innerHTML = topics.slice(1).map(topic => `<label><input type="checkbox" name="interest" value="${topic}" ${state.interests.includes(topic) ? 'checked' : ''}>${topic}</label>`).join('');
+  const goal = document.querySelector('#goal');
+  const level = document.querySelector('#level');
+  goal.value = state.goal || goal.options[0].value;
+  level.value = state.level || level.options[0].value;
+  if (goal.selectedIndex < 0) goal.selectedIndex = 0;
+  if (level.selectedIndex < 0) level.selectedIndex = 0;
+  document.querySelector('#preferences-dialog').showModal();
+}
+document.addEventListener('click', async event => {
+  const button = event.target.closest('button');
+  if (!button) return;
+  if (button.dataset.close) document.getElementById(button.dataset.close).close();
+  if (button.dataset.topic) { selectedTopic = button.dataset.topic; render(); }
+  if (button.dataset.view) { view = button.dataset.view; render(); }
+  if (button.dataset.feed) { feedMode = button.dataset.feed; render(); }
+  if (button.id === 'reset-feed') {
+    location.hash = '/discover';
+    view = 'discover'; feedMode = 'for-you'; selectedTopic = 'All topics'; search = '';
+    state.hidden = []; document.querySelector('#search').value = ''; persist(); render();
+  }
+  const post = button.closest('[data-id]');
+  if (!post) return;
+  const story = stories.find(item => item.id === post.dataset.id);
+  switch (button.dataset.action) {
+    case 'open': openStory(story); break;
+    case 'like': toggle(state.liked, story.id); render(); break;
+    case 'save': toggle(state.saved, story.id); render(); break;
+    case 'follow': toggle(state.followed, story.publisher); render(); break;
+    case 'hide':
+      if (!state.hidden.includes(story.id)) state.hidden.push(story.id);
+      persist(); render(); toast('Story hidden. Reset the feed to restore hidden stories.'); break;
+    case 'share':
+      try {
+        if (navigator.share) await navigator.share({ title: story.sourceTitle, url: story.url });
+        else { await navigator.clipboard.writeText(story.url); toast('Original source link copied.'); }
+      } catch (error) { if (error.name !== 'AbortError') { openStory(story); toast('Use the source link in the story to share it.'); } }
+      break;
+  }
+});
+document.querySelector('#search').addEventListener('input', event => { search = event.target.value.trim().toLowerCase(); render(); });
+['personalize', 'settings-preferences'].forEach(id => document.getElementById(id).addEventListener('click', openPreferences));
+document.querySelector('#preferences-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  state.interests = data.getAll('interest'); state.goal = data.get('goal'); state.level = data.get('level');
+  persist(); document.querySelector('#preferences-dialog').close(); render(); toast('Your preferences have been saved.');
+});
+render();
+
+// Hash routes keep each page directly linkable on a simple static server.
+const pageNames = {
+  discover: 'Discover',
+  connect: 'Connect',
+  learn: 'Learn',
+  practice: 'Practice & Portfolio',
+  settings: 'Settings'
+};
+
+const demoPeople = {
+  peers: [
+    { id: 'maya', name: 'Maya Chen', initials: 'MC', role: 'Learning by building', topic: 'Technology', description: 'Exploring the connections between design, machine learning, and everyday life.' },
+    { id: 'alex', name: 'Alex Rivera', initials: 'AR', role: 'Always asking why', topic: 'Science', description: 'Curious about space, science communication, and the questions behind the headlines.' },
+    { id: 'sam', name: 'Sam Patel', initials: 'SP', role: 'One new idea a day', topic: 'Environment', description: 'Interested in climate research and small projects that make complex ideas accessible.' }
+  ],
+  mentors: [
+    { id: 'jordan', name: 'Jordan Lee', initials: 'JL', role: 'Example mentor profile', topic: 'Technology', description: 'An illustrative profile for exploring how mentor discovery could look.' },
+    { id: 'riley', name: 'Riley Brooks', initials: 'RB', role: 'Example mentor profile', topic: 'Learning', description: 'An illustrative profile focused on learning strategies and communicating research.' }
+  ],
+  community: [
+    { id: 'builders', name: 'Curious builders', initials: '⌘', role: 'Example topic community', topic: 'Technology', description: 'A space for questions about emerging technology and projects inspired by it.' },
+    { id: 'big-questions', name: 'The big questions', initials: '✳', role: 'Example topic community', topic: 'Science', description: 'A space for exploring research, comparing sources, and sharing discoveries.' }
+  ]
+};
+
+const activityKey = 'curio-activity-v1';
+function readActivity() {
+  try {
+    const data = JSON.parse(localStorage.getItem(activityKey)) || {};
+    return {
+      followed: Array.isArray(data.followed) ? data.followed.filter(id => typeof id === 'string') : [],
+      entries: Array.isArray(data.entries) ? data.entries.filter(entry =>
+        entry && typeof entry.title === 'string' && typeof entry.body === 'string' && typeof entry.topic === 'string'
+      ) : []
+    };
+  } catch {
+    return { followed: [], entries: [] };
+  }
+}
+const activity = readActivity();
+
+function saveActivity() {
+  try {
+    localStorage.setItem(activityKey, JSON.stringify(activity));
+    return true;
+  } catch {
+    toast('Browser storage is unavailable. Keep a copy of your writing before leaving.');
+    return false;
+  }
+}
+
+function showConnections(category) {
+  document.querySelectorAll('[data-connect]').forEach(button => {
+    button.setAttribute('aria-pressed', button.dataset.connect === category);
+  });
+  document.querySelector('#connections').innerHTML = demoPeople[category].map(person => `
+    <article class="person-card page-card">
+      <span class="person-avatar" aria-hidden="true">${person.initials}</span>
+      <span class="profile-topic">${person.topic}</span>
+      <h2>${person.name}</h2>
+      <small>${person.role}</small>
+      <p>${person.description}</p>
+      <button class="outline-button" data-person="${person.id}" aria-pressed="${activity.followed.includes(person.id)}">
+        ${activity.followed.includes(person.id) ? 'Following locally' : 'Follow in demo'}
+      </button>
+    </article>
+  `).join('');
+}
+
+function showLessons() {
+  document.querySelector('#lessons').innerHTML = stories.map(story => `
+    <article class="lesson-card page-card">
+      <div class="lesson-cover art-${story.art}"><span>${story.initials}</span><small>${story.topic}</small></div>
+      <div class="lesson-content">
+        <span class="eyebrow">${story.minutes} MIN READ · SOURCE-GROUNDED</span>
+        <h2>${story.title}</h2>
+        <p>${story.summary}</p>
+        <button class="text-button" data-lesson="${story.id}">Open resource →</button>
+        <a class="practice-link" href="#/practice">Write a reflection</a>
+      </div>
+    </article>
+  `).join('');
+}
+
+function showWork(tab) {
+  document.querySelector('#practice-panel').hidden = tab !== 'practice';
+  document.querySelector('#portfolio-panel').hidden = tab !== 'portfolio';
+  document.querySelectorAll('[data-work]').forEach(button => {
+    button.setAttribute('aria-pressed', button.dataset.work === tab);
+  });
+  renderPortfolio();
+}
+
+function renderPortfolio() {
+  document.querySelector('#portfolio-count').textContent = activity.entries.length;
+  const container = document.querySelector('#portfolio-items');
+  container.replaceChildren();
+  if (!activity.entries.length) {
+    container.innerHTML = '<div class="empty-state"><span class="small-star">▦</span><h2>Your ideas belong here.</h2><p>Write your first reflection in Practice to start your portfolio.</p><button data-work="practice">Start a reflection</button></div>';
+    return;
+  }
+  // User writing is inserted as text so markup cannot execute.
+  for (const entry of activity.entries.toReversed()) {
+    const article = document.createElement('article');
+    article.className = 'page-card portfolio-entry';
+    const topic = document.createElement('span');
+    topic.className = 'eyebrow';
+    topic.textContent = entry.topic;
+    const title = document.createElement('h2');
+    title.textContent = entry.title;
+    const body = document.createElement('p');
+    body.textContent = entry.body;
+    const visibility = document.createElement('small');
+    visibility.textContent = 'Reflection · Private to this browser';
+    article.append(topic, title, body, visibility);
+    container.append(article);
+  }
+}
+
+function updateSettings() {
+  document.querySelector('#current-interests').textContent = state.interests.length
+    ? `Your topics · ${state.interests.join(', ')}`
+    : 'All topics are welcome. Choose favorites to prioritize your feed.';
+}
+
+function routePage() {
+  const route = location.hash.slice(2).split('/');
+  const page = route[0];
+  if (!Object.hasOwn(pageNames, page)) {
+    location.replace('#/discover');
+    return;
+  }
+  document.querySelectorAll('.route-page').forEach(section => {
+    section.hidden = section.id !== `${page}-page`;
+  });
+  document.querySelectorAll('[data-route]').forEach(link => {
+    const active = link.dataset.route === page;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  view = page === 'discover' && route[1] === 'saved' ? 'saved' : 'discover';
+  render();
+  document.querySelector('.search').hidden = page !== 'discover';
+  document.querySelector('.breadcrumb').textContent = pageNames[page];
+  document.title = `${pageNames[page]} — Curio`;
+  document.body.dataset.page = page;
+  updateSettings();
+  window.scrollTo(0, 0);
+  document.querySelector('#main').focus({ preventScroll: true });
+}
+
+let connectionCategory = 'peers';
+document.addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button) return;
+  if (button.dataset.connect) {
+    connectionCategory = button.dataset.connect;
+    showConnections(connectionCategory);
+  }
+  if (button.dataset.person) {
+    const id = button.dataset.person;
+    const index = activity.followed.indexOf(id);
+    if (index === -1) activity.followed.push(id);
+    else activity.followed.splice(index, 1);
+    saveActivity();
+    showConnections(connectionCategory);
+  }
+  if (button.dataset.lesson) {
+    openStory(stories.find(story => story.id === button.dataset.lesson));
+  }
+  if (button.dataset.work) showWork(button.dataset.work);
+});
+
+document.querySelector('#reflection-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const title = form.elements.title.value.trim();
+  const body = form.elements.body.value.trim();
+  if (!title || body.length < 20) {
+    toast('Add a title and at least 20 characters of reflection.');
+    return;
+  }
+  activity.entries.push({ title, body, topic: form.elements.topic.value });
+  if (!saveActivity()) {
+    activity.entries.pop();
+    return;
+  }
+  form.reset();
+  showWork('portfolio');
+  toast('Reflection added to your private portfolio.');
+});
+document.querySelector('#preferences-form').addEventListener('submit', updateSettings);
+document.querySelector('#profile-button').addEventListener('click', () => { location.hash = '/settings'; });
+document.querySelector('.skip-link').addEventListener('click', event => {
+  event.preventDefault();
+  document.querySelector('#main').focus();
+});
+window.addEventListener('hashchange', routePage);
+showConnections(connectionCategory);
+showLessons();
+renderPortfolio();
+routePage();
+
+// Profile fields use localStorage. The CV blob uses IndexedDB to avoid
+// converting large files to strings or overflowing the preferences store.
+const profileKey = 'curio-profile-v1';
+const profileForm = document.querySelector('#profile-form');
+const profileStatus = document.querySelector('#profile-status');
+const cvInput = document.querySelector('#cv-file');
+const cvStatus = document.querySelector('#cv-status');
+const cvDownload = document.querySelector('#cv-download');
+let cvObjectUrl;
+
+function updateProfileAvatar(name) {
+  const initials = name.trim().split(/\s+/).slice(0, 2).map(word => word[0] || '').join('');
+  document.querySelector('#profile-button').textContent = initials.toUpperCase() || 'Y';
+}
+
+function loadProfile() {
+  try {
+    const profile = JSON.parse(localStorage.getItem(profileKey)) || {};
+    for (const field of ['name', 'headline', 'bio']) {
+      profileForm.elements[field].value = typeof profile[field] === 'string' ? profile[field] : '';
+    }
+    updateProfileAvatar(profileForm.elements.name.value);
+  } catch {
+    profileStatus.textContent = 'Your saved profile could not be loaded. You can enter it below.';
+  }
+}
+
+profileForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const profile = {
+    name: profileForm.elements.name.value.trim(),
+    headline: profileForm.elements.headline.value.trim(),
+    bio: profileForm.elements.bio.value.trim()
+  };
+  if (!profile.name) {
+    profileStatus.textContent = 'Enter your name before saving.';
+    profileForm.elements.name.focus();
+    return;
+  }
+  try {
+    localStorage.setItem(profileKey, JSON.stringify(profile));
+    updateProfileAvatar(profile.name);
+    profileStatus.textContent = 'Profile saved in this browser.';
+  } catch {
+    profileStatus.textContent = 'Could not save your profile. Check browser storage and try again.';
+  }
+});
+profileForm.addEventListener('input', () => {
+  profileStatus.textContent = 'You have unsaved profile changes.';
+});
+
+function openProfileDatabase() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('curio-profile', 1);
+    request.onupgradeneeded = () => {
+      request.result.createObjectStore('files');
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+    request.onblocked = () => {
+      cvStatus.textContent = 'Close other Curio tabs to finish opening CV storage.';
+    };
+  });
+}
+
+async function accessCV(file) {
+  const database = await openProfileDatabase();
+  try {
+    return await new Promise((resolve, reject) => {
+      const transaction = database.transaction('files', file ? 'readwrite' : 'readonly');
+      const store = transaction.objectStore('files');
+      const request = file ? store.put(file, 'cv') : store.get('cv');
+      transaction.oncomplete = () => resolve(file || request.result);
+      transaction.onerror = () => reject(transaction.error);
+      transaction.onabort = () => reject(transaction.error);
+    });
+  } finally {
+    database.close();
+  }
+}
+
+function displayCV(file) {
+  if (cvObjectUrl) URL.revokeObjectURL(cvObjectUrl);
+  cvDownload.hidden = !file;
+  cvDownload.removeAttribute('href');
+  if (!file) {
+    cvStatus.textContent = 'No CV added yet.';
+    return;
+  }
+  cvObjectUrl = URL.createObjectURL(file);
+  cvDownload.href = cvObjectUrl;
+  cvDownload.download = file.name;
+  cvStatus.textContent = `${file.name} · ${Math.ceil(file.size / 1024)} KB · Saved in this browser`;
+}
+
+cvInput.addEventListener('change', async () => {
+  const file = cvInput.files[0];
+  if (!file) return;
+  if (!/\.(pdf|doc|docx)$/i.test(file.name) || file.size === 0 || file.size > 5 * 1024 * 1024) {
+    cvStatus.textContent = 'Choose a nonempty PDF, DOC, or DOCX file up to 5 MB. Your saved CV is kept.';
+    cvInput.value = '';
+    return;
+  }
+  cvInput.disabled = true;
+  cvStatus.textContent = 'Saving your CV…';
+  try {
+    await accessCV(file);
+    displayCV(file);
+  } catch {
+    cvStatus.textContent = 'Could not save this CV. Check browser storage and try again. Your previous CV is kept.';
+  } finally {
+    cvInput.disabled = false;
+    cvInput.value = '';
+  }
+});
+
+async function loadCV() {
+  cvInput.disabled = true;
+  try {
+    displayCV(await accessCV());
+  } catch {
+    cvStatus.textContent = 'CV storage is unavailable. Check browser storage permissions and reload.';
+  } finally {
+    cvInput.disabled = false;
+  }
+}
+loadProfile();
+loadCV();
+
+</script>
+  </body>
+</html>
