@@ -191,7 +191,7 @@ def write_json(path, value):
 def load_state(root, sid):
     path = root / 'data/connect/users' / f'{sid}.json'
     if path.exists():
-        return json.loads(path.read_text())
+        return json.loads(path.read_text(encoding='utf-8'))
     return {'connections': [], 'following': [], 'blocked': [], 'reports': [],
             'joined': [], 'privacy': {'searchable': False, 'requests': 'everyone'}}
 
@@ -199,7 +199,7 @@ def load_state(root, sid):
 def community(root):
     path = root / 'data/connect/community.json'
     if path.exists():
-        return json.loads(path.read_text())
+        return json.loads(path.read_text(encoding='utf-8'))
     discussions = copy.deepcopy(SEED['discussions'])
     for item in discussions:
         item['sample'] = True
@@ -328,3 +328,5 @@ def perform(root, sid, body, profile):
     else:
         write_json(root / 'data/connect/users' / f'{sid}.json', state)
     return {**snapshot(root, sid), 'message': message}
+
+

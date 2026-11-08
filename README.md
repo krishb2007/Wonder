@@ -160,3 +160,50 @@ current browser's state. `POST /api/connect` accepts actions `connect`, `follow`
 State is saved per browser under `data/connect/users/`; the local community is
 saved in `data/connect/community.json`. These survive server restarts. Chat and
 practice memory remain independent and temporary.
+
+
+## Library frontend redesign
+
+The integrated frontend now opens to Discover, using warm ivory paper surfaces,
+forest-green navigation, editorial serif headlines, abstract CSS artwork, and a
+responsive reading layout with bottom navigation on mobile. No external fonts or
+image downloads are required. The existing learning, practice, profile/CV and
+Connect integrations are retained. Static assets use an explicit server allowlist.
+
+- Search, topic filtering (frontend keyword categorization), For You/Following,
+  local likes/saves/follows/hiding, source sharing, reading dialogs and local notes.
+- Empty discovery uses explicitly labeled editorial sample reading prompts.
+- Read/Listen/Watch selectors preserve the source; audio/video are unavailable
+  states, not generated media or simulated playback. Media generation, captions,
+  transcripts, and video swiping still require an actual media integration.
+- Settings includes browser-local goals, experience, depth, time, format and
+  networking preferences, large text and reduced-motion controls. Guided setup
+  leads to these settings; these extra preferences do not affect API ranking yet.
+- Portfolio is a private browser-only prototype with reflections, links, and
+  draft/completed status. It does not publish work or award credentials.
+- Connect's sample directory, local requests, shared local discussions, safety,
+  blocking and privacy controls continue to use the existing server.
+- JSON community reads explicitly use UTF-8, fixing Windows errors on punctuation.
+
+### Windows setup
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe server.py
+```
+
+Open http://127.0.0.1:8000. Configure the existing environment variables above for
+live Gemini and Keenable calls. Without keys, browse the clearly labeled sample
+collection and use local profile, Connect, notes and portfolio features.
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+node --check static/app.js
+node --check static/library.js
+```
+
+Browser review covered Discover, article details and portfolio saving; overflow
+checks covered 375px, 768px and desktop. API tests mock external providers and do
+not establish live AI/search connectivity. The UI preserves /end and /practice.
+
