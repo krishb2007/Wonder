@@ -15,7 +15,7 @@ source available throughout.
 
 Our experience follows a simple path:
 
-**Create a profile → Discover → Learn → Practice → Connect**
+**Sign up → Create a profile → Discover → Learn → Practice → Connect**
 
 ## What we have built
 
@@ -27,6 +27,7 @@ Our experience follows a simple path:
 | **Learn** | A source introduction and conversational explanations that remember earlier questions and answers |
 | **Practice** | Generated tasks with steps, estimated time, completion criteria, and checkboxes |
 | **Connect** | Registered users, mentoring availability, connection requests, follows, discussions, replies, blocking, and reports |
+| **Explainer** | A local animated walkthrough of a discovery excerpt, with captions and optional narration |
 | **Listen** | User-controlled browser narration of a discovery's title and excerpt |
 
 Gemini generates our discovery queries, learning explanations, and practice
@@ -64,6 +65,26 @@ We share names, professions, and interests in Connect. Emails and CVs stay priva
 Professional details and mentoring availability are self-reported, not verified.
 Reports are recorded for review; external moderation and messaging are not connected.
 
+### Animated explainers
+
+On **Discover**, click **✦ Watch explainer** inside a card's large visual area to
+open our scene viewer, then press **Play**. We reuse
+its title and up to three short excerpt segments, followed by a question to explore.
+Controls include play/pause, previous/next, scene selection, progress, replay, and
+optional narration with the selected browser voice. **Learn more** opens our
+source-based learning chat.
+
+Creating and playing the explainer makes no additional Gemini, Keenable, or
+video-generation requests. It is an animated presentation of existing text, not
+an AI-generated video file or a complete article explanation. Optional browser
+narration depends on the device's speech support and may use its vendor's speech
+service. Playback stops on close, page navigation, or hiding the browser tab.
+Reduced-motion preferences disable the decorative animations.
+
+Narration starts off. Turn **Narration on** and choose a voice to hear the captions.
+When paused, pressing Play restarts the current scene. **Learn more →** closes the
+viewer and opens a conversation about the same source.
+
 ## Run our app
 
 Use Python 3.11 or later. Run these commands from the project root—the folder
@@ -100,6 +121,15 @@ Open **http://127.0.0.1:8000**, create an account, and complete **Settings**.
 Then explore **Discover** or **Connect**. Use Sign out to switch accounts.
 To try connections, create a second account or sign in through another browser.
 
+### Try the full experience
+
+1. Sign up and save your profession, interests, and optional CV in **Settings**.
+2. Open **Discover** and refresh discoveries to search using your profile.
+3. Choose **Watch explainer** for a captioned overview, or **Listen** to hear the excerpt.
+4. Choose **Learn →** to ask questions about the source.
+5. Use **`/practice`** to create tasks, or **`/end`** when ready for a recap.
+6. Visit **Connect** to find other registered members and respond to requests.
+
 Restart the server after changing Python code or `.env`. Refresh the page after
 frontend changes. External API availability and limits depend on the configured
 provider accounts. Narration voices depend on the visitor's browser and device.
@@ -122,9 +152,9 @@ data/                   Runtime data, created as the app is used
 ```
 
 We use Python, Google's Gen AI SDK, python-dotenv, and pypdf. Our frontend uses
-HTML, CSS, and JavaScript without a frontend build step. The old frontend copies,
-update folder, fixed voice recordings, and Mac-only narration service have been
-removed from the active codebase.
+HTML, CSS, and JavaScript without a frontend build step. The explainer, browser
+narration, and all main pages live in `static/wonder.html`; signup and login live
+in `static/login.html`. No separate frontend server or additions folder is needed.
 
 ## Data and privacy
 
@@ -155,6 +185,11 @@ accounts, uploaded documents, and other persistent user records.
 We currently run Wonder as a local prototype. Password reset, email verification,
 a moderation console, portfolio publishing, and generated video are not implemented.
 Public hosting still requires HTTPS and deployment work.
+
+Narration depends on browser speech support and available device voices. Our
+explainers animate existing excerpts; they do not create downloadable video files.
+Code-level checks have covered the integrated flows, but visual rendering and
+audible playback have not been verified across real browsers and devices.
 
 CV extraction supports selectable text up to 40,000 characters. Scanned PDFs need
 OCR, which we have not integrated. Learning retrieves up to 50,000 source characters;
