@@ -3,19 +3,24 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f6f7f9">
+    <meta name="theme-color" content="#183c2e">
     <title>Wonder — Follow your curiosity</title>
     <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap');
 
 :root {
   font-family:'DM Sans',sans-serif;
-  color:#252637;
-  background:#f6f7f9;
+  color:#233b30;
+  background:#eee8d8;
   font-synthesis:none;
-  --purple:#7153cf;
-  --muted:#787b8b;
-  --border:#e8e9ef;
+  --purple:#35644d;
+  --muted:#68776a;
+  --border:#d9d3c2;
+  --forest:#183c2e;
+  --forest-deep:#102d23;
+  --cream:#eee8d8;
+  --paper:#f7f2e5;
+  --sage:#dfe4d2;
 }
 
 * {
@@ -402,14 +407,6 @@ h1 span {
   font-size:10px;
   color:var(--muted);
   margin-top:4px;
-}
-
-.follow-button {
-  margin-left:auto;
-  background:none;
-  color:var(--purple);
-  font-size:11px;
-  font-weight:650;
 }
 
 .hide-button {
@@ -1636,35 +1633,1209 @@ main {
   min-height: 20px;
 }
 
+/* Wonder's night-sky identity and luminous workspace. */
+:root {
+  color-scheme: light;
+  --purple:#7654e8;
+  --muted:#777a91;
+  --border:#e8e7f2;
+  --ink:#24223a;
+  --night:#17162c;
+  --violet:#8e72ff;
+  --cyan:#77dded;
+  background:#f7f7fc;
+  color:var(--ink);
+}
+body {
+  background:
+    radial-gradient(ellipse at 74% 8%, rgb(191 177 255 / 13%), transparent 29rem),
+    radial-gradient(ellipse at 43% 72%, rgb(165 228 240 / 10%), transparent 34rem),
+    #f7f7fc;
+}
+.sidebar {
+  z-index:6;
+  background:
+    radial-gradient(ellipse at 10% 3%, rgb(133 106 255 / 24%), transparent 21rem),
+    linear-gradient(165deg,#201d3d 0%,#17162d 58%,#211b3c 100%);
+  border-right:1px solid rgb(255 255 255 / 9%);
+  box-shadow:12px 0 40px rgb(34 25 77 / 8%);
+}
+.brand {
+  gap:11px;
+  color:#fff;
+  letter-spacing:-1.8px;
+}
+.brand-icon {
+  width:43px;
+  height:43px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  border:1px solid rgb(255 255 255 / 29%);
+  border-radius:15px;
+  background:linear-gradient(145deg,#9b80ff,#6245dc 55%,#3e51b8);
+  box-shadow:0 8px 25px rgb(113 79 231 / 40%),inset 0 1px 0 rgb(255 255 255 / 45%);
+  transform:rotate(-7deg);
+}
+.brand-icon svg {
+  width:36px;
+  height:36px;
+  overflow:visible;
+}
+.brand-dot { color:#8ee7f1; }
+.sidebar nav { gap:7px; }
+.sidebar-label {
+  color:#aaa7c6;
+  font-size:9px;
+  letter-spacing:2px;
+  margin:44px 14px 14px;
+}
+a.nav-item {
+  position:relative;
+  min-height:50px;
+  padding:12px 13px;
+  gap:13px;
+  border:1px solid transparent;
+  border-radius:13px;
+  color:#cbc9dd;
+  font-size:13px;
+  font-weight:550;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease,color .18s ease;
+}
+a.nav-item>span:first-child {
+  display:grid;
+  flex:0 0 25px;
+  width:25px;
+  height:25px;
+  place-items:center;
+  color:#a9a4c7;
+  font-size:initial;
+}
+.nav-icon { width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
+.topic-icon { width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round; }
+.topic-icon .topic-core { fill:currentColor;stroke:none; }
+a.nav-item:hover {
+  transform:translateX(2px);
+  border-color:rgb(255 255 255 / 8%);
+  background:rgb(255 255 255 / 6%);
+  color:white;
+}
+a.nav-item.active {
+  border-color:rgb(182 164 255 / 25%);
+  background:linear-gradient(105deg,rgb(139 111 255 / 24%),rgb(91 73 160 / 13%));
+  box-shadow:inset 3px 0 #a18aff,0 8px 22px rgb(6 5 20 / 12%);
+  color:#fff;
+}
+a.nav-item.active>span:first-child { color:#b9a9ff; }
+a.settings-link { margin-top:auto; }
+.topbar {
+  position:sticky;
+  top:0;
+  z-index:4;
+  height:76px;
+  background:rgb(250 250 255 / 82%);
+  border-bottom:1px solid rgb(224 222 239 / 85%);
+  backdrop-filter:blur(18px);
+}
+.breadcrumb { color:#74738b; }
+.search {
+  border:1px solid #e8e6f1;
+  border-radius:13px;
+  background:rgb(255 255 255 / 82%);
+  box-shadow:0 5px 18px rgb(47 36 95 / 4%);
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+.search:focus-within {
+  outline:0;
+  border-color:#a998f3;
+  box-shadow:0 0 0 4px rgb(132 105 232 / 12%),0 8px 22px rgb(47 36 95 / 7%);
+}
+.search-icon { width:19px;height:19px;flex:0 0 auto;fill:none;stroke:#7664b6;stroke-width:1.8;stroke-linecap:round; }
+.search input { font-size:12px; }
+.avatar {
+  background:linear-gradient(145deg,#eeeaff,#dcd5ff);
+  color:#5c49af;
+  box-shadow:inset 0 0 0 1px rgb(120 91 217 / 11%);
+}
+.avatar-button {
+  width:39px;
+  height:39px;
+  border:1px solid rgb(117 84 232 / 12%);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.avatar-button:hover { transform:translateY(-1px);box-shadow:0 6px 16px rgb(91 69 168 / 16%); }
+main { max-width:1420px;padding-top:42px; }
+#discover-page .page-heading .eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border:1px solid #e6e1fa;
+  border-radius:20px;
+  background:rgb(255 255 255 / 72%);
+  color:#7255d4;
+  font-size:9px;
+  letter-spacing:1.5px;
+}
+#discover-page .page-heading .eyebrow::before {
+  width:6px;height:6px;border-radius:50%;
+  background:#8b6cf0;
+  box-shadow:0 0 10px #8b6cf0;
+  content:"";
+}
+#discover-page h1,.section-intro h1 {
+  color:#24223a;
+  letter-spacing:-1.6px;
+}
+#discover-page h1 span {
+  background:linear-gradient(100deg,#7654e8,#a06be9 55%,#45b8cf);
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.page-heading p,.section-intro>p:last-child { color:#72748b; }
+.demo-badge {
+  border:1px solid #e1dcf4;
+  background:linear-gradient(120deg,#f3efff,#effaff);
+  color:#62548d;
+  box-shadow:0 5px 18px rgb(78 61 147 / 5%);
+}
+.content-layout { gap:34px; }
+.feed-toolbar { border-color:#e5e3ef; }
+.feed-tabs button { transition:color .18s ease,border-color .18s ease; }
+.feed-tabs button.selected { color:#312550;border-bottom-color:#8060ed; }
+.topics { scrollbar-width:thin;scrollbar-color:#cec4f1 transparent; }
+.topic-chip {
+  border-color:#e7e5ef;
+  background:rgb(255 255 255 / 83%);
+  color:#56566d;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.topic-chip:hover { transform:translateY(-1px);border-color:#b9a9ef;box-shadow:0 5px 14px rgb(75 60 136 / 8%); }
+.topic-chip.selected {
+  border-color:#39304f;
+  background:linear-gradient(115deg,#332b4b,#24233b);
+  box-shadow:0 5px 14px rgb(44 34 77 / 18%);
+}
+.post {
+  border:1px solid #e9e7f1;
+  border-radius:19px;
+  background:rgb(255 255 255 / 93%);
+  box-shadow:0 10px 32px rgb(39 34 78 / 5%);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.post:hover {
+  transform:translateY(-3px);
+  border-color:#d6cef3;
+  box-shadow:0 18px 42px rgb(39 34 78 / 10%);
+}
+.publisher-icon {
+  border:1px solid #e4ddfa;
+  background:linear-gradient(145deg,#fff,#f2efff);
+  color:#5c4ba2;
+  box-shadow:0 3px 12px rgb(81 61 155 / 8%);
+}
+.hide-button { border-radius:8px; }
+.hide-button:hover { background:#f0edfa;color:#5d48af; }
+.story-art { border-radius:12px; }
+.art-ai {
+  background:
+    radial-gradient(ellipse at 86% 89%,rgb(143 104 255 / 72%),transparent 44%),
+    radial-gradient(ellipse at 70% 8%,rgb(76 132 202 / 26%),transparent 43%),
+    linear-gradient(120deg,#17182f,#26213e 58%,#3d2e62);
+}
+.art-ai .art-decoration { box-shadow:0 0 90px rgb(186 141 255 / 38%),inset 0 0 50px rgb(172 111 234 / 53%); }
+.art-learning { background:linear-gradient(130deg,#dce8f0,#d9d4f5 65%,#c2e8e9); }
+.art-climate { background:linear-gradient(130deg,#e7bd9c,#a8c9bc 60%,#6f9c95); }
+.art-badge {
+  border-radius:20px;
+  background:rgb(255 255 255 / 13%);
+  backdrop-filter:blur(8px);
+}
+.source-type span:first-child {
+  border:1px solid #e7e0fa;
+  border-radius:20px;
+  background:#f4f0ff;
+  color:#634db2;
+}
+.story-open h2 { color:#27243b; }
+.post-body p { color:#71738a; }
+.tag-list { color:#7058c7; }
+.post-actions { border-color:#efedf5; }
+.action-button,.read-link { transition:color .16s ease,transform .16s ease; }
+.action-button:hover,.read-link:hover { color:#7654e8;transform:translateY(-1px); }
+.welcome-card {
+  border:1px solid rgb(255 255 255 / 76%);
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 100% 100%,rgb(131 103 240 / 22%),transparent 43%),
+    linear-gradient(145deg,#f0ebff,#e6e9ff 60%,#e4f6fb);
+  box-shadow:0 16px 38px rgb(74 57 142 / 10%),inset 0 1px 0 #fff;
+}
+.welcome-card .eyebrow { color:#7053cf; }
+.welcome-card button {
+  border:1px solid rgb(119 93 214 / 12%);
+  box-shadow:0 6px 18px rgb(59 46 107 / 9%);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.welcome-card button:hover { transform:translateY(-2px);box-shadow:0 10px 24px rgb(59 46 107 / 15%); }
+.orbit { border-color:#a997ed;box-shadow:0 0 0 15px rgb(197 180 247 / 28%),0 0 0 30px rgb(197 180 247 / 17%); }
+.orbit span { color:#9880e4; }
+.topic-symbol { box-shadow:inset 0 0 0 1px rgb(113 89 175 / 9%),0 5px 14px rgb(55 47 93 / 6%); }
+.source-note {
+  border:1px solid #e8e5f1;
+  border-radius:16px;
+  padding:20px;
+  background:rgb(255 255 255 / 74%);
+  box-shadow:0 8px 25px rgb(48 39 89 / 4%);
+}
+.source-note>span {
+  display:grid;
+  width:37px;height:37px;
+  place-items:center;
+  border:1px solid #e5def9;
+  border-radius:12px;
+  background:linear-gradient(145deg,#f0ebff,#e6f8fa);
+  color:#775bd4;
+  font-size:20px;
+}
+.source-note h3 { color:#302b48; }
+.rail-footer { color:#88869c; }
+.empty-state {
+  border-color:#d8d0f0;
+  background:linear-gradient(145deg,rgb(255 255 255 / 96%),#f8f6ff);
+  box-shadow:0 12px 32px rgb(48 39 89 / 5%);
+}
+.empty-state button,.outline-button {
+  border:1px solid #e3dcf8;
+  background:linear-gradient(120deg,#f1edff,#f0fbff);
+  color:#6049b7;
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.empty-state button:hover,.outline-button:hover { transform:translateY(-1px);box-shadow:0 7px 16px rgb(69 49 136 / 10%); }
+.page-card {
+  border:1px solid #e8e5f1;
+  border-radius:17px;
+  background:rgb(255 255 255 / 92%);
+  box-shadow:0 10px 28px rgb(41 34 78 / 5%);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.person-card:hover,.lesson-card:hover {
+  transform:translateY(-3px);
+  border-color:#d4cbf2;
+  box-shadow:0 17px 38px rgb(46 36 91 / 10%);
+}
+.person-avatar,.settings-avatar {
+  background:linear-gradient(145deg,#eeeaff,#d9d4fb 70%,#d7f0f3);
+  color:#644ec0;
+  box-shadow:inset 0 0 0 1px rgb(112 84 209 / 9%),0 8px 18px rgb(79 61 143 / 8%);
+}
+.person-card:nth-child(2n) .person-avatar {
+  background:linear-gradient(145deg,#e5f2ee,#d7e5f8);
+  color:#4e7e78;
+}
+.profile-topic {
+  border:1px solid #e7e3f2;
+  background:linear-gradient(120deg,#f6f3ff,#f0fafb);
+  color:#60577c;
+}
+.page-tabs { border-color:#e4e1ee; }
+.page-tabs button { transition:color .18s ease,border-color .18s ease; }
+.page-tabs button[aria-pressed=true] { border-bottom-color:#8060ed;color:#6548bd; }
+.sample-notice { color:#77758d; }
+.learning-banner {
+  position:relative;
+  border:1px solid rgb(255 255 255 / 16%);
+  background:
+    radial-gradient(ellipse at 91% 100%,rgb(142 111 255 / 49%),transparent 43%),
+    radial-gradient(ellipse at 70% 0%,rgb(83 171 207 / 26%),transparent 40%),
+    linear-gradient(115deg,#211f3c,#302852 62%,#383165);
+  box-shadow:0 16px 38px rgb(48 37 102 / 17%);
+}
+.learning-banner .eyebrow { color:#a99aff; }
+.learning-banner h2 { color:#fff; }
+.learning-banner p { color:#d1cee3; }
+.learning-banner>span {
+  color:#b5a5ff;
+  text-shadow:0 0 34px rgb(173 154 255 / 65%);
+}
+.lesson-cover { position:relative;overflow:hidden; }
+.lesson-cover::after {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(110deg,transparent 35%,rgb(255 255 255 / 13%),transparent 70%);
+  content:"";
+  pointer-events:none;
+}
+.lesson-card .text-button { color:#7054d0; }
+.lesson-card .practice-link { color:#6f6b83; }
+#settings-page .page-card { border-radius:17px; }
+#profile-form input,#profile-form textarea,#reflection-form input,#reflection-form textarea,
+select,#cv-file {
+  border-color:#e0ddeb;
+  background-color:#fdfcff;
+  border-radius:10px;
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+#profile-form input:focus,#profile-form textarea:focus,#reflection-form input:focus,#reflection-form textarea:focus,
+select:focus {
+  border-color:#a391e8;
+  box-shadow:0 0 0 4px rgb(118 84 232 / 10%);
+  outline:none;
+}
+dialog {
+  border-color:#e2dff0;
+  background:linear-gradient(150deg,#fff,#fbfaff);
+  box-shadow:0 28px 100px rgb(25 19 54 / 26%);
+}
+dialog::backdrop { background:rgb(21 19 42 / 58%);backdrop-filter:blur(9px); }
+.primary-button {
+  border:1px solid #7454dc;
+  background:linear-gradient(115deg,#7654e8,#6249c6);
+  box-shadow:0 8px 20px rgb(97 72 197 / 21%);
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.primary-button:hover { transform:translateY(-1px);box-shadow:0 12px 25px rgb(97 72 197 / 29%); }
+input,textarea,select {
+  accent-color:#7654e8;
+}
+input:focus-visible,textarea:focus-visible,select:focus-visible {
+  outline:3px solid rgb(118 84 232 / 25%);
+  outline-offset:1px;
+}
+#toast { background:linear-gradient(110deg,#292343,#40306b); }
+.mobile-brand {
+  gap:7px;
+  font-size:18px;
+}
+.mobile-brand-mark {
+  display:grid;
+  width:29px;height:29px;
+  place-items:center;
+  border-radius:10px;
+  background:linear-gradient(145deg,#9b80ff,#6245dc 60%,#3e51b8);
+  box-shadow:0 4px 12px rgb(94 70 202 / 28%);
+}
+.mobile-brand-mark svg { width:25px;height:25px; }
+.mobile-brand .brand-dot { margin-left:-6px; }
+@keyframes brand-breathe {
+  0%,100% { box-shadow:0 8px 25px rgb(113 79 231 / 34%),inset 0 1px 0 rgb(255 255 255 / 45%); }
+  50% { box-shadow:0 10px 31px rgb(113 79 231 / 48%),inset 0 1px 0 rgb(255 255 255 / 56%); }
+}
+.brand-icon { animation:brand-breathe 5s ease-in-out infinite; }
+@media(max-width:950px) {
+  .right-rail { display:grid; }
+  .content-layout { display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:22px; }
+  .feed-column { min-width:0;max-width:none;margin:0; }
+  .welcome-card { min-height:250px; }
+}
+@media(max-width:860px) {
+  .right-rail { display:none; }
+  .content-layout { display:block; }
+  .feed-column { max-width:650px;margin:auto; }
+}
+@media(max-width:600px) {
+  .sidebar {
+    background:rgb(28 25 51 / 96%);
+    border-top:1px solid rgb(255 255 255 / 12%);
+    box-shadow:0 -10px 32px rgb(28 24 61 / 18%);
+    backdrop-filter:blur(18px);
+  }
+  .sidebar nav {
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:2px;
+    width:100%;
+    min-width:0;
+  }
+  a.nav-item {
+    width:100%;
+    min-width:0;
+    flex:initial;
+    padding:7px 2px;
+  }
+  a.nav-item>span:last-child {
+    width:100%;
+    max-width:100%;
+    overflow-wrap:anywhere;
+    text-align:center;
+  }
+  a.nav-item { color:#c8c4de; }
+  a.nav-item>span:first-child { color:#aaa4ca; }
+  a.nav-item.active {
+    border-color:rgb(184 164 255 / 25%);
+    background:linear-gradient(145deg,rgb(139 111 255 / 32%),rgb(92 72 170 / 18%));
+    box-shadow:inset 0 2px #a18aff;
+    color:white;
+  }
+  .topbar { background:rgb(250 250 255 / 88%); }
+  .mobile-brand { color:#292443; }
+  .mobile-brand-name { white-space:nowrap; }
+  main { padding-top:28px; }
+  #discover-page .page-heading { gap:10px; }
+  #discover-page .page-heading .eyebrow { font-size:8px; }
+  #discover-page .page-heading p { max-width:none; }
+  .post { border-radius:16px; }
+  .post:hover { transform:none; }
+  .story-art { border-radius:10px; }
+  .source-note { border-radius:14px; }
+  .person-card:hover,.lesson-card:hover { transform:none; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .brand-icon { animation:none; }
+}
+@media(max-width:400px) {
+  .topbar { padding-right:12px;padding-left:12px;gap:9px; }
+  .mobile-brand { gap:5px;font-size:16px; }
+  .mobile-brand-mark { width:27px;height:27px; }
+  .mobile-brand-mark svg { width:23px;height:23px; }
+  .avatar-button { width:35px;height:35px; }
+}
+
+/* Warm paper and evergreen surfaces keep the interface calm without feeling boxed in. */
+html,body { background:var(--cream);color:#243d31; }
+body { background:radial-gradient(ellipse at 75% 4%,#f7f2e6 0,transparent 42%),var(--cream); }
+a { color:#35644d; }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible {
+  outline-color:#b5965d;
+}
+.sidebar {
+  width:245px;
+  padding:38px 23px 26px;
+  border-right:1px solid #335342;
+  background:linear-gradient(165deg,var(--forest),var(--forest-deep));
+}
+.workspace { margin-left:245px; }
+.brand { color:#f2ecdc;gap:12px; }
+.brand-dot { color:#c8ae77; }
+.brand-icon {
+  width:43px;height:43px;margin-right:2px;
+  border:1px solid rgb(222 200 151 / 42%);
+  border-radius:15px;
+  background:linear-gradient(145deg,#315a43,#173b2c);
+  box-shadow:0 8px 20px rgb(4 24 15 / 28%),inset 0 1px rgb(255 255 255 / 13%);
+  transform:rotate(-5deg);
+}
+.brand-icon svg { width:35px;height:35px; }
+.sidebar-label { color:#afbea8;margin-top:55px; }
+.sidebar nav { gap:9px; }
+a.nav-item {
+  min-height:51px;
+  padding:11px 12px;
+  gap:13px;
+  border:1px solid transparent;
+  border-radius:13px;
+  color:#d5ddcf;
+  font-size:14px;
+  transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease;
+}
+a.nav-item>span:first-child {
+  display:grid;
+  width:29px;height:29px;
+  flex:0 0 29px;
+  place-items:center;
+  border:1px solid rgb(232 227 207 / 13%);
+  border-radius:9px;
+  color:#d2c49b;
+  background:rgb(255 255 255 / 4%);
+}
+.nav-icon { width:19px;height:19px;stroke-width:1.75; }
+a.nav-item:hover {
+  transform:translateX(2px);
+  border-color:rgb(221 205 160 / 14%);
+  background:rgb(255 255 255 / 6%);
+  color:#fff9e9;
+}
+a.nav-item.active {
+  border-color:rgb(218 195 136 / 29%);
+  background:linear-gradient(110deg,rgb(218 195 136 / 16%),rgb(218 195 136 / 6%));
+  box-shadow:inset 3px 0 #cbb47d;
+  color:#fff9e9;
+}
+a.nav-item.active>span:first-child {
+  border-color:rgb(218 195 136 / 28%);
+  background:rgb(218 195 136 / 12%);
+  color:#e4cf96;
+}
+.sidebar-note { padding-left:13px;padding-right:13px; }
+.sidebar-note h3 { color:#f1eddf; }
+.sidebar-note p,.profile small { color:#bdc8b7; }
+.small-star { color:#d3bc83; }
+.profile { border-color:rgb(236 232 215 / 20%); }
+.avatar {
+  border:1px solid rgb(220 201 152 / 35%);
+  background:#d8dec9;
+  color:#244433;
+}
+.topbar {
+  height:82px;
+  padding:0 clamp(28px,4vw,70px);
+  border-color:#d6d0be;
+  background:rgb(238 232 216 / 93%);
+}
+.breadcrumb { color:#657668; }
+main {
+  width:100%;
+  max-width:1600px;
+  padding:clamp(34px,4vw,66px) clamp(28px,4vw,70px) 76px;
+}
+#discover-page .content-layout {
+  display:grid;
+  width:100%;
+  max-width:none;
+  grid-template-columns:minmax(0,1.8fr) minmax(300px,.82fr);
+  justify-content:stretch;
+  gap:clamp(32px,4vw,70px);
+}
+#discover-page .page-heading { margin-bottom:36px; }
+#discover-page .page-heading .eyebrow { display:inline-flex; }
+#discover-page h1,.section-intro h1 {
+  color:#203b2e;
+  font-size:clamp(31px,3vw,43px);
+  letter-spacing:-1.6px;
+}
+#discover-page .page-heading .eyebrow {
+  border-color:#d5d7c6;
+  background:#e5e6d7;
+  color:#45674a;
+}
+#discover-page .page-heading .eyebrow::before {
+  background:#9a8050;
+  box-shadow:0 0 10px rgb(154 128 80 / 42%);
+}
+#discover-page h1 span {
+  background:linear-gradient(100deg,#718c61,#aa8c54);
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+#discover-page .page-heading p,.section-intro>p:last-child { color:#66766a; }
+.demo-badge {
+  border-color:#d5d6c6;
+  background:#e7e8d9;
+  color:#536b50;
+  box-shadow:0 5px 18px rgb(49 71 43 / 5%);
+}
+.page-heading p,.section-intro>p:last-child { color:#66766a; }
+.section-intro { margin:6px 0 38px; }
+.section-intro>p:last-child { max-width:650px;font-size:15px; }
+.feed-column { min-width:0;max-width:none; }
+.feed-toolbar { align-items:center;margin-bottom:20px; }
+.feed-current { color:#244b36;font-size:15px;font-weight:700; }
+.feed-current span { color:#9c7d43;margin-left:5px; }
+.saved-link { color:#35644d; }
+.topics { gap:10px;padding-bottom:24px; }
+.topic-chip {
+  border-color:#d1d6c6;
+  background:#f7f2e5;
+  color:#536b58;
+}
+.topic-chip:hover,.topic-chip.selected {
+  border-color:#315c43;
+  background:#214633;
+  color:#f5efdf;
+}
+.post {
+  margin-bottom:27px;
+  padding:0 0 22px;
+  border:1px solid #dcd5c3;
+  border-radius:22px;
+  background:#f8f3e7;
+  box-shadow:0 10px 28px rgb(37 52 38 / 6%);
+  overflow:hidden;
+}
+.post-head { min-height:76px;padding:17px 22px; }
+.publisher-icon {
+  border-color:#d7c58e;
+  outline-color:#d7c58e;
+  background:linear-gradient(145deg,#e9e5d3,#d9e1d1);
+  color:#264a34;
+}
+.publisher-name { color:#284433; }
+.post-meta { color:#758074; }
+.hide-button { color:#718073; }
+.hide-button:hover { background:#e9e6d8;color:#284a36; }
+.story-art {
+  height:clamp(280px,28vw,390px);
+  margin:0 14px;
+  border:1px solid rgb(222 213 188 / 38%);
+  border-radius:16px;
+}
+.art-ai {
+  background:
+    radial-gradient(ellipse at 86% 89%,rgb(97 133 91 / 66%),transparent 44%),
+    radial-gradient(ellipse at 70% 8%,rgb(185 163 108 / 17%),transparent 43%),
+    linear-gradient(120deg,#132f25,#204532 58%,#3b5a3b);
+}
+.art-ai .art-decoration { box-shadow:0 0 90px rgb(183 170 114 / 24%),inset 0 0 50px rgb(141 165 113 / 32%); }
+.art-learning { background:linear-gradient(130deg,#d9dfce,#d6d5bd 65%,#b4c6a9); }
+.art-climate { background:linear-gradient(130deg,#d3b18a,#a9b99b 60%,#66826c); }
+.art-space { background:linear-gradient(130deg,#273e35,#52664d 65%,#897a56); }
+.post-body { padding:22px 26px 15px; }
+.post-body h2 { color:#243c2e; }
+.post-body p,.source-type span:last-child { color:#6b786d; }
+.source-type span:first-child {
+  border-color:#d6d9c8;
+  background:#e9eadb;
+  color:#355941;
+}
+.tag-list { color:#557b56; }
+.post-actions { border-color:#e4dece; }
+.action-button,.read-link { color:#526a57; }
+.action-button:hover,.read-link:hover { color:#264b35; }
+.welcome-card {
+  min-height:360px;
+  padding:32px;
+  border:1px solid #d7d2be;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 100% 100%,rgb(137 155 108 / 25%),transparent 43%),
+    linear-gradient(145deg,#e4e6d5,#e7e4d1 60%,#dce4d2);
+  box-shadow:0 15px 34px rgb(49 61 39 / 8%);
+}
+.welcome-card .eyebrow,.eyebrow { color:#547353; }
+.welcome-card h2,.rail-section h2 { color:#203d2d; }
+.welcome-card p { color:#667568; }
+.welcome-card button,.primary-button,.empty-state button {
+  border:1px solid #315b40;
+  border-radius:13px;
+  background:linear-gradient(120deg,#315e43,#214633);
+  color:#f6f0df;
+  box-shadow:0 8px 18px rgb(37 70 48 / 14%);
+}
+.welcome-card button:hover,.primary-button:hover,.empty-state button:hover {
+  background:#173d2b;
+  box-shadow:0 10px 24px rgb(37 70 48 / 20%);
+}
+.orbit { border-color:#9c9568;box-shadow:0 0 0 15px rgb(143 151 104 / 20%),0 0 0 30px rgb(143 151 104 / 12%); }
+.orbit span { color:#718453; }
+.source-note,.page-card,.post,.empty-state {
+  border-color:#d8d2c0;
+  background:#f7f2e5;
+  box-shadow:0 10px 28px rgb(37 52 38 / 6%);
+}
+.source-note>span,.person-avatar,.settings-avatar {
+  border-color:#d0d5c1;
+  background:linear-gradient(145deg,#e6e8d8,#d9e2d2);
+  color:#315840;
+  box-shadow:inset 0 0 0 1px rgb(50 86 58 / 6%);
+}
+.source-note h3,.page-card h2 { color:#294534; }
+.source-note p,.page-card p,.person-card small { color:#68766a; }
+.tile-grid { gap:26px; }
+.person-card,.lesson-card,.portfolio-entry {
+  min-height:100%;
+  padding:30px;
+  border-radius:21px;
+}
+.person-card:hover,.lesson-card:hover {
+  transform:translateY(-3px);
+  border-color:#aab89e;
+  box-shadow:0 17px 36px rgb(37 60 41 / 12%);
+}
+.person-card h2 { margin-top:16px;font-size:22px; }
+.person-card p { max-width:45ch;line-height:1.85; }
+.profile-topic {
+  border:1px solid #d6dac8;
+  background:#e9eadb;
+  color:#45674a;
+}
+.sample-notice { color:#748071; }
+.page-tabs { border-color:#d8d2c0; }
+.page-tabs button { color:#6a786a; }
+.page-tabs button[aria-pressed=true] {
+  border-bottom-color:#315b40;
+  color:#294b35;
+}
+.learning-banner {
+  min-height:250px;
+  padding:clamp(28px,4vw,52px);
+  border:1px solid #355740;
+  border-radius:24px;
+  background:
+    radial-gradient(ellipse at 90% 100%,rgb(133 160 105 / 37%),transparent 43%),
+    linear-gradient(115deg,#183a2b,#254a35 62%,#3d5b3e);
+  box-shadow:0 16px 38px rgb(37 60 41 / 17%);
+}
+.learning-banner .eyebrow { color:#d2c18d; }
+.learning-banner h2 { color:#f6efde; }
+.learning-banner p { color:#d0d7c9; }
+.learning-banner>span { color:#d4c38f;text-shadow:0 0 34px rgb(209 193 142 / 42%); }
+.lesson-cover { border-radius:15px 15px 0 0; }
+.lesson-cover.art-learning,.lesson-cover.art-climate { color:#263e2e; }
+.lesson-content { padding:28px 30px 32px; }
+.lesson-content .eyebrow { color:#617a5a; }
+.lesson-card .text-button,.text-link { color:#315b40; }
+.lesson-card .practice-link { color:#68766a; }
+#settings-page { max-width:1000px; }
+#settings-page .page-card { margin-bottom:24px;border-radius:20px; }
+.page-card { padding:30px; }
+#profile-form input,#profile-form textarea,#reflection-form input,#reflection-form textarea,
+select,#cv-file {
+  border-color:#d4d0bf;
+  background:#fbf7eb;
+  color:#253e30;
+  border-radius:12px;
+}
+#profile-form input:focus,#profile-form textarea:focus,#reflection-form input:focus,#reflection-form textarea:focus,
+select:focus {
+  border-color:#7b9569;
+  box-shadow:0 0 0 4px rgb(75 116 75 / 12%);
+}
+input,textarea,select { accent-color:#35644d; }
+.search input {
+  border-color:#d6d0bf;
+  background:#f8f3e7;
+  color:#264131;
+}
+.search-icon { color:#557355; }
+.search:focus-within {
+  border-color:#8fa183;
+  box-shadow:0 0 0 4px rgb(75 116 75 / 12%),0 8px 22px rgb(47 68 45 / 7%);
+}
+.hide-button:hover { background:#e8e7d8;color:#315b40; }
+dialog { border-color:#d5cfbd;background:#f7f2e5; }
+dialog h2,dialog h3 { color:#284533; }
+dialog p { color:#68766a; }
+.close-dialog { color:#526e56; }
+#toast { background:linear-gradient(110deg,#183b2b,#315b40); }
+.mobile-brand { color:#294735; }
+.mobile-brand .brand-dot { color:#957c48; }
+.mobile-brand-mark {
+  border:1px solid #bba775;
+  border-radius:10px;
+  background:linear-gradient(145deg,#315a43,#173b2c);
+  box-shadow:0 4px 12px rgb(37 70 48 / 20%);
+}
+.brand-icon { animation:none; }
+@media(max-width:1150px) {
+  .sidebar { width:220px;padding-right:16px;padding-left:16px; }
+  .workspace { margin-left:220px; }
+  main { padding-right:clamp(24px,4vw,48px);padding-left:clamp(24px,4vw,48px); }
+  #discover-page .content-layout { grid-template-columns:minmax(0,1.6fr) minmax(260px,.85fr);gap:30px; }
+}
+@media(max-width:950px) {
+  .sidebar { width:215px; }
+  .workspace { margin-left:215px; }
+  #discover-page .content-layout { display:block; }
+  #discover-page .feed-column { max-width:780px;margin:0 auto; }
+  #discover-page .page-heading { max-width:780px;margin:0 auto 30px; }
+  .tile-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:600px) {
+  .sidebar {
+    width:100%;
+    height:auto;
+    min-height:70px;
+    padding:5px 8px max(7px,env(safe-area-inset-bottom));
+    background:rgb(16 45 35 / 97%);
+    border-top:1px solid rgb(219 202 154 / 24%);
+    box-shadow:0 -10px 28px rgb(23 53 37 / 19%);
+  }
+  .sidebar nav {
+    display:grid;
+    width:100%;
+    min-width:0;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:4px;
+  }
+  a.nav-item {
+    width:100%;
+    min-width:0;
+    min-height:58px;
+    padding:5px 2px;
+    flex:initial;
+    flex-direction:column;
+    justify-content:center;
+    gap:4px;
+    border-radius:10px;
+    font-size:9px;
+    line-height:1.1;
+    text-align:center;
+  }
+  a.nav-item>span:first-child {
+    width:25px;height:25px;flex-basis:25px;
+    border:0;background:transparent;
+    color:#d3c390;
+  }
+  .nav-icon { width:19px;height:19px; }
+  a.nav-item>span:last-child {
+    width:100%;
+    max-width:100%;
+    overflow-wrap:anywhere;
+    text-align:center;
+  }
+  a.nav-item.active {
+    border-color:rgb(220 201 151 / 22%);
+    background:rgb(216 197 145 / 12%);
+    box-shadow:inset 0 2px #d0bb83;
+  }
+  a.nav-item.active>span:first-child { border:0;background:transparent; }
+  .workspace { margin-left:0; }
+  .topbar { height:64px;padding:0 15px;gap:10px;background:#eee8d8; }
+  .topbar .breadcrumb { display:none; }
+  .search { flex:1;min-width:0;width:100%;margin:0; }
+  .search input { min-width:0;font-size:12px; }
+  main { padding:30px 18px 104px; }
+  #discover-page .page-heading { gap:12px;margin-bottom:26px; }
+  #discover-page .page-heading .eyebrow { font-size:9px; }
+  #discover-page h1,.section-intro h1 { font-size:30px; }
+  #discover-page .page-heading p { max-width:none; }
+  #discover-page .content-layout { display:block; }
+  .right-rail { display:none; }
+  .post { border-radius:17px; }
+  .post-head { min-height:67px;padding:13px 15px; }
+  .post-body { padding:18px 17px 12px; }
+  .story-art { height:250px;margin:0 9px;border-radius:13px; }
+  .topic-chip { padding:8px 12px;font-size:11px; }
+  .tile-grid { grid-template-columns:1fr;gap:17px; }
+  .person-card,.lesson-card,.portfolio-entry,.page-card { padding:23px; }
+  .lesson-card { padding:0; }
+  .lesson-content { padding:23px; }
+  .section-intro { margin-bottom:28px; }
+  .learning-banner { min-height:215px;padding:25px;border-radius:19px; }
+  .learning-banner h2 { font-size:23px; }
+  .learning-banner>span { display:none; }
+  .page-tabs { gap:22px; }
+  .page-tabs button { font-size:13px; }
+  .settings-card { gap:15px; }
+  .source-note { border-radius:14px; }
+  .person-card:hover,.lesson-card:hover { transform:none; }
+  #toast { bottom:82px; }
+}
+@media(max-width:360px) {
+  .sidebar nav { gap:1px; }
+  a.nav-item { font-size:8px; }
+  main { padding-right:14px;padding-left:14px; }
+  .avatar-button { width:35px;height:35px; }
+}
+.post {
+  position:relative;
+  z-index:0;
+  transform:scale(1);
+  transform-origin:center center;
+  transition:transform 420ms cubic-bezier(.2,.75,.25,1),box-shadow 320ms ease,border-color 320ms ease;
+  will-change:transform;
+}
+.post.is-current {
+  z-index:1;
+  transform:scale(1.01);
+  border-color:#a6b69b;
+  box-shadow:0 22px 52px rgb(37 60 41 / 19%);
+}
+html[data-page="discover"] {
+  scroll-snap-type:y mandatory;
+  scroll-padding-top:18px;
+}
+.post {
+  min-height:max(500px,calc(100vh - 88px));
+  min-height:max(500px,calc(100svh - 88px));
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  scroll-margin-top:18px;
+  display:flex;
+  flex-direction:column;
+}
+.post-body { flex:1 0 auto; }
+.post-actions {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px clamp(12px,2vw,28px);
+  padding:15px 18px;
+}
+.post-actions .action-button,.post-actions .read-link {
+  display:flex;
+  min-width:0;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin:0;
+  padding:7px 4px;
+  color:#526a57;
+  font-size:12px;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.post-actions .action-icon {
+  display:grid;
+  width:20px;
+  height:20px;
+  flex:0 0 20px;
+  place-items:center;
+  color:currentColor;
+}
+.post-actions .action-icon svg {
+  width:19px;
+  height:19px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.75;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.post-actions .question-icon {
+  border:1.6px solid currentColor;
+  border-radius:50%;
+  font:700 13px/1 'Manrope',sans-serif;
+}
+.post-actions .action-button:hover,.post-actions .read-link:hover {
+  color:#264b35;
+  transform:translateY(-1px);
+}
+.post-actions .action-button[aria-pressed=true] { color:#315b40; }
+.narration-picker select { min-width:185px; }
+.narration-note { min-height:1.5em; }
+.narration-note[data-loading=true]::before {
+  display:inline-block;
+  width:10px;height:10px;
+  margin-right:8px;
+  border:1.5px solid #c8cbb8;
+  border-top-color:#315b40;
+  border-radius:50%;
+  content:"";
+  vertical-align:-1px;
+  animation:narration-spin .75s linear infinite;
+}
+@keyframes narration-spin { to { transform:rotate(360deg); } }
+@media(prefers-reduced-motion:reduce) { .narration-note[data-loading=true]::before { animation:none; } }
+.brand-icon svg,.mobile-brand-mark svg { overflow:visible; }
+@media(hover:hover) and (pointer:fine) {
+  .post:hover {
+    z-index:2;
+    transform:scale(1.035);
+    border-color:#8fa586;
+    box-shadow:0 28px 62px rgb(37 60 41 / 24%);
+  }
+}
+@media(max-width:600px) {
+  .post { margin-right:3px;margin-left:3px; }
+  .post { min-height:max(540px,calc(100vh - 44px));min-height:max(540px,calc(100svh - 44px)); }
+  .post-actions { gap:5px 12px;padding:12px 8px; }
+  .post-actions .action-button,.post-actions .read-link { gap:4px;font-size:10px; }
+  .post-actions .action-icon { width:18px;height:18px;flex-basis:18px; }
+  .post-actions .action-icon svg { width:18px;height:18px; }
+  .narration-picker select { min-width:145px; }
+}
+@media(max-width:360px) {
+  .post-actions { gap:4px 7px;padding-right:4px;padding-left:4px; }
+  .post-actions .action-button,.post-actions .read-link { gap:3px;font-size:9px; }
+  .post-actions .action-icon { width:16px;height:16px;flex-basis:16px; }
+  .post-actions .action-icon svg { width:16px;height:16px; }
+}
+.workspace main { max-width:1280px;margin-inline:auto; }
+#discover-page .content-layout { display:block; }
+#discover-page .page-heading,#discover-page .feed-column { width:100%;max-width:980px;margin-right:auto;margin-left:auto; }
+#discover-page .page-heading { margin-bottom:34px; }
+#discover-page .right-rail { display:none; }
+#discover-page .story-art { height:clamp(150px,30svh,280px); }
+@media(max-width:600px) {
+  #discover-page .post { min-height:max(470px,calc(100svh - 154px)); }
+  #discover-page .post.is-current { transform:scale(1); }
+  #discover-page .post-head { min-height:60px;padding:12px 14px; }
+  #discover-page .post-body { padding:14px 15px 9px; }
+  #discover-page .story-art { height:clamp(130px,26svh,220px);margin:0 9px; }
+  #discover-page .post-actions { padding:10px 8px; }
+}
+@media(max-height:650px) {
+  #discover-page .post { min-height:auto; }
+  #discover-page .post.is-current { transform:scale(1); }
+  #discover-page .story-art { height:clamp(110px,22svh,155px); }
+}
+@media(max-height:650px) and (max-width:600px) {
+  #discover-page .post-head { min-height:48px;padding:8px 12px; }
+  #discover-page .post-body { padding:8px 11px 5px; }
+  #discover-page .story-art { height:90px; }
+  #discover-page .story-open h2 { margin:7px 0 4px;font-size:16px;line-height:1.2; }
+  #discover-page .post-body p { margin-bottom:7px;font-size:11px;line-height:1.35; }
+  #discover-page .summary-audio { margin:0 0 7px;padding:5px 9px; }
+  #discover-page .tag-list { gap:8px;font-size:9px; }
+  #discover-page .post-actions { padding:7px 5px; }
+}
+a.nav-item>span:first-child,.action-icon,.avatar-button .nav-icon {
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),color .2s ease,background .2s ease,box-shadow .2s ease;
+}
+a.nav-item:hover>span:first-child,a.nav-item:focus-visible>span:first-child {
+  transform:scale(1.22) rotate(-5deg);
+  box-shadow:0 4px 12px rgb(202 176 114 / 20%);
+}
+.action-button:hover .action-icon,.read-link:hover .action-icon,
+.action-button:focus-visible .action-icon,.read-link:focus-visible .action-icon {
+  transform:scale(1.3) rotate(-5deg);
+}
+.summary-audio {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin:4px 0 15px;
+  padding:8px 13px;
+  border:1px solid #cbd4c3;
+  border-radius:999px;
+  background:#e9eadb;
+  color:#315b40;
+  font-size:12px;
+  font-weight:650;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.summary-audio:hover {
+  transform:translateY(-1px);
+  border-color:#93a685;
+  background:#dfe5d6;
+  box-shadow:0 5px 14px rgb(37 60 41 / 10%);
+}
+.summary-audio[aria-pressed=true] { background:#315b40;color:#f7f2e5; }
+.summary-audio:disabled { cursor:not-allowed;opacity:.65; }
+.summary-audio:hover .action-icon { transform:scale(1.2); }
+.summary-audio svg {
+  width:17px;height:17px;
+  fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.summary-audio .action-icon { display:grid;place-items:center; }
+.audio-note { display:block;margin:-9px 0 14px;color:#778171;font-size:10px; }
+.narration-picker {
+  display:grid;
+  grid-template-columns:auto minmax(150px,220px);
+  align-items:center;
+  gap:9px;
+  margin-left:auto;
+  color:#657668;
+  font-size:11px;
+}
+.feed-toolbar .narration-picker { margin-left:auto; }
+.narration-picker select {
+  min-width:0;
+  padding:7px 29px 7px 10px;
+  border:1px solid #d2d4c3;
+  border-radius:10px;
+  background:#f7f2e5;
+  color:#31513a;
+  font-size:11px;
+}
+.voice-sample-picker {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  margin:0 0 13px;
+  color:#657668;
+  font-size:10px;
+}
+.voice-sample-picker select {
+  max-width:min(100%,210px);
+  padding:6px 25px 6px 9px;
+  border:1px solid #d2d4c3;
+  border-radius:9px;
+  background:#f7f2e5;
+  color:#31513a;
+  font-size:10px;
+}
+.voice-sample-picker button {
+  padding:6px 10px;
+  border:1px solid #cbd4c3;
+  border-radius:999px;
+  background:#e9eadb;
+  color:#315b40;
+  font-size:10px;
+  font-weight:650;
+}
+.voice-sample-picker button:hover {
+  background:#dfe5d6;
+}
+.voice-sample-note {
+  flex-basis:100%;
+  color:#778171;
+}
+.narration-note { margin:5px 0 13px;color:#778171;font-size:10px; }
+.connect-search {
+  display:flex;
+  width:min(100%,520px);
+  min-height:46px;
+  align-items:center;
+  gap:11px;
+  margin:0 0 24px;
+  padding:0 14px;
+  border:1px solid #d5d1bf;
+  border-radius:14px;
+  background:#f7f2e5;
+  box-shadow:0 5px 16px rgb(37 52 38 / 5%);
+  color:#547353;
+}
+.connect-search svg {
+  width:19px;height:19px;flex:0 0 19px;
+  fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;
+}
+.connect-search input {
+  width:100%;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#264131;
+  font-size:13px;
+}
+.connect-search:focus-within {
+  border-color:#8fa183;
+  box-shadow:0 0 0 4px rgb(75 116 75 / 12%);
+}
+.connect-search input::placeholder { color:#829080; }
+.connect-empty {
+  grid-column:1/-1;
+  padding:28px;
+  border:1px dashed #c9cfbd;
+  border-radius:18px;
+  color:#68766a;
+  text-align:center;
+}
+@media(max-width:600px) {
+  .feed-toolbar { flex-wrap:wrap;gap:12px; }
+  .feed-toolbar .narration-picker { margin-left:auto; }
+  .narration-picker { grid-template-columns:auto minmax(120px,170px);gap:6px; }
+  .narration-picker select { max-width:170px;font-size:10px; }
+  .narration-note { line-height:1.5; }
+}
+.brand-icon .logo-orbiting-star,.mobile-brand-mark .logo-orbiting-star {
+  transform-box:view-box;
+  transform-origin:24px 24px;
+  animation:logo-orbit 9s linear infinite;
+}
+@keyframes logo-orbit { to { transform:rotate(360deg); } }
+@media(prefers-reduced-motion:reduce) {
+  .brand-icon,.brand-icon .logo-orbiting-star,.mobile-brand-mark .logo-orbiting-star { animation:none; }
+  .post { transition:none; }
+  .post.is-current,.post:hover { transform:none; }
+  a.nav-item>span:first-child,.action-icon,.avatar-button .nav-icon,.summary-audio { transition:none; }
+  html[data-page="discover"] { scroll-snap-type:y proximity; }
+}
 </style>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <aside class="sidebar">
-      <a class="brand" href="./" aria-label="Wonder home"><span class="brand-icon">W</span>Wonder<span class="brand-dot">.</span></a>
+      <a class="brand" href="./" aria-label="Wonder home"><span class="brand-icon"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><ellipse cx="24" cy="24" rx="19" ry="10" transform="rotate(-28 24 24)" fill="none" stroke="#d7bd81" stroke-width="1.6"/><path d="m9 15 5 19 7-14 7 14 11-19" fill="none" stroke="#f3ead4" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/><path d="m8 8 .8 2.2L11 11l-2.2.8L8 14l-.8-2.2L5 11l2.2-.8L8 8Zm33 22 .7 1.8 1.8.7-1.8.7L41 35l-.7-1.8-1.8-.7 1.8-.7L41 30ZM14 5l.6 1.6 1.6.6-1.6.6L14 9.4l-.6-1.6-1.6-.6 1.6-.6L14 5Zm19 31 .5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5.5-1.3Z" fill="#f3ead4"/><circle cx="6" cy="25" r="1" fill="#d7bd81"/><circle cx="29" cy="6" r="1" fill="#f3ead4"/><g class="logo-orbiting-star"><circle cx="43" cy="24" r="2.1" fill="#d7bd81"/><path d="m43 20.7.7 2.6 2.6.7-2.6.7-.7 2.6-.7-2.6-2.6-.7 2.6-.7.7-2.6Z" fill="#f3ead4"/></g></svg></span>Wonder<span class="brand-dot">.</span></a>
       <nav aria-label="Main navigation">
-        <a class="nav-item" href="#/discover" data-route="discover"><span aria-hidden="true">⌂</span><span>Discover</span></a>
-        <a class="nav-item" href="#/connect" data-route="connect"><span aria-hidden="true">♧</span><span>Connect</span></a>
-        <a class="nav-item" href="#/learn" data-route="learn"><span aria-hidden="true">▤</span><span>Learn</span></a>
-        <a class="nav-item" href="#/practice" data-route="practice"><span aria-hidden="true">▦</span><span>Practice & Portfolio</span></a>
-        <a class="nav-item settings-link" href="#/settings" data-route="settings"><span aria-hidden="true">☰</span><span>Settings</span></a>
+        <a class="nav-item" href="#/discover" data-route="discover"><span aria-hidden="true"><svg class="nav-icon" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5M10.8 7.5v6.6M7.5 10.8h6.6"/></svg></span><span>Discover</span></a>
+        <a class="nav-item" href="#/connect" data-route="connect"><span aria-hidden="true"><svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="17" r="2.5"/><circle cx="19" cy="17" r="2.5"/><path d="m10.7 7.2-4.4 7.5m7-7.5 4.4 7.5M7.5 17h9"/></svg></span><span>Connect</span></a>
+        <a class="nav-item" href="#/learn" data-route="learn"><span aria-hidden="true"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M3.5 5.2c3.4-1.1 6-.6 8.5 1.3v13c-2.5-1.9-5.1-2.4-8.5-1.3zM20.5 5.2c-3.4-1.1-6-.6-8.5 1.3v13c2.5-1.9 5.1-2.4 8.5-1.3z"/><path d="M6.5 9h2m-2 3h2m7-3h2m-2 3h2"/></svg></span><span>Learn</span></a>
+        <a class="nav-item" href="#/practice" data-route="practice" aria-label="Practice and Portfolio"><span aria-hidden="true"><svg class="nav-icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h.01M12 8h.01M16 8h.01M8 12h.01M12 12h.01m4 0h.01M8 16h.01M12 16h.01m4 0h.01" stroke-width="2.5"/></svg></span><span>Practice</span></a>
+        <a class="nav-item settings-link" href="#/settings" data-route="settings"><span aria-hidden="true"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></span><span>Settings</span></a>
       </nav>
     </aside>
     <div class="workspace">
-      <header class="topbar"><a class="mobile-brand" href="./">Wonder<span>.</span></a><span class="breadcrumb">Your daily dose of discovery</span><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search your next rabbit hole…" aria-label="Search stories"></label><button class="avatar avatar-button" id="profile-button" aria-label="Open Settings">Y</button></header>
+      <header class="topbar"><a class="mobile-brand" href="./" aria-label="Wonder home"><span class="mobile-brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><ellipse cx="24" cy="24" rx="19" ry="10" transform="rotate(-28 24 24)" fill="none" stroke="#d7bd81" stroke-width="1.6"/><path d="m9 15 5 19 7-14 7 14 11-19" fill="none" stroke="#f3ead4" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/><path d="m8 8 .8 2.2L11 11l-2.2.8L8 14l-.8-2.2L5 11l2.2-.8L8 8Zm33 22 .7 1.8 1.8.7-1.8.7L41 35l-.7-1.8-1.8-.7 1.8-.7L41 30ZM14 5l.6 1.6 1.6.6-1.6.6L14 9.4l-.6-1.6-1.6-.6 1.6-.6L14 5Zm19 31 .5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5.5-1.3Z" fill="#f3ead4"/><circle cx="6" cy="25" r="1" fill="#d7bd81"/><circle cx="29" cy="6" r="1" fill="#f3ead4"/><g class="logo-orbiting-star"><circle cx="43" cy="24" r="2.1" fill="#d7bd81"/><path d="m43 20.7.7 2.6 2.6.7-2.6.7-.7 2.6-.7-2.6-2.6-.7 2.6-.7.7-2.6Z" fill="#f3ead4"/></g></svg></span><span class="mobile-brand-name">Wonder</span><span class="brand-dot">.</span></a><span class="breadcrumb">Your daily dose of discovery</span><label class="search"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg><input id="search" type="search" placeholder="Search your next rabbit hole…" aria-label="Search stories"></label><button class="avatar avatar-button" id="profile-button" aria-label="Open Settings">✦</button></header>
       <main id="main" tabindex="-1">
         <section id="discover-page" class="route-page">
         <div class="page-heading"><div><div class="eyebrow">GOOD IDEAS START HERE</div><h1 id="page-title">Follow your curiosity<span>.</span></h1><p id="page-description">Fresh perspectives. Deeper understanding. Something worth your time.</p></div><span class="demo-badge">✧ Sample content</span></div>
         <div class="content-layout">
           <section class="feed-column" aria-label="Story feed">
-            <div class="feed-toolbar"><div class="feed-tabs" role="group" aria-label="Feed selection"><button class="selected" data-feed="for-you" aria-pressed="true">For you <span>✦</span></button><button data-feed="following" aria-pressed="false">Following</button></div><a class="saved-link" href="#/discover/saved">Saved <span id="saved-count">0</span></a></div>
+            <div class="feed-toolbar"><span class="feed-current">For you <span aria-hidden="true">✦</span></span><label class="narration-picker" for="narration-voice"><span>Voice</span><select id="narration-voice" data-narration-voice aria-describedby="narration-note"><option value="auto">Auto · Best available</option></select></label><a class="saved-link" href="#/discover/saved">Saved <span id="saved-count">0</span></a></div>
+            <p class="narration-note" id="narration-note" aria-live="polite">Narration uses your device’s speech voices. Choose a voice or use Auto.</p>
             <div class="topics" id="topics" role="group" aria-label="Filter stories by topic"></div>
             <div id="feed" aria-live="polite"></div>
             <p class="feed-footer">You’ve made a little more room for curiosity. ✳</p>
           </section>
           <aside class="right-rail" aria-label="Discovery suggestions">
             <section class="welcome-card"><span class="eyebrow">MAKE IT YOURS</span><h2>Your interests.<br>Your next discovery.</h2><p>Choose what sparks your curiosity. We’ll help you explore it.</p><button id="personalize">Personalize your feed <span aria-hidden="true">↗</span></button><div class="orbit" aria-hidden="true"><span>✳</span></div></section>
-            <section class="rail-section"><div class="section-heading"><h2>Explore a little further</h2><span aria-hidden="true">↗</span></div><button class="explore-topic" data-topic="Technology"><span class="topic-symbol lavender">⌘</span><span><strong>Technology</strong><small>Ideas shaping what’s next</small></span><span>→</span></button><button class="explore-topic" data-topic="Science"><span class="topic-symbol peach">⚛</span><span><strong>Science</strong><small>A world of questions</small></span><span>→</span></button><button class="explore-topic" data-topic="Learning"><span class="topic-symbol mint">✳</span><span><strong>Learning</strong><small>Understand a little more</small></span><span>→</span></button></section>
+            <section class="rail-section"><div class="section-heading"><h2>Explore a little further</h2><span aria-hidden="true">↗</span></div><button class="explore-topic" data-topic="Technology"><span class="topic-symbol lavender"><svg class="topic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3.5h8l4.5 4.5v8L16 20.5H8L3.5 16V8z"/><circle cx="12" cy="12" r="3"/><path d="M12 7v2m0 6v2m5-5h-2m-6 0H7"/></svg></span><span><strong>Technology</strong><small>Ideas shaping what’s next</small></span><span>→</span></button><button class="explore-topic" data-topic="Science"><span class="topic-symbol peach"><svg class="topic-icon" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="3.8"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.4" class="topic-core"/></svg></span><span><strong>Science</strong><small>A world of questions</small></span><span>→</span></button><button class="explore-topic" data-topic="Learning"><span class="topic-symbol mint"><svg class="topic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.7 2.5 6.8 6.8 2.5-6.8 2.5-2.5 6.8-2.5-6.8-6.8-2.5 6.8-2.5z"/><circle cx="19.5" cy="4.5" r="1.2"/><circle cx="4.5" cy="19.5" r="1"/></svg></span><span><strong>Learning</strong><small>Understand a little more</small></span><span>→</span></button></section>
             <section class="source-note"><span aria-hidden="true">◎</span><h3>Curiosity, with context.</h3><p>Every sample story links to its source. Look for the publication type and inspect the original material.</p><small>Frontend preview · Stories are illustrative summaries.</small></section>
             <footer class="rail-footer">Wonder. &nbsp; Made for curious minds.</footer>
           </aside>
@@ -1672,12 +2843,13 @@ main {
         </section>
         <section id="connect-page" class="route-page" hidden aria-labelledby="connect-title">
           <header class="section-intro"><p class="eyebrow">BETTER TOGETHER</p><h1 id="connect-title">Find your people.</h1><p>Different perspectives. Shared curiosity.</p></header>
+          <label class="connect-search" for="connect-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg><input id="connect-search" type="search" placeholder="Search people and communities…" aria-label="Search people and communities"></label>
           <div class="page-tabs" role="group" aria-label="Connection categories">
             <button data-connect="peers" aria-pressed="true">Peers</button>
             <button data-connect="mentors" aria-pressed="false">Mentors</button>
             <button data-connect="community" aria-pressed="false">Community</button>
           </div>
-          <p class="sample-notice">Illustrative profiles and communities · Follows are saved only in this browser.</p>
+          <p id="connect-result-note" class="sample-notice" aria-live="polite">Illustrative profiles and communities · No accounts or live messaging are connected.</p>
           <div id="connections" class="tile-grid"></div>
         </section>
         <section id="learn-page" class="route-page" hidden aria-labelledby="learn-title">
@@ -1728,12 +2900,12 @@ main {
           </section>
           <section class="page-card"><h2>Feed preferences</h2><p>Choose your interests, learning goal, and experience level.</p><p id="current-interests"></p><button id="settings-preferences" class="primary-button">Edit preferences</button></section>
           <section class="page-card"><h2>Your saved discoveries</h2><p>Revisit the stories you want to spend more time with.</p><a class="text-link" href="#/discover/saved">Open saved stories →</a></section>
-          <section class="page-card"><h2>Privacy & account</h2><p>Saved stories, follows, preferences, and portfolio entries stay in this browser. Signing in, account syncing, and public profiles will require the team’s backend integration.</p></section>
+          <section class="page-card"><h2>Privacy & account</h2><p>Saved stories, preferences, and portfolio entries stay in this browser. Signing in, account syncing, and public profiles will require the team’s backend integration.</p></section>
         </section>
       </main>
     </div>
     <dialog id="story-dialog" aria-labelledby="story-title"><button class="close-dialog" data-close="story-dialog" aria-label="Close story">×</button><div id="story-content"></div></dialog>
-    <dialog id="preferences-dialog" aria-labelledby="preferences-title"><button class="close-dialog" data-close="preferences-dialog" aria-label="Close preferences">×</button><div class="eyebrow">A FEED THAT FEELS LIKE YOU</div><h2 id="preferences-title">What are you curious about?</h2><p>Pick your interests to prioritize stories in your feed. You can explore every topic at any time.</p><form id="preferences-form"><fieldset><legend>Your interests</legend><div id="interest-options" class="interest-options"></div></fieldset><label class="field-label" for="goal">Your learning goal</label><select id="goal" name="goal"><option>Explore new ideas</option><option>Build career skills</option><option>Support my studies</option><option>Find a project idea</option></select><label class="field-label" for="level">Experience level</label><select id="level" name="level"><option>Just getting started</option><option>Some experience</option><option>Ready to go deeper</option></select><p class="form-note">Preferences and saved stories stay in this browser. Audio, video, and account syncing are planned for later phases.</p><button class="primary-button" type="submit">Make it my feed <span>→</span></button></form></dialog>
+    <dialog id="preferences-dialog" aria-labelledby="preferences-title"><button class="close-dialog" data-close="preferences-dialog" aria-label="Close preferences">×</button><div class="eyebrow">A FEED THAT FEELS LIKE YOU</div><h2 id="preferences-title">What are you curious about?</h2><p>Pick your interests to prioritize stories in your feed. You can explore every topic at any time.</p><form id="preferences-form"><fieldset><legend>Your interests</legend><div id="interest-options" class="interest-options"></div></fieldset><label class="field-label" for="goal">Your learning goal</label><select id="goal" name="goal"><option>Explore new ideas</option><option>Build career skills</option><option>Support my studies</option><option>Find a project idea</option></select><label class="field-label" for="level">Experience level</label><select id="level" name="level"><option>Just getting started</option><option>Some experience</option><option>Ready to go deeper</option></select><p class="form-note">Preferences and saved stories stay in this browser. Video and account syncing are planned for later phases.</p><button class="primary-button" type="submit">Make it my feed <span>→</span></button></form></dialog>
     <div id="toast" role="status"></div>
   <script>
 // Replace this sample array with your team's API response when the backend is ready.
@@ -1754,10 +2926,130 @@ function readState() {
 }
 const state = readState();
 let view = 'discover';
-let feedMode = 'for-you';
 let selectedTopic = 'All topics';
 let search = '';
 let toastTimer;
+let activeSpeechId = null;
+let focusedStoryId = null;
+let activeUtterance = null;
+let activeNarrationAudio = null;
+let activeNarrationAudioUrl = null;
+let localNarrationVoices = [];
+let localNarrationReady = false;
+const voiceSampleAudio = new Audio();
+const voiceSamples = [
+  { file: 'adi-roche.mp3', name: 'Adi Roche', url: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Adi_Roche_voice_intro.mp3' },
+  { file: 'andrew-keen.flac', name: 'Andrew Keen', url: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Andrew_Keen_-_voice_-_en.flac' },
+  { file: 'angela-byron.flac', name: 'Angela Byron', url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Angela_Byron_-_voice_-en.flac' },
+  { file: 'bismarck71.ogg', name: 'Bismarck71', url: 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Bismarck71_English_Voice_Sample_%28North_Wind_%26_Sun%29.ogg' },
+  { file: 'edzard-ernst.oga', name: 'Edzard Ernst', url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Edzard_Ernst_voice_-_en.oga' },
+  { file: 'gideon-reicher.flac', name: 'Gideon Reicher', url: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Gideon_Reicher_voice_sample.flac' },
+  { file: 'peter-erdi.ogg', name: 'Peter Erdi', url: 'https://upload.wikimedia.org/wikipedia/commons/7/77/Peter_Erdi_English_voice_-_Winner.ogg' },
+  { file: 'terence-eden.wav', name: 'Terence Eden', url: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Terence_Eden_voice_sample.wav' },
+  { file: 'toni-sant.flac', name: 'Toni Sant', url: 'https://upload.wikimedia.org/wikipedia/commons/6/63/Toni_Sant_voice_en.flac' },
+  { file: 'wilf-lunn.wav', name: 'Wilf Lunn', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Wilf%27_Lunn_voice_sample.wav' }
+];
+let activeVoiceSampleButton = null;
+let speechRequestId = 0;
+let autoplayNarrationTimer = null;
+const narrationVoiceKey = 'wonder-device-voice-v1';
+let selectedNarrationVoice = 'auto';
+try {
+  selectedNarrationVoice = localStorage.getItem(narrationVoiceKey) || selectedNarrationVoice;
+} catch {
+  selectedNarrationVoice = 'auto';
+}
+function availableNarrationVoices() {
+  if (!('speechSynthesis' in window)) return [];
+  const excluded = /bad news|bahh|bells|boing|bubbles|cellos|good news|grandma|grandpa|jester|junior|organ|ralph|superstar|trinoids|whisper|wobble|zarvox/i;
+  const voices = speechSynthesis.getVoices().filter(voice =>
+    voice.lang.toLowerCase().startsWith('en') && !excluded.test(voice.name)
+  );
+  const uniqueVoices = [...new Map(voices.map(voice => [voice.voiceURI, voice])).values()];
+  const preferredNames = ['samantha', 'ava', 'jenny', 'aria', 'daniel', 'karen', 'moira', 'tessa', 'alex', 'eddy', 'flo', 'sandy', 'shelley', 'reed', 'kathy'];
+  uniqueVoices.sort((left, right) => {
+    const leftRank = preferredNames.findIndex(name => left.name.toLowerCase().includes(name));
+    const rightRank = preferredNames.findIndex(name => right.name.toLowerCase().includes(name));
+    return (leftRank < 0 ? preferredNames.length : leftRank) - (rightRank < 0 ? preferredNames.length : rightRank) ||
+      Number(right.default) - Number(left.default) ||
+      left.name.localeCompare(right.name);
+  });
+  return uniqueVoices.slice(0, 10);
+}
+async function loadLocalNarrationVoices() {
+  if (!['http:', 'https:'].includes(location.protocol)) return;
+  try {
+    const response = await fetch('/api/voices', { cache: 'no-store' });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || `Voice service returned ${response.status}.`);
+    if (!Array.isArray(result.voices) || result.voices.length === 0) {
+      throw new Error('No English Mac voices are available.');
+    }
+    localNarrationVoices = result.voices;
+    localNarrationReady = true;
+    populateNarrationVoices();
+    setNarrationStatus(narrationPreferenceMessage());
+  } catch (error) {
+    console.error('Local narration service is unavailable:', error);
+    setNarrationStatus('For reliable audio, run python3 serve.py and open the local Wonder page.');
+  }
+}
+function narrationPreferenceMessage() {
+  return localNarrationReady
+    ? 'Narration uses your Mac’s installed voices. Choose a voice or use Auto.'
+    : 'Narration uses your browser’s speech voices. Choose a voice or use Auto.';
+}
+function updateVoiceSampleButton(button, isPlaying) {
+  const sampleName = document.querySelector('#voice-sample').selectedOptions[0].textContent;
+  button.textContent = isPlaying ? 'Stop sample' : 'Play sample';
+  button.setAttribute('aria-pressed', String(isPlaying));
+  button.setAttribute('aria-label', `${isPlaying ? 'Stop' : 'Play'} recorded voice sample by ${sampleName}`);
+}
+function stopVoiceSample() {
+  voiceSampleAudio.pause();
+  voiceSampleAudio.currentTime = 0;
+  if (activeVoiceSampleButton) updateVoiceSampleButton(activeVoiceSampleButton, false);
+  activeVoiceSampleButton = null;
+}
+function playVoiceSample(button) {
+  if (activeVoiceSampleButton === button) {
+    stopVoiceSample();
+    setNarrationStatus(narrationPreferenceMessage());
+    return;
+  }
+  stopVoiceSample();
+  stopSummaryAudio();
+  const sample = voiceSamples.find(item => item.file === document.querySelector('#voice-sample').value);
+  if (!sample) {
+    setNarrationStatus('The selected voice sample is unavailable.');
+    toast('The selected voice sample is unavailable.');
+    return;
+  }
+  voiceSampleAudio.src = location.protocol === 'file:' ? sample.url : `./voice-previews/${sample.file}`;
+  activeVoiceSampleButton = button;
+  updateVoiceSampleButton(button, true);
+  setNarrationStatus('Playing a recorded sample. Article narration uses your selected device voice.');
+  voiceSampleAudio.onended = () => {
+    if (activeVoiceSampleButton !== button) return;
+    stopVoiceSample();
+    setNarrationStatus(narrationPreferenceMessage());
+  };
+  voiceSampleAudio.onerror = () => {
+    if (activeVoiceSampleButton !== button) return;
+    const error = voiceSampleAudio.error;
+    console.error('Recorded voice sample playback failed:', error?.message || `media error ${error?.code}`);
+    stopVoiceSample();
+    setNarrationStatus('This sample could not be played. Try another sample or a browser with broader audio-format support.');
+    toast('This voice sample could not be played in your browser.');
+  };
+  voiceSampleAudio.play().catch(error => {
+    if (activeVoiceSampleButton !== button) return;
+    console.error('Recorded voice sample playback could not start:', error);
+    stopVoiceSample();
+    setNarrationStatus('This sample could not be started. Check your device audio settings and try again.');
+    toast('This voice sample could not be started.');
+  });
+}
 const feed = document.querySelector('#feed');
 function toast(message) {
   const element = document.querySelector('#toast');
@@ -1779,47 +3071,591 @@ function toggle(list, value) {
 function renderTopics() {
   document.querySelector('#topics').innerHTML = topics.map(topic => `<button class="topic-chip ${selectedTopic === topic ? 'selected' : ''}" data-topic="${topic}" aria-pressed="${selectedTopic === topic}">${topic}</button>`).join('');
 }
+function populateNarrationVoices() {
+  const voices = localNarrationVoices.length ? localNarrationVoices : availableNarrationVoices();
+  if (!voices.length) return;
+  const options = [new Option('Auto · Best available', 'auto'), ...voices.map(voice =>
+    new Option(`${voice.name} · ${voice.lang}`, voice.id || voice.voiceURI)
+  )];
+  const savedVoice = options.find(option => option.value === selectedNarrationVoice)
+    ? selectedNarrationVoice
+    : 'auto';
+  selectedNarrationVoice = savedVoice;
+  document.querySelectorAll('[data-narration-voice]').forEach(select => {
+    select.replaceChildren(...options.map(option => option.cloneNode(true)));
+    select.value = selectedNarrationVoice;
+  });
+  if (activeSpeechId === null) {
+    document.querySelectorAll('.narration-note').forEach(note => { note.textContent = narrationPreferenceMessage(); });
+  }
+}
+function narrationVoicePicker(id) {
+  return `<label class="narration-picker" for="${id}"><span>Voice</span><select id="${id}" data-narration-voice aria-describedby="${id}-note"><option value="auto">Auto · Best available</option></select></label><p class="narration-note" id="${id}-note" aria-live="polite">${narrationPreferenceMessage()}</p>`;
+}
+function voiceSamplePicker() {
+  return `<div class="voice-sample-picker"><label for="voice-sample">Recorded sample</label><select id="voice-sample" aria-describedby="voice-sample-note">${voiceSamples.map(sample => `<option value="${sample.file}">${sample.name}</option>`).join('')}</select><button type="button" data-voice-preview aria-pressed="false">Play sample</button><span class="voice-sample-note" id="voice-sample-note">Preview clips only; article narration uses the selected device voice. <a href="./voice-previews/CREDITS.md" target="_blank" rel="noopener noreferrer">Sources and licenses</a>.</span></div>`;
+}
+function summaryAudioButton(story) {
+  const isPlaying = activeSpeechId === story.id;
+  return `<button class="summary-audio" type="button" data-audio-summary="${story.id}" aria-pressed="${isPlaying}" aria-label="${isPlaying ? 'Stop' : 'Listen to'} summary for ${story.title}"><span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M17 9a5 5 0 0 1 0 6m2.5-8.5a8.5 8.5 0 0 1 0 11"/></svg></span>${isPlaying ? 'Stop summary' : 'Listen to summary'}</button>`;
+}
+function stopSummaryAudio() {
+  if ('speechSynthesis' in window && activeSpeechId !== null) speechSynthesis.cancel();
+  if (activeNarrationAudio) {
+    activeNarrationAudio.pause();
+    activeNarrationAudio.removeAttribute('src');
+    activeNarrationAudio.load();
+    activeNarrationAudio = null;
+  }
+  if (activeNarrationAudioUrl) {
+    URL.revokeObjectURL(activeNarrationAudioUrl);
+    activeNarrationAudioUrl = null;
+  }
+  activeUtterance = null;
+  if (activeSpeechId === null) return;
+  speechRequestId++;
+  activeSpeechId = null;
+  document.querySelectorAll('[data-audio-summary]').forEach(button => {
+    const story = stories.find(item => item.id === button.dataset.audioSummary);
+    button.setAttribute('aria-pressed', 'false');
+    button.setAttribute('aria-label', `Listen to summary for ${story?.title || 'article'}`);
+    button.innerHTML = '<span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M17 9a5 5 0 0 1 0 6m2.5-8.5a8.5 8.5 0 0 1 0 11"/></svg></span>Listen to summary';
+  });
+  setNarrationStatus(narrationPreferenceMessage());
+}
+async function playLocalSummaryAudio(story, requestId, voice) {
+  try {
+    const response = await fetch('/api/narration', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: `${story.title}. ${story.summary}`, voice: voice.id })
+    });
+    if (!response.ok) {
+      const result = await response.json();
+      throw new Error(result.error || `Narration service returned ${response.status}.`);
+    }
+    const audioUrl = URL.createObjectURL(await response.blob());
+    if (requestId !== speechRequestId || activeSpeechId !== story.id) {
+      URL.revokeObjectURL(audioUrl);
+      return;
+    }
+    activeNarrationAudioUrl = audioUrl;
+    activeNarrationAudio = new Audio(audioUrl);
+    activeNarrationAudio.addEventListener('ended', () => {
+      if (requestId === speechRequestId) stopSummaryAudio();
+    }, { once: true });
+    activeNarrationAudio.addEventListener('error', () => {
+      if (requestId !== speechRequestId) return;
+      console.error('Generated narration audio could not be played:', activeNarrationAudio?.error?.message);
+      stopSummaryAudio();
+      setNarrationStatus('Generated narration could not be played. Try again or check your device audio.');
+      toast('Generated narration could not be played.');
+    }, { once: true });
+    await activeNarrationAudio.play();
+    if (requestId === speechRequestId) setNarrationStatus(`Playing with ${voice.name}.`);
+  } catch (error) {
+    if (requestId !== speechRequestId) return;
+    console.error('Could not generate summary audio:', error);
+    stopSummaryAudio();
+    setNarrationStatus(`Summary audio could not be generated: ${error.message}`);
+    toast('Summary audio could not be generated. Check the local Wonder server.');
+  }
+}
+function narrationAudioKey(story, voice, speed) {
+  return `${story.id}:${voice}:${speed}`;
+}
+function armNarrationFallback(requestId) {
+  clearTimeout(narrationFallbackTimer);
+  narrationFallbackTimer = window.setTimeout(() => {
+    startBrowserNarration(
+      requestId,
+      narrationHasAudio ? 'The local voice stopped generating audio.' : 'The local voice is taking too long.'
+    );
+  }, 12000);
+}
+function startBrowserNarration(requestId, reason) {
+  if (requestId !== speechRequestId || activeSpeechId === null || activeNarrationKey === 'browser-speech') return;
+  clearTimeout(narrationFallbackTimer);
+  narrationFallbackTimer = null;
+  if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) {
+    stopSummaryAudio();
+    setNarrationStatus('Audio is unavailable in this browser. Try a browser with speech support.');
+    toast('Audio is unavailable in this browser.');
+    return;
+  }
+  kokoroWorker?.postMessage({ type: 'cancel', requestId });
+  for (const source of activeAudioSources) {
+    source.onended = null;
+    try { source.stop(); } catch (error) { console.error('Could not stop a narration audio chunk:', error); }
+    source.disconnect();
+  }
+  activeAudioSources.clear();
+  if (activeAudioContext) {
+    void activeAudioContext.close().catch(error => console.error('Could not close the narration audio context:', error));
+    activeAudioContext = null;
+  }
+  pendingAudioChunks = 0;
+  audioDecodeQueue = Promise.resolve();
+  audioGenerationFinished = false;
+  activeNarrationKey = 'browser-speech';
+  const story = stories.find(item => item.id === activeSpeechId);
+  if (!story) return;
+  const profile = narrationProfile(story);
+  const utterance = new SpeechSynthesisUtterance(`${story.title}. ${story.summary}`);
+  const voices = speechSynthesis.getVoices().filter(voice =>
+    voice.lang.toLowerCase().startsWith('en') &&
+    !/bad news|bahh|bells|boing|bubbles|cellos|jester|whisper|zarvox/i.test(voice.name)
+  );
+  const voiceHint = profile.voice.split('_').at(-1);
+  const preferredVoice = voices.find(voice => voice.name.toLowerCase().includes(voiceHint)) ||
+    voices.find(voice => /natural|neural|enhanced|samantha|alex|ava|jenny|aria|google/i.test(voice.name)) ||
+    voices.find(voice => voice.default && /en-us/i.test(voice.lang)) ||
+    voices.find(voice => /en-us/i.test(voice.lang)) ||
+    voices[0];
+  if (preferredVoice) utterance.voice = preferredVoice;
+  utterance.rate = profile.speed;
+  activeFallbackUtterance = utterance;
+  setNarrationStatus(`${reason} Using ${preferredVoice?.name || 'your device’s English voice'} instead.`);
+  utterance.onend = () => {
+    if (requestId !== speechRequestId || activeFallbackUtterance !== utterance) return;
+    activeFallbackUtterance = null;
+    stopSummaryAudio();
+  };
+  utterance.onerror = event => {
+    if (requestId !== speechRequestId || activeFallbackUtterance !== utterance) return;
+    console.error('Browser speech playback failed:', event.error);
+    activeFallbackUtterance = null;
+    stopSummaryAudio();
+    setNarrationStatus('Audio could not be played. Try again or check your device audio.');
+    toast('Audio could not be played. Check your device audio and try again.');
+  };
+  speechSynthesis.speak(utterance);
+}
+function finishNarrationWhenDrained(requestId) {
+  if (requestId === speechRequestId && audioGenerationFinished && pendingAudioChunks === 0 && activeAudioSources.size === 0) {
+    stopSummaryAudio();
+  }
+}
+function enqueueNarrationChunk(buffer, key, voiceLabel) {
+  if (activeSpeechId === null || activeNarrationKey !== key) return;
+  const requestId = speechRequestId;
+  pendingAudioChunks++;
+  audioDecodeQueue = audioDecodeQueue.then(async () => {
+    if (requestId !== speechRequestId || !activeAudioContext) return;
+    const context = activeAudioContext;
+    const audioBuffer = await context.decodeAudioData(buffer.slice(0));
+    if (requestId !== speechRequestId || activeAudioContext !== context) return;
+    const source = context.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(context.destination);
+    const startAt = Math.max(context.currentTime + 0.04, audioScheduledUntil);
+    audioScheduledUntil = startAt + audioBuffer.duration;
+    activeAudioSources.add(source);
+    source.onended = () => {
+      activeAudioSources.delete(source);
+      source.disconnect();
+      finishNarrationWhenDrained(requestId);
+    };
+    if (activeAudioSources.size === 1) {
+      setNarrationStatus(`Playing ${voiceLabel}; preparing the next sentence…`);
+    }
+    source.start(startAt);
+  }).catch(error => {
+    if (requestId === speechRequestId && activeNarrationKey === key) {
+      console.error('Kokoro audio decoding failed:', error);
+      startBrowserNarration(requestId, 'The local voice could not play.');
+    }
+  }).finally(() => {
+    if (requestId === speechRequestId) pendingAudioChunks = Math.max(0, pendingAudioChunks - 1);
+    finishNarrationWhenDrained(requestId);
+  });
+}
+function setNarrationStatus(message) {
+  const isLoading = /matching|loading|downloading|creating|preparing/i.test(message);
+  document.querySelectorAll('.narration-note').forEach(note => {
+    note.textContent = message;
+    note.dataset.loading = String(isLoading);
+  });
+}
+function getKokoroWorker() {
+  if (kokoroWorker) return kokoroWorker;
+  const workerSource = `
+    import { KokoroTTS } from 'https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/+esm';
+    let modelPromise;
+    async function loadModel(requestId) {
+      const progress_callback = progress => {
+        if (!cancelled.has(requestId) && progress.status === 'progress' && Number.isFinite(progress.progress)) {
+          self.postMessage({ type: 'status', requestId, message: 'Downloading ' + (progress.file || progress.name || 'model file') + ' (' + Math.round(progress.progress) + '%)…' });
+        }
+      };
+      if (navigator.gpu) {
+        let adapter;
+        try {
+          adapter = await Promise.race([
+            navigator.gpu.requestAdapter(),
+            new Promise(resolve => setTimeout(() => resolve(null), 5000))
+          ]);
+        } catch {
+          self.postMessage({ type: 'status', requestId, message: 'Graphics acceleration is unavailable; using the compatible background voice engine…' });
+        }
+        if (adapter) {
+          try {
+            self.postMessage({ type: 'status', requestId, message: 'Loading the faster graphics-powered Kokoro voice…' });
+            return await KokoroTTS.from_pretrained('onnx-community/Kokoro-82M-v1.0-ONNX', {
+              dtype: 'fp16',
+              device: 'webgpu',
+              progress_callback
+            });
+          } catch {
+            self.postMessage({ type: 'status', requestId, message: 'Switching to the compatible background voice engine…' });
+          }
+        } else {
+          self.postMessage({ type: 'status', requestId, message: 'Graphics acceleration is unavailable; using the compatible background voice engine…' });
+        }
+      }
+      return KokoroTTS.from_pretrained('onnx-community/Kokoro-82M-v1.0-ONNX', {
+        dtype: 'q8',
+        device: 'wasm',
+        progress_callback
+      });
+    }
+    const queue = [];
+    const cancelled = new Set();
+    let busy = false;
+    self.onmessage = ({ data }) => {
+      if (data.type === 'cancel') {
+        cancelled.add(data.requestId);
+        return;
+      }
+      if (data.type === 'preload') {
+        void ensureModel(0).then(() => {
+          self.postMessage({ type: 'preloaded' });
+        }).catch(error => {
+          self.postMessage({ type: 'preload-error', message: error instanceof Error ? error.message : String(error) });
+        });
+        return;
+      }
+      if (data.type === 'generate') {
+        queue.push(data);
+        void runQueue();
+      }
+    };
+    function ensureModel(requestId) {
+      if (!modelPromise) {
+        modelPromise = loadModel(requestId).catch(error => {
+          modelPromise = undefined;
+          throw error;
+        });
+      }
+      return modelPromise;
+    }
+    async function runQueue() {
+      if (busy) return;
+      busy = true;
+      while (queue.length) {
+        const request = queue.shift();
+        if (cancelled.has(request.requestId)) {
+          cancelled.delete(request.requestId);
+          activeRequest = undefined;
+          continue;
+        }
+        try {
+          const model = await ensureModel(request.requestId);
+          self.postMessage({ type: 'status', requestId: request.requestId, message: 'Using the prepared Kokoro model…' });
+          if (cancelled.has(request.requestId)) continue;
+          self.postMessage({ type: 'status', requestId: request.requestId, message: 'Creating audio in the background…' });
+          for await (const chunk of model.stream(request.text, { voice: request.voice, speed: request.speed })) {
+            if (cancelled.has(request.requestId)) break;
+            const buffer = chunk.audio.toWav();
+            self.postMessage({
+              type: 'audio-chunk',
+              requestId: request.requestId,
+              audioKey: request.audioKey,
+              buffer,
+              voiceLabel: request.voiceLabel,
+              firstChunk: !request.hasSentAudio
+            }, [buffer]);
+            request.hasSentAudio = true;
+          }
+          if (!cancelled.has(request.requestId)) self.postMessage({ type: 'done', requestId: request.requestId, audioKey: request.audioKey });
+        } catch (error) {
+          modelPromise = undefined;
+          self.postMessage({ type: 'error', requestId: request.requestId, message: error instanceof Error ? error.message : String(error) });
+        } finally {
+          cancelled.delete(request.requestId);
+        }
+      }
+      busy = false;
+    }
+  `;
+  kokoroWorkerUrl = URL.createObjectURL(new Blob([workerSource], { type: 'text/javascript' }));
+  kokoroWorker = new Worker(kokoroWorkerUrl, { type: 'module' });
+  URL.revokeObjectURL(kokoroWorkerUrl);
+  kokoroWorkerUrl = undefined;
+  kokoroWorker.addEventListener('message', event => {
+    const data = event.data;
+    if (data.type === 'preloaded') {
+      if (activeSpeechId === null && document.body.dataset.page === 'discover') {
+        setNarrationStatus('Voice model ready. Tap Listen to start audio.');
+      }
+      return;
+    }
+    if (data.type === 'preload-error') {
+      if (activeSpeechId === null && document.body.dataset.page === 'discover') {
+        setNarrationStatus('Voice setup will retry when you press Listen.');
+      }
+      console.error('Kokoro preloading failed:', data.message);
+      return;
+    }
+    if (data.type === 'status' && data.requestId === 0) {
+      if (document.body.dataset.page === 'discover') setNarrationStatus(data.message);
+      return;
+    }
+    if (data.requestId !== speechRequestId || activeSpeechId === null) return;
+    if (activeNarrationKey === 'browser-speech') return;
+    if (data.type === 'status') {
+      setNarrationStatus(data.message);
+    } else if (data.type === 'audio-chunk') {
+      narrationHasAudio = true;
+      armNarrationFallback(data.requestId);
+      enqueueNarrationChunk(data.buffer, data.audioKey, data.voiceLabel);
+    } else if (data.type === 'done') {
+      clearTimeout(narrationFallbackTimer);
+      narrationFallbackTimer = null;
+      audioGenerationFinished = true;
+      if (!narrationHasAudio) {
+        startBrowserNarration(data.requestId, 'The local voice returned no audio.');
+      } else finishNarrationWhenDrained(data.requestId);
+    } else if (data.type === 'error') {
+      console.error('Kokoro narration failed:', data.message);
+      startBrowserNarration(data.requestId, 'The local voice could not start.');
+    }
+  });
+  kokoroWorker.addEventListener('error', event => {
+    if (activeSpeechId !== null) {
+      console.error('Kokoro worker failed:', event.message);
+      startBrowserNarration(speechRequestId, 'The local voice failed.');
+    } else if (document.body.dataset.page === 'discover') {
+      setNarrationStatus('Kokoro could not prepare narration. Try Listen to retry.');
+      console.error('Kokoro prefetch worker failed:', event.message);
+    }
+    kokoroWorker.terminate();
+    kokoroWorker = undefined;
+  });
+  return kokoroWorker;
+}
+function matchNarrationToStory(story) {
+  const text = `${story.topic} ${story.title} ${story.summary} ${story.takeaways.join(' ')}`;
+  const topicProfiles = {
+    Technology: { voice: 'am_michael', speed: 1, label: 'Michael · clear American English' },
+    Science: { voice: 'af_heart', speed: 0.97, label: 'Heart · thoughtful American English' },
+    Learning: { voice: 'af_bella', speed: 0.94, label: 'Bella · warm American English' },
+    Environment: { voice: 'bf_alice', speed: 0.94, label: 'Alice · calm British English' }
+  };
+  if (topicProfiles[story.topic]) return topicProfiles[story.topic];
+  if (/climate|environment|ecolog|nature|planet|ocean|forest|wildlife/i.test(text)) {
+    return { voice: 'bf_alice', speed: 0.94, label: 'Alice · calm British English' };
+  }
+  if (/learning|study|memory|practice|understand|habit/i.test(text)) {
+    return { voice: 'af_bella', speed: 0.94, label: 'Bella · warm American English' };
+  }
+  if (/technology|machine|artificial intelligence|transformer|language model/i.test(text)) {
+    return { voice: 'am_michael', speed: 1, label: 'Michael · clear American English' };
+  }
+  if (/space|universe|science|research|galax|telescope/i.test(text)) {
+    return { voice: 'af_heart', speed: 0.97, label: 'Heart · thoughtful American English' };
+  }
+  return { voice: 'af_heart', speed: 1, label: 'Heart · natural American English' };
+}
+function narrationProfile(story) {
+  const matched = matchNarrationToStory(story);
+  const voice = selectedKokoroVoice === 'auto' ? matched.voice : selectedKokoroVoice;
+  const voiceLabel = selectedKokoroVoice === 'auto'
+    ? matched.label
+    : kokoroVoices.find(([id]) => id === selectedKokoroVoice)?.[1] || matched.label;
+  const speed = selectedKokoroVoice === 'auto' ? matched.speed : 1;
+  return { voice, voiceLabel, speed, key: narrationAudioKey(story, voice, speed) };
+}
+function requestStoryNarration(requestId) {
+  const story = stories.find(item => item.id === activeSpeechId);
+  if (!story || activeSpeechId === null || requestId !== speechRequestId) return;
+  const profile = narrationProfile(story);
+  activeNarrationKey = profile.key;
+  getKokoroWorker().postMessage({
+    type: 'generate',
+    requestId,
+    audioKey: profile.key,
+    text: `${story.title}. ${story.summary}`,
+    voice: profile.voice,
+    speed: profile.speed,
+    voiceLabel: profile.voiceLabel
+  });
+}
+let kokoroPreloadScheduled = false;
+function prepareKokoroInBackground() {
+  if (kokoroPreloadScheduled) return;
+  kokoroPreloadScheduled = true;
+  const prepare = () => {
+    if (document.body.dataset.page !== 'discover') {
+      kokoroPreloadScheduled = false;
+      return;
+    }
+    try {
+      setNarrationStatus('Getting your story-matched voice ready in the background…');
+      getKokoroWorker().postMessage({ type: 'preload' });
+    } catch (error) {
+      kokoroPreloadScheduled = false;
+      setNarrationStatus('Voice setup will begin when you press Listen.');
+      console.error('Could not prepare Kokoro narration:', error);
+    }
+  };
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(prepare, { timeout: 400 });
+  } else {
+    window.setTimeout(prepare, 250);
+  }
+}
+function playSummaryAudio(story) {
+  stopVoiceSample();
+  if (activeSpeechId === story.id) {
+    stopSummaryAudio();
+    return;
+  }
+  stopSummaryAudio();
+  activeSpeechId = story.id;
+  const requestId = ++speechRequestId;
+  const voices = localNarrationReady ? localNarrationVoices : availableNarrationVoices();
+  const preferredVoice = voices.find(voice => (voice.id || voice.voiceURI) === selectedNarrationVoice) ||
+    voices.find(voice => /samantha|alex|ava|jenny|aria|natural|enhanced/i.test(voice.name)) ||
+    voices.find(voice => voice.lang.toLowerCase() === 'en-us') ||
+    voices[0];
+  document.querySelectorAll('[data-narration-voice]').forEach(select => {
+    select.value = selectedNarrationVoice;
+  });
+  document.querySelectorAll('[data-audio-summary]').forEach(button => {
+    const current = button.dataset.audioSummary === story.id;
+    button.setAttribute('aria-pressed', String(current));
+    button.setAttribute('aria-label', `${current ? 'Stop' : 'Listen to'} summary for ${stories.find(item => item.id === button.dataset.audioSummary)?.title || 'article'}`);
+    button.innerHTML = current
+      ? '<span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 6h3v12H8zM15 6h3v12h-3z"/></svg></span>Stop summary'
+      : '<span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M17 9a5 5 0 0 1 0 6m2.5-8.5a8.5 8.5 0 0 1 0 11"/></svg></span>Listen to summary';
+  });
+  if (localNarrationReady && preferredVoice) {
+    setNarrationStatus(`Preparing ${preferredVoice.name} audio…`);
+    void playLocalSummaryAudio(story, requestId, preferredVoice);
+    return;
+  }
+  if (location.protocol === 'file:') {
+    stopSummaryAudio();
+    setNarrationStatus('For reliable audio, run python3 serve.py and open the local Wonder page.');
+    toast('Run python3 serve.py and open the local Wonder page for audible summaries.');
+    return;
+  }
+  try {
+    if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) {
+      activeSpeechId = null;
+      setNarrationStatus('This browser does not support device speech. Try a current version of Safari, Chrome, or Edge.');
+      toast('This browser does not support speech playback.');
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(`${story.title}. ${story.summary}`);
+    const isSlowerStory = ['Science', 'Learning', 'Environment'].includes(story.topic);
+    utterance.rate = isSlowerStory ? 0.96 : 1;
+    utterance.lang = preferredVoice?.lang || 'en-US';
+    if (preferredVoice) utterance.voice = preferredVoice;
+    activeUtterance = utterance;
+    const voiceLabel = preferredVoice?.name || 'your device’s default English voice';
+    setNarrationStatus(`Starting ${voiceLabel}…`);
+    utterance.onstart = () => {
+      if (requestId === speechRequestId) setNarrationStatus(`Playing with ${voiceLabel}.`);
+    };
+    utterance.onend = () => {
+      if (requestId === speechRequestId) stopSummaryAudio();
+    };
+    utterance.onerror = event => {
+      if (requestId !== speechRequestId || event.error === 'canceled' || event.error === 'interrupted') return;
+      console.error('Device speech playback failed:', event.error);
+      stopSummaryAudio();
+      if (event.error === 'not-allowed') {
+        setNarrationStatus('Your browser blocked autoplay. Tap Listen to start the summary.');
+      } else {
+        setNarrationStatus('Audio could not be played. Check your device audio settings and try again.');
+        toast('Audio could not be played. Check your device audio settings.');
+      }
+    };
+    speechSynthesis.speak(utterance);
+  } catch (error) {
+    if (requestId === speechRequestId) {
+      console.error('Device speech could not start:', error);
+      stopSummaryAudio();
+      setNarrationStatus('Audio could not be started. Check your browser and device audio settings.');
+      toast('Audio could not be started. Check your browser audio settings.');
+    }
+  }
+}
 function card(story) {
   const saved = state.saved.includes(story.id);
   const liked = state.liked.includes(story.id);
-  const followed = state.followed.includes(story.publisher);
   return `<article class="post" data-id="${story.id}">
-    <div class="post-head"><span class="publisher-icon" aria-hidden="true">${story.initials}</span><div><div class="publisher-name">${story.publisher}</div><div class="post-meta">${story.date} · ${story.minutes} min read</div></div><button class="follow-button" data-action="follow" aria-pressed="${followed}" aria-label="${followed ? 'Unfollow' : 'Follow'} ${story.publisher}">${followed ? 'Following' : '+ Follow'}</button><button class="hide-button" data-action="hide" aria-label="Show less like this story" title="Show less like this">⋯</button></div>
+    <div class="post-head"><span class="publisher-icon" aria-hidden="true">${story.initials}</span><div><div class="publisher-name">${story.publisher}</div><div class="post-meta">${story.date} · ${story.minutes} min read</div></div><button class="hide-button" data-action="hide" aria-label="Show less like this story" title="Show less like this">⋯</button></div>
     <div class="story-art art-${story.art}" aria-hidden="true"><span class="art-kicker">${story.kicker}</span><span class="art-title">${story.visual}</span><span class="art-badge">THE WONDER EDIT</span><div class="art-decoration"></div></div>
-    <div class="post-body"><div class="source-type"><span>${story.type}</span><span>AI-written sample summary</span></div><button class="story-open" data-action="open"><h2>${story.title}</h2></button><p>${story.summary}</p><div class="tag-list">${story.tags.map(tag => `<span>#${tag.replaceAll(' ', '')}</span>`).join('')}</div></div>
-    <div class="post-actions"><button class="action-button" data-action="like" aria-pressed="${liked}" aria-label="${liked ? 'Unlike' : 'Like'} story"><span aria-hidden="true">${liked ? '♥' : '♡'}</span>${liked ? 'Liked' : 'Like'}</button><button class="action-button" data-action="share"><span aria-hidden="true">↗</span>Share source</button><button class="action-button save" data-action="save" aria-pressed="${saved}"><span aria-hidden="true">${saved ? '▰' : '▱'}</span>${saved ? 'Saved' : 'Save'}</button><button class="read-link" data-action="open" aria-label="Read ${story.title}">Read →</button></div>
+    <div class="post-body"><div class="source-type"><span>${story.type}</span><span>AI-written sample summary</span></div><button class="story-open" data-action="open"><h2>${story.title}</h2></button><p>${story.summary}</p>${summaryAudioButton(story)}<div class="tag-list">${story.tags.map(tag => `<span>#${tag.replaceAll(' ', '')}</span>`).join('')}</div></div>
+    <div class="post-actions"><button class="action-button" data-action="like" aria-pressed="${liked}" aria-label="${liked ? 'Unlike' : 'Like'} story"><span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.2-8.8 10-8.8 10s-8.8-4.8-8.8-10A4.4 4.4 0 0 1 12 6.5a4.4 4.4 0 0 1 8.8 2.3Z" ${liked ? 'fill="currentColor"' : ''}/></svg></span>${liked ? 'Liked' : 'Like'}</button><a class="action-button" href="${story.url}" target="_blank" rel="noopener noreferrer" aria-label="View source: ${story.sourceTitle}"><span class="action-icon question-icon" aria-hidden="true">?</span>View source</a><button class="action-button save" data-action="save" aria-pressed="${saved}"><span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 4.5h11a1 1 0 0 1 1 1v14l-6.5-4-6.5 4v-14a1 1 0 0 1 1-1Z"/></svg></span>${saved ? 'Saved' : 'Save'}</button><button class="read-link" data-action="open" aria-label="Read ${story.title}"><span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 12s3.2-6 9.5-6 9.5 6 9.5 6-3.2 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg></span>Read</button></div>
   </article>`;
+}
+function updateCurrentArticle() {
+  const posts = [...feed.querySelectorAll('.post')];
+  const center = window.innerHeight * 0.54;
+  const visible = posts
+    .map(post => ({ post, rect: post.getBoundingClientRect() }))
+    .filter(({ rect }) => rect.bottom > 0 && rect.top < window.innerHeight);
+  const current = visible.reduce((closest, item) =>
+    !closest || Math.abs(item.rect.top + item.rect.height / 2 - center) <
+      Math.abs(closest.rect.top + closest.rect.height / 2 - center)
+      ? item
+      : closest, null)?.post;
+  posts.forEach(post => post.classList.toggle('is-current', post === current));
+  const storyId = current?.dataset.id || null;
+  focusedStoryId = storyId;
+}
+let articleUpdateScheduled = false;
+function scheduleArticleUpdate() {
+  if (articleUpdateScheduled) return;
+  articleUpdateScheduled = true;
+  requestAnimationFrame(() => {
+    articleUpdateScheduled = false;
+    updateCurrentArticle();
+  });
 }
 function render() {
   renderTopics();
   let visible = stories.filter(story => {
     const inView = view === 'saved' ? state.saved.includes(story.id) : !state.hidden.includes(story.id);
-    const inFeed = view === 'saved' || feedMode !== 'following' || state.followed.includes(story.publisher);
     const inTopic = selectedTopic === 'All topics' || selectedTopic === story.topic;
     const matchesSearch = `${story.title} ${story.summary} ${story.publisher} ${story.tags.join(' ')} ${story.topic}`.toLowerCase().includes(search);
-    return inView && inFeed && inTopic && matchesSearch;
+    return inView && inTopic && matchesSearch;
   });
-  if (view === 'discover' && feedMode === 'for-you') {
+  if (view === 'discover') {
     visible = visible.toSorted((a, b) => Number(state.interests.includes(b.topic)) - Number(state.interests.includes(a.topic)));
   }
-  feed.innerHTML = visible.length ? visible.map(card).join('') : `<div class="empty-state"><div class="small-star">✳</div><h2>${view === 'saved' ? 'A place for your next deep dive' : 'A little room for discovery'}</h2><p>${view === 'saved' ? 'Save a story from Discover to find it here. Try clearing any search or topic filters.' : feedMode === 'following' ? 'Follow a publisher from For you to see their stories here. You can also clear your filters.' : 'No stories match this view. Reset your filters and hidden stories to explore again.'}</p><button id="reset-feed">Explore all stories</button></div>`;
+  if (activeSpeechId !== null && !visible.some(story => story.id === activeSpeechId)) {
+    stopSummaryAudio();
+  }
+  feed.innerHTML = visible.length ? visible.map(card).join('') : `<div class="empty-state"><div class="small-star">✳</div><h2>${view === 'saved' ? 'A place for your next deep dive' : 'A little room for discovery'}</h2><p>${view === 'saved' ? 'Save a story from Discover to find it here. Try clearing any search or topic filters.' : 'No stories match this view. Reset your filters and hidden stories to explore again.'}</p><button id="reset-feed">Explore all stories</button></div>`;
+  scheduleArticleUpdate();
   document.querySelector('#saved-count').textContent = state.saved.length;
   document.querySelector('#page-title').textContent = view === 'saved' ? 'Worth coming back to.' : 'Follow your curiosity.';
   document.querySelector('#page-description').textContent = view === 'saved' ? 'Your saved discoveries, ready when you are.' : 'Fresh perspectives. Deeper understanding. Something worth your time.';
-  document.querySelector('.feed-tabs').hidden = view === 'saved';
   document.querySelectorAll('[data-view]').forEach(button => {
     const active = button.dataset.view === view;
     button.classList.toggle('active', active);
     if (active) button.setAttribute('aria-current', 'page');
     else button.removeAttribute('aria-current');
   });
-  document.querySelectorAll('[data-feed]').forEach(button => {
-    button.classList.toggle('selected', button.dataset.feed === feedMode);
-    button.setAttribute('aria-pressed', button.dataset.feed === feedMode);
-  });
 }
 function openStory(story) {
-  document.querySelector('#story-content').innerHTML = `<div class="eyebrow">${story.topic.toUpperCase()} · ${story.minutes} MIN READ</div><h2 id="story-title">${story.title}</h2><div class="detail-tags">AI-written sample summary · ${story.type}</div><p>${story.detail}</p><h3>Take a little more with you</h3><ul>${story.takeaways.map(item => `<li>${item}</li>`).join('')}</ul><div class="detail-source"><strong>Go to the source</strong><p>${story.sourceTitle}<br>${story.publisher} · ${story.date}</p><a href="${story.url}" target="_blank" rel="noopener noreferrer">Read the original publication ↗</a><p>${story.caveat}</p></div><button class="primary-button" id="detail-save" aria-pressed="${state.saved.includes(story.id)}">${state.saved.includes(story.id) ? 'Saved to your stories' : 'Save for later'}</button>`;
+  document.querySelector('#story-content').innerHTML = `<div class="eyebrow">${story.topic.toUpperCase()} · ${story.minutes} MIN READ</div><h2 id="story-title">${story.title}</h2><div class="detail-tags">AI-written sample summary · ${story.type}</div>${narrationVoicePicker('story-narration-voice')}${voiceSamplePicker()}${summaryAudioButton(story)}<p>${story.detail}</p><h3>Take a little more with you</h3><ul>${story.takeaways.map(item => `<li>${item}</li>`).join('')}</ul><div class="detail-source"><strong>Go to the source</strong><p>${story.sourceTitle}<br>${story.publisher} · ${story.date}</p><a href="${story.url}" target="_blank" rel="noopener noreferrer">Read the original publication ↗</a><p>${story.caveat}</p></div><button class="primary-button" id="detail-save" aria-pressed="${state.saved.includes(story.id)}">${state.saved.includes(story.id) ? 'Saved to your stories' : 'Save for later'}</button>`;
+  populateNarrationVoices();
   document.querySelector('#detail-save').addEventListener('click', event => {
     toggle(state.saved, story.id);
     const saved = state.saved.includes(story.id);
@@ -1829,6 +3665,11 @@ function openStory(story) {
   });
   document.querySelector('#story-dialog').showModal();
 }
+document.querySelector('#story-dialog').addEventListener('close', () => {
+  stopSummaryAudio();
+  stopVoiceSample();
+  setNarrationStatus(narrationPreferenceMessage());
+});
 function openPreferences() {
   document.querySelector('#interest-options').innerHTML = topics.slice(1).map(topic => `<label><input type="checkbox" name="interest" value="${topic}" ${state.interests.includes(topic) ? 'checked' : ''}>${topic}</label>`).join('');
   const goal = document.querySelector('#goal');
@@ -1839,16 +3680,26 @@ function openPreferences() {
   if (level.selectedIndex < 0) level.selectedIndex = 0;
   document.querySelector('#preferences-dialog').showModal();
 }
-document.addEventListener('click', async event => {
+document.addEventListener('click', event => {
   const button = event.target.closest('button');
   if (!button) return;
-  if (button.dataset.close) document.getElementById(button.dataset.close).close();
+  if (button.hasAttribute('data-voice-preview')) {
+    playVoiceSample(button);
+    return;
+  }
+  if (button.dataset.close) {
+    document.getElementById(button.dataset.close).close();
+  }
+  if (button.dataset.audioSummary) {
+    const story = stories.find(item => item.id === button.dataset.audioSummary);
+    if (story) playSummaryAudio(story, button);
+    return;
+  }
   if (button.dataset.topic) { selectedTopic = button.dataset.topic; render(); }
   if (button.dataset.view) { view = button.dataset.view; render(); }
-  if (button.dataset.feed) { feedMode = button.dataset.feed; render(); }
   if (button.id === 'reset-feed') {
     location.hash = '/discover';
-    view = 'discover'; feedMode = 'for-you'; selectedTopic = 'All topics'; search = '';
+    view = 'discover'; selectedTopic = 'All topics'; search = '';
     state.hidden = []; document.querySelector('#search').value = ''; persist(); render();
   }
   const post = button.closest('[data-id]');
@@ -1858,19 +3709,40 @@ document.addEventListener('click', async event => {
     case 'open': openStory(story); break;
     case 'like': toggle(state.liked, story.id); render(); break;
     case 'save': toggle(state.saved, story.id); render(); break;
-    case 'follow': toggle(state.followed, story.publisher); render(); break;
     case 'hide':
       if (!state.hidden.includes(story.id)) state.hidden.push(story.id);
       persist(); render(); toast('Story hidden. Reset the feed to restore hidden stories.'); break;
-    case 'share':
-      try {
-        if (navigator.share) await navigator.share({ title: story.sourceTitle, url: story.url });
-        else { await navigator.clipboard.writeText(story.url); toast('Original source link copied.'); }
-      } catch (error) { if (error.name !== 'AbortError') { openStory(story); toast('Use the source link in the story to share it.'); } }
-      break;
+  }
+});
+window.addEventListener('scroll', scheduleArticleUpdate, { passive:true });
+window.addEventListener('resize', scheduleArticleUpdate);
+document.addEventListener('change', event => {
+  if (event.target.id === 'voice-sample') {
+    stopVoiceSample();
+    setNarrationStatus(narrationPreferenceMessage());
+    return;
+  }
+  const select = event.target.closest('[data-narration-voice]');
+  if (!select) return;
+  selectedNarrationVoice = select.value;
+  document.querySelectorAll('[data-narration-voice]').forEach(voiceSelect => {
+    voiceSelect.value = selectedNarrationVoice;
+  });
+  stopSummaryAudio();
+  setNarrationStatus(selectedNarrationVoice === 'auto'
+    ? 'Auto will use the best available English voice on this device.'
+    : `Selected ${[...localNarrationVoices, ...availableNarrationVoices()].find(voice => (voice.id || voice.voiceURI) === selectedNarrationVoice)?.name || 'device voice'}.`);
+  try {
+    localStorage.setItem(narrationVoiceKey, selectedNarrationVoice);
+  } catch {
+    toast('Voice preference could not be saved in this browser.');
   }
 });
 document.querySelector('#search').addEventListener('input', event => { search = event.target.value.trim().toLowerCase(); render(); });
+document.querySelector('#connect-search').addEventListener('input', event => {
+  connectionSearch = event.target.value;
+  showConnections(connectionCategory);
+});
 ['personalize', 'settings-preferences'].forEach(id => document.getElementById(id).addEventListener('click', openPreferences));
 document.querySelector('#preferences-form').addEventListener('submit', event => {
   event.preventDefault();
@@ -1879,6 +3751,9 @@ document.querySelector('#preferences-form').addEventListener('submit', event => 
   persist(); document.querySelector('#preferences-dialog').close(); render(); toast('Your preferences have been saved.');
 });
 render();
+populateNarrationVoices();
+void loadLocalNarrationVoices();
+if ('speechSynthesis' in window) speechSynthesis.addEventListener('voiceschanged', populateNarrationVoices);
 
 // Hash routes keep each page directly linkable on a simple static server.
 const pageNames = {
@@ -1929,24 +3804,6 @@ function saveActivity() {
     toast('Browser storage is unavailable. Keep a copy of your writing before leaving.');
     return false;
   }
-}
-
-function showConnections(category) {
-  document.querySelectorAll('[data-connect]').forEach(button => {
-    button.setAttribute('aria-pressed', button.dataset.connect === category);
-  });
-  document.querySelector('#connections').innerHTML = demoPeople[category].map(person => `
-    <article class="person-card page-card">
-      <span class="person-avatar" aria-hidden="true">${person.initials}</span>
-      <span class="profile-topic">${person.topic}</span>
-      <h2>${person.name}</h2>
-      <small>${person.role}</small>
-      <p>${person.description}</p>
-      <button class="outline-button" data-person="${person.id}" aria-pressed="${activity.followed.includes(person.id)}">
-        ${activity.followed.includes(person.id) ? 'Following locally' : 'Follow in demo'}
-      </button>
-    </article>
-  `).join('');
 }
 
 function showLessons() {
@@ -2012,6 +3869,10 @@ function routePage() {
     location.replace('#/discover');
     return;
   }
+  if (page !== 'discover') {
+    stopSummaryAudio();
+    stopVoiceSample();
+  }
   document.querySelectorAll('.route-page').forEach(section => {
     section.hidden = section.id !== `${page}-page`;
   });
@@ -2027,25 +3888,59 @@ function routePage() {
   document.querySelector('.breadcrumb').textContent = pageNames[page];
   document.title = `${pageNames[page]} — Wonder`;
   document.body.dataset.page = page;
+  document.documentElement.dataset.page = page;
   updateSettings();
   window.scrollTo(0, 0);
   document.querySelector('#main').focus({ preventScroll: true });
+  clearTimeout(autoplayNarrationTimer);
+  if (page === 'discover' && view === 'discover') {
+    const firstPost = feed.querySelector('.post');
+    const firstStory = stories.find(story => story.id === firstPost?.dataset.id);
+    if (firstStory) {
+      autoplayNarrationTimer = window.setTimeout(() => {
+        if (document.body.dataset.page === 'discover' && view === 'discover' && activeSpeechId === null &&
+          !document.querySelector('#story-dialog').open) {
+          playSummaryAudio(firstStory);
+        }
+      }, 250);
+    }
+  }
 }
 
 let connectionCategory = 'peers';
+let connectionSearch = '';
+
+function showConnections(category) {
+  document.querySelectorAll('[data-connect]').forEach(button => {
+    button.setAttribute('aria-pressed', button.dataset.connect === category);
+  });
+  const people = demoPeople[category];
+  const normalizedSearch = connectionSearch.trim().toLocaleLowerCase();
+  const matches = people.filter(person =>
+    `${person.name} ${person.role} ${person.topic} ${person.description}`
+      .toLocaleLowerCase()
+      .includes(normalizedSearch)
+  );
+  const container = document.querySelector('#connections');
+  container.innerHTML = matches.length ? matches.map(person => `
+    <article class="person-card page-card">
+      <span class="person-avatar" aria-hidden="true">${person.initials}</span>
+      <span class="profile-topic">${person.topic}</span>
+      <h2>${person.name}</h2>
+      <small>${person.role}</small>
+      <p>${person.description}</p>
+    </article>
+  `).join('') : '<p class="connect-empty">No matches here. Try another name, interest, or keyword.</p>';
+  document.querySelector('#connect-result-note').textContent = normalizedSearch
+    ? `${matches.length} ${matches.length === 1 ? 'match' : 'matches'} in ${category}. Illustrative profiles; no accounts or live messaging.`
+    : 'Illustrative profiles and communities · No accounts or live messaging are connected.';
+}
+
 document.addEventListener('click', event => {
   const button = event.target.closest('button');
   if (!button) return;
   if (button.dataset.connect) {
     connectionCategory = button.dataset.connect;
-    showConnections(connectionCategory);
-  }
-  if (button.dataset.person) {
-    const id = button.dataset.person;
-    const index = activity.followed.indexOf(id);
-    if (index === -1) activity.followed.push(id);
-    else activity.followed.splice(index, 1);
-    saveActivity();
     showConnections(connectionCategory);
   }
   if (button.dataset.lesson) {
@@ -2096,7 +3991,7 @@ let cvObjectUrl;
 
 function updateProfileAvatar(name) {
   const initials = name.trim().split(/\s+/).slice(0, 2).map(word => word[0] || '').join('');
-  document.querySelector('#profile-button').textContent = initials.toUpperCase() || 'Y';
+  document.querySelector('#profile-button').textContent = initials.toUpperCase() || '✦';
 }
 
 function loadProfile() {
