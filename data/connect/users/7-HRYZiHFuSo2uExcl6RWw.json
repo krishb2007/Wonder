@@ -1,0 +1,11 @@
+{
+  "following": [],
+  "blocked": [],
+  "reports": [],
+  "joined": [],
+  "privacy": {
+    "searchable": true,
+    "requests": "everyone",
+    "mentor": false
+  }
+}

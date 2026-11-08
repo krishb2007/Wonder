@@ -137,9 +137,15 @@ def reply(history, user_prompt, source=None):
 
 
 LEARNING_INTRO_PROMPT = """Introduce this selected source as a short, friendly lesson.
+Aim for 200-300 words. Skip the greeting and use three short Markdown headings:
+"The big idea", "What to understand", and "Try thinking about". Explain 3-4 key
+ideas as concise bullets, define terms inline, and offer one useful follow-up
+question. Avoid long inventories of definitions or questions. Mention the source's
+limitations briefly. The interface already displays command guidance; keep the
+closing learning checkpoint to one sentence instead of a separate long section.
 Explain what it is about, the main ideas and important details actually supported
 by the available text, and limitations or missing coverage. Define unfamiliar
-terms. Offer 2-3 questions the learner can explore next. Do not assume full source
+terms. Do not assume full source
 coverage if only an excerpt is available. End with a clear learning checkpoint:
 when the learner can explain the main idea, give an example, and identify a
 limitation, they can type /end for a recap. They can type /practice at any time to

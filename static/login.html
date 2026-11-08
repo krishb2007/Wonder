@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eee8d8">
+  <title>Sign in · Wonder</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+    [hidden]{display:none!important}
+    :root{font-family:'DM Sans',sans-serif;color:#233b30;background:#eee8d8;font-synthesis:none}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px}
+    .card{width:min(100%,440px);background:#f7f2e5;border:1px solid #e8e9ef;border-radius:20px;padding:38px;box-shadow:0 16px 48px #28234512}
+    .brand{display:flex;align-items:center;gap:10px;margin-bottom:32px;font:800 30px Manrope,sans-serif;letter-spacing:-1.5px}
+    .mark{display:grid;place-items:center;width:34px;height:36px;border-radius:11px;background:#315b40;color:#fff;font-size:28px;line-height:1;transform:rotate(-8deg)}
+    h1{font:700 26px Manrope,sans-serif;letter-spacing:-.6px;margin:0 0 8px}
+    .intro{color:#787b8b;margin:0 0 26px;line-height:1.55}
+    form{display:grid;gap:16px}
+    label{display:grid;gap:7px;font-size:14px;font-weight:600}
+    input{width:100%;border:1px solid #dfe0e8;border-radius:10px;padding:12px 13px;font:inherit;color:inherit}
+    input:focus{outline:3px solid #91a47c33;border-color:#315b40}
+    button{border:0;border-radius:10px;background:#315b40;color:#fff;padding:13px;font:inherit;font-weight:600;cursor:pointer}
+    button:disabled{opacity:.65;cursor:wait}
+    .switch{margin:22px 0 0;text-align:center;color:#666979;font-size:14px}
+    .switch button{background:none;color:#315b40;padding:0;font:inherit;font-weight:600}
+    .error{min-height:20px;margin:14px 0 0;color:#a52c3b;font-size:14px}
+    .note{border-top:1px solid #eeeef2;margin:24px 0 0;padding-top:16px;color:#858694;font-size:12px;line-height:1.5}
+    @media(max-width:480px){.card{padding:28px 22px}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand"><span class="mark" aria-hidden="true">✳</span>Wonder</div>
+    <h1 id="heading">Welcome back</h1>
+    <p class="intro" id="intro">Sign in to continue to your learning space.</p>
+    <form id="auth-form">
+      <label id="name-field" hidden>Name<input id="name" name="name" autocomplete="name" maxlength="200"></label>
+      <label>Email<input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></label>
+      <label>Password<input id="password" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="128" required></label>
+      <button id="submit" type="submit">Sign in</button>
+    </form>
+    <p class="error" id="error" role="alert"></p>
+    <p class="switch"><span id="switch-copy">New to Wonder?</span> <button type="button" id="switch">Create an account</button></p>
+    <p class="note">Your name, profession, and interests appear to other members in Connect. Your email and CV stay private. Change visibility and mentoring availability in Connect → Privacy & safety. Accounts are stored on this local server.</p>
+  </main>
+  <script>
+    const $ = id => document.getElementById(id);
+    let registering = location.pathname === '/register';
+    function renderMode() {
+      $('heading').textContent = registering ? 'Create your account' : 'Welcome back';
+      $('intro').textContent = registering ? 'Create an account to start your learning space.' : 'Sign in to continue to your learning space.';
+      $('name-field').hidden = !registering;
+      $('name').required = registering;
+      $('password').autocomplete = registering ? 'new-password' : 'current-password';
+      $('submit').textContent = registering ? 'Create account' : 'Sign in';
+      $('switch-copy').textContent = registering ? 'Already have an account?' : 'New to Wonder?';
+      $('switch').textContent = registering ? 'Sign in' : 'Create an account';
+      document.title = (registering ? 'Create account' : 'Sign in') + ' · Wonder';
+      $('error').textContent = '';
+    }
+    $('switch').onclick = () => {
+      registering = !registering;
+      history.replaceState(null, '', registering ? '/register' : '/login');
+      renderMode();
+    };
+    $('auth-form').onsubmit = async event => {
+      event.preventDefault();
+      $('submit').disabled = true;
+      $('error').textContent = '';
+      const body = {email: $('email').value, password: $('password').value};
+      if (registering) body.name = $('name').value;
+      try {
+        const response = await fetch('/api/auth/' + (registering ? 'register' : 'login'), {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(body)
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Could not sign in.');
+        location.replace('/');
+      } catch (error) {
+        $('error').textContent = error.message || 'Could not reach Wonder. Please retry.';
+        $('submit').disabled = false;
+      }
+    };
+    renderMode();
+  </script>
+</body>
+</html>

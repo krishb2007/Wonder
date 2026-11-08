@@ -2,19 +2,22 @@
 import json
 import secrets
 import base64
-import re
+import sqlite3
+import time
 from datetime import datetime, timezone
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
-from gemini_chat import (GeminiConfigurationError, prepare_source, reply,
+from gemini_chat import (GeminiConfigurationError, reply,
                         LEARNING_INTRO_PROMPT, LEARNING_END_PROMPT, generate_practice)
 from fetch_interests import extract_cv_text, fetch_for_profile, profile_fingerprint, fetch_learning_source
 from connect_backend import snapshot as connect_snapshot, perform as connect_action
+import auth
 
 ROOT = Path(__file__).resolve().parent
 # Each browser session has a list of user/model message dictionaries.
 conversations = {}
+auth_attempts = {}
 
 
 def profile_path(sid):
@@ -76,28 +79,39 @@ def save_profile(sid, body):
 
 
 class Handler(BaseHTTPRequestHandler):
-    def session(self):
+    def auth_token(self):
         cookies = SimpleCookie()
         try:
             cookies.load(self.headers.get('Cookie', ''))
         except Exception:
-            pass
-        sid = cookies['chat_session'].value if 'chat_session' in cookies else None
-        if not sid or not re.fullmatch(r'[A-Za-z0-9_-]{43}', sid):
-            sid = secrets.token_urlsafe(32)
-        if sid not in conversations:
-            conversations[sid] = {'history': [], 'source': None, 'ended': False, 'practice': []}
-        self.sid = sid
-        return conversations[sid]
+            return None
+        return cookies['wonder_session'].value if 'wonder_session' in cookies else None
 
-    def send(self, status, data, content_type='application/json'):
+    def require_user(self):
+        self.user = auth.user_for_token(ROOT, self.auth_token())
+        return self.user
+
+    def session(self):
+        self.sid = self.user['id']
+        if self.sid not in conversations:
+            conversations[self.sid] = {'history': [], 'source': None, 'ended': False, 'practice': []}
+        return conversations[self.sid]
+
+    def redirect(self, location):
+        self.send_response(302)
+        self.send_header('Location', location)
+        self.send_header('Cache-Control', 'no-store')
+        self.end_headers()
+
+    def send(self, status, data, content_type='application/json', auth_cookie=None):
         payload = json.dumps(data).encode() if content_type == 'application/json' else data
         self.send_response(status)
         self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', str(len(payload)))
         self.send_header('Cache-Control', 'no-store')
-        if hasattr(self, 'sid'):
-            self.send_header('Set-Cookie', f'chat_session={self.sid}; HttpOnly; SameSite=Strict; Path=/; Max-Age=31536000')
+        if auth_cookie is not None:
+            age = auth.SESSION_AGE if auth_cookie else 0
+            self.send_header('Set-Cookie', f'wonder_session={auth_cookie}; HttpOnly; SameSite=Strict; Path=/; Max-Age={age}')
         self.end_headers()
         self.wfile.write(payload)
 
@@ -105,123 +119,150 @@ class Handler(BaseHTTPRequestHandler):
         if self.headers.get('Host') != '127.0.0.1:8000':
             self.send(403, {'error': 'Open http://127.0.0.1:8000.'})
             return
-        session = self.session()
-        if self.path in ('/', '/interface', '/interface.html'):
-            self.send(200, (ROOT/'static/interface.html').read_bytes(), 'text/html; charset=utf-8')
-        elif self.path == '/chat':
-            self.send(200, (ROOT/'static/index.html').read_bytes(), 'text/html; charset=utf-8')
-        elif self.path == '/settings':
-            self.send_response(302)
-            self.send_header('Location', '/#/settings')
-            self.end_headers()
-        elif self.path == '/api/discovery':
-            path = ROOT / 'data/discovery' / f'{self.sid}.json'
-            profile = load_profile(self.sid)
-            cached = json.loads(path.read_text()) if path.exists() else None
-            if cached and cached.get('profile_fingerprint') != profile_fingerprint(profile):
-                cached = None
-            self.send(200, cached)
-        elif self.path == '/api/profile':
-            self.send(200, load_profile(self.sid))
-        elif self.path == '/api/profile/cv':
-            cv = load_profile(self.sid).get('cv')
-            if not cv:
-                self.send(404, {'error': 'No CV uploaded.'})
-            else:
-                self.send(200, (ROOT/'data/cvs'/cv['stored_file']).read_bytes(), 'application/pdf')
-        elif self.path == '/api/history':
-            self.send(200, session['history'])
-        elif self.path == '/api/learning':
-            self.send(200, session)
-        elif self.path == '/api/connect':
-            try:
+        try:
+            user = self.require_user()
+            if self.path in ('/login', '/register'):
+                if user:
+                    self.redirect('/')
+                else:
+                    self.send(200, (ROOT / 'static/login.html').read_bytes(), 'text/html; charset=utf-8')
+                return
+            if self.path == '/api/auth/me':
+                self.send(200, {'authenticated': bool(user), 'user': user})
+                return
+            if not user:
+                if self.path.startswith('/api/'):
+                    self.send(401, {'error': 'Please sign in first.'})
+                else:
+                    self.redirect('/login')
+                return
+            session = self.session()
+            if self.path in ('/', '/interface', '/interface.html'):
+                self.send(200, (ROOT / 'static/wonder.html').read_bytes(), 'text/html; charset=utf-8')
+            elif self.path == '/settings':
+                self.send_response(302)
+                self.send_header('Location', '/#/settings')
+                self.end_headers()
+            elif self.path == '/api/discovery':
+                path = ROOT / 'data/discovery' / f'{self.sid}.json'
+                cached = json.loads(path.read_text()) if path.exists() else None
+                if cached and cached.get('profile_fingerprint') != profile_fingerprint(load_profile(self.sid)):
+                    cached = None
+                self.send(200, cached)
+            elif self.path == '/api/profile':
+                self.send(200, load_profile(self.sid))
+            elif self.path == '/api/profile/cv':
+                cv = load_profile(self.sid).get('cv')
+                if cv:
+                    self.send(200, (ROOT / 'data/cvs' / cv['stored_file']).read_bytes(), 'application/pdf')
+                else:
+                    self.send(404, {'error': 'No CV uploaded.'})
+            elif self.path == '/api/learning':
+                self.send(200, session)
+            elif self.path == '/api/connect':
                 self.send(200, connect_snapshot(ROOT, self.sid))
-            except (OSError, ValueError):
-                self.send(500, {'error': 'Could not load Connect data.'})
-        elif self.path == '/api/source':
-            self.send(200, session['source'])
-        else:
-            self.send(404, {'error': 'Not found.'})
+            else:
+                self.send(404, {'error': 'Not found.'})
+        except (OSError, ValueError, sqlite3.Error):
+            self.send(500, {'error': 'Could not load saved data. Please try again.'})
+
+    def read_json(self):
+        limit = (16_384 if self.path.startswith('/api/auth/') else
+                 28_100_000 if self.path == '/api/profile' else 1_000_000)
+        length = int(self.headers.get('Content-Length', '0'))
+        if not 0 < length <= limit:
+            raise ValueError('Request is empty or too large.')
+        body = json.loads(self.rfile.read(length))
+        if not isinstance(body, dict):
+            raise ValueError('Expected a JSON object.')
+        return body
 
     def do_POST(self):
         if self.headers.get('Host') != '127.0.0.1:8000' or self.headers.get('Origin') != 'http://127.0.0.1:8000':
             self.send(403, {'error': 'Open http://127.0.0.1:8000.'})
             return
-        session = self.session()
-        history = session['history']
-        if self.path == '/api/discovery':
-            try:
-                result, _ = fetch_for_profile(profile_path(self.sid), max_results=10)
-                self.send(200, result)
-            except (ValueError, RuntimeError, OSError) as exc:
-                self.send(400, {'error': str(exc) if not isinstance(exc, OSError) else 'Save your profile and interests in Settings first.'})
+        if self.path in ('/api/auth/register', '/api/auth/login', '/api/auth/logout'):
+            self.auth_action()
             return
-        if self.path == '/api/reset':
-            history.clear()
-            session['ended'] = False
-            self.send(200, {'ok': True})
+        try:
+            if not self.require_user():
+                self.send(401, {'error': 'Please sign in first.'})
+                return
+        except sqlite3.Error:
+            self.send(500, {'error': 'Could not check your sign-in. Please retry.'})
             return
-        if self.path not in ('/api/chat', '/api/source', '/api/profile', '/api/learn/start', '/api/learn/message', '/api/practice/check', '/api/connect'):
+        routes = {'/api/discovery', '/api/profile', '/api/connect',
+                  '/api/learn/start', '/api/learn/message', '/api/practice/check'}
+        if self.path not in routes:
             self.send(404, {'error': 'Not found.'})
             return
+        session = self.session()
         try:
-            length = int(self.headers.get('Content-Length', '0'))
-            limit = 28_100_000 if self.path == '/api/profile' else 1_000_000
-            if not 0 < length <= limit:
-                raise ValueError()
-            body = json.loads(self.rfile.read(length))
-            if self.path == '/api/connect':
-                try:
-                    self.send(200, connect_action(ROOT, self.sid, body, load_profile(self.sid)))
-                except ValueError as exc:
-                    self.send(400, {'error': str(exc)})
-                except OSError:
-                    self.send(500, {'error': 'Could not save Connect changes. Please retry.'})
-                return
-            if self.path.startswith('/api/learn/') or self.path == '/api/practice/check':
-                if not isinstance(body, dict):
-                    raise ValueError()
-                try:
-                    self.learning_action(session, body)
-                except GeminiConfigurationError as exc:
-                    self.send(503, {'error': str(exc)})
-                except ValueError:
-                    self.send(400, {'error': 'Invalid learning request or practice response. Please retry.'})
-                except Exception:
-                    self.send(502, {'error': 'Could not complete this learning action. Check your API connection, model, and quota, then retry.'})
-                return
-            if self.path == '/api/profile':
-                try:
-                    profile = save_profile(self.sid, body)
-                except ValueError as exc:
-                    self.send(400, {'error': str(exc)})
-                    return
-                except OSError:
-                    self.send(500, {'error': 'Could not save your profile. Please try again.'})
-                    return
-                self.send(200, profile)
-                return
-            if self.path == '/api/source':
-                source = prepare_source(body)
-                if source != session['source']:
-                    session['source'] = source
-                    history.clear()
-                    session['ended'] = False
-                self.send(200, {'ok': True, 'source': source})
-                return
-            prompt = body.get('message') if isinstance(body, dict) else None
-            if not isinstance(prompt, str) or not prompt.strip():
-                raise ValueError()
-        except (ValueError, TypeError):
-            self.send(400, {'error': 'Pass source content or a nonempty message (maximum request size: 1 MB).'})
-            return
-        try:
-            answer = reply(history, prompt.strip(), source=session['source'])
-            self.send(200, {'answer': answer})
+            body = self.read_json()
+            if self.path == '/api/discovery':
+                if not profile_path(self.sid).exists():
+                    raise ValueError('Save your profile in Settings first.')
+                result, _ = fetch_for_profile(profile_path(self.sid), max_results=10)
+                self.send(200, result)
+            elif self.path == '/api/profile':
+                self.send(200, save_profile(self.sid, body))
+            elif self.path == '/api/connect':
+                self.send(200, connect_action(ROOT, self.sid, body, load_profile(self.sid)))
+            else:
+                self.learning_action(session, body)
         except GeminiConfigurationError as exc:
             self.send(503, {'error': str(exc)})
+        except (ValueError, TypeError) as exc:
+            message = ('Invalid learning request or practice response. Please retry.'
+                       if self.path.startswith('/api/learn/') or self.path == '/api/practice/check'
+                       else str(exc))
+            self.send(400, {'error': message})
+        except OSError:
+            self.send(500, {'error': 'Could not read or save data. Please try again.'})
+        except RuntimeError as exc:
+            message = (str(exc) if self.path == '/api/discovery'
+                       else 'Could not complete this action. Check your API connection, model, and quota, then retry.')
+            self.send(502, {'error': message})
         except Exception:
-            self.send(502, {'error': 'Gemini could not respond. Check your connection, model availability, and quota, then retry. Your message was not added to memory.'})
+            self.send(502, {'error': 'Could not complete this action. Check your API connection, model, and quota, then retry.'})
+
+    def auth_action(self):
+        try:
+            if self.path == '/api/auth/logout':
+                if not self.require_user():
+                    self.send(401, {'error': 'Please sign in first.'})
+                    return
+                auth.logout(ROOT, self.auth_token())
+                self.send(200, {'ok': True}, auth_cookie='')
+                return
+            address = getattr(self, 'client_address', ('local', 0))[0]
+            now = time.monotonic()
+            recent = [t for t in auth_attempts.get(address, []) if now - t < 60]
+            auth_attempts[address] = recent
+            if len(recent) >= 10:
+                self.send(429, {'error': 'Too many sign-in attempts. Wait one minute and retry.'})
+                return
+            recent.append(now)
+            body = self.read_json()
+            if self.path == '/api/auth/register':
+                user = auth.register(ROOT, body.get('name'), body.get('email'), body.get('password'))
+                try:
+                    save_profile(user['id'], {'name': user['name']})
+                    token = auth.new_session(ROOT, user['id'])
+                except Exception:
+                    with auth.database(ROOT) as conn:
+                        conn.execute('DELETE FROM accounts WHERE id=?', (user['id'],))
+                    profile_path(user['id']).unlink(missing_ok=True)
+                    raise
+            else:
+                user = auth.login(ROOT, body.get('email'), body.get('password'))
+                token = auth.new_session(ROOT, user['id'])
+            auth_attempts.pop(address, None)
+            self.send(200, {'user': user}, auth_cookie=token)
+        except ValueError as exc:
+            self.send(401 if self.path == '/api/auth/login' else 400, {'error': str(exc)})
+        except (OSError, sqlite3.Error):
+            self.send(500, {'error': 'Could not sign in or create your account. Please retry.'})
 
     def learning_action(self, session, body):
         if self.path == '/api/learn/start':
