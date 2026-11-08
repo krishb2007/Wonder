@@ -1,0 +1,23 @@
+# Secrets and local environment configuration
+.env
+.env.*
+!.env.example
+
+# Python virtual environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Private accounts, sessions, profiles, CVs, and cached app data
+/data/
+
+# Local logs and operating system files
+*.log
+.DS_Store
+Thumbs.db
