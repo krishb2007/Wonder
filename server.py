@@ -15,6 +15,8 @@ from connect_backend import snapshot as connect_snapshot, perform as connect_act
 import auth
 
 ROOT = Path(__file__).resolve().parent
+LOCAL_HOSTS = {'127.0.0.1:8000', 'localhost:8000'}
+LOCAL_ORIGINS = {'http://' + host for host in LOCAL_HOSTS}
 # Each browser session has a list of user/model message dictionaries.
 conversations = {}
 auth_attempts = {}
@@ -116,7 +118,7 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(payload)
 
     def do_GET(self):
-        if self.headers.get('Host') != '127.0.0.1:8000':
+        if self.headers.get('Host') not in LOCAL_HOSTS:
             self.send(403, {'error': 'Open http://127.0.0.1:8000.'})
             return
         try:
@@ -178,7 +180,7 @@ class Handler(BaseHTTPRequestHandler):
         return body
 
     def do_POST(self):
-        if self.headers.get('Host') != '127.0.0.1:8000' or self.headers.get('Origin') != 'http://127.0.0.1:8000':
+        if self.headers.get('Host') not in LOCAL_HOSTS or self.headers.get('Origin') not in LOCAL_ORIGINS:
             self.send(403, {'error': 'Open http://127.0.0.1:8000.'})
             return
         if self.path in ('/api/auth/register', '/api/auth/login', '/api/auth/logout'):
