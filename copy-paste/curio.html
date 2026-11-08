@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f6f7f9">
-    <title>Curio — Follow your curiosity</title>
+    <title>Wonder — Follow your curiosity</title>
     <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap');
 
@@ -214,6 +214,10 @@ nav {
   font-size:12px;
   color:var(--muted);
   margin-right:auto;
+}
+
+.mobile-brand {
+  display:none;
 }
 
 .search {
@@ -1096,11 +1100,29 @@ select {
     padding:0 20px;
     gap:13px;
   }
+  .mobile-brand {
+    display:flex;
+    flex:0 0 auto;
+    align-items:center;
+    color:#272536;
+    font:800 17px 'Manrope',sans-serif;
+    letter-spacing:-.7px;
+    text-decoration:none;
+  }
+  .mobile-brand span {
+    color:var(--purple);
+  }
+  .topbar .breadcrumb {
+    display:none;
+  }
   .search {
+    flex:1;
+    min-width:0;
     width:100%;
     margin:0;
   }
   .search input {
+    min-width:0;
     font-size:11px;
   }
   main {
@@ -1619,7 +1641,7 @@ main {
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <aside class="sidebar">
-      <a class="brand" href="./"><span class="brand-icon">c</span>curio<span class="brand-dot">.</span></a>
+      <a class="brand" href="./" aria-label="Wonder home"><span class="brand-icon">W</span>Wonder<span class="brand-dot">.</span></a>
       <nav aria-label="Main navigation">
         <a class="nav-item" href="#/discover" data-route="discover"><span aria-hidden="true">⌂</span><span>Discover</span></a>
         <a class="nav-item" href="#/connect" data-route="connect"><span aria-hidden="true">♧</span><span>Connect</span></a>
@@ -1629,7 +1651,7 @@ main {
       </nav>
     </aside>
     <div class="workspace">
-      <header class="topbar"><span class="breadcrumb">Your daily dose of discovery</span><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search your next rabbit hole…" aria-label="Search stories"></label><button class="avatar avatar-button" id="profile-button" aria-label="Open Settings">Y</button></header>
+      <header class="topbar"><a class="mobile-brand" href="./">Wonder<span>.</span></a><span class="breadcrumb">Your daily dose of discovery</span><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search your next rabbit hole…" aria-label="Search stories"></label><button class="avatar avatar-button" id="profile-button" aria-label="Open Settings">Y</button></header>
       <main id="main" tabindex="-1">
         <section id="discover-page" class="route-page">
         <div class="page-heading"><div><div class="eyebrow">GOOD IDEAS START HERE</div><h1 id="page-title">Follow your curiosity<span>.</span></h1><p id="page-description">Fresh perspectives. Deeper understanding. Something worth your time.</p></div><span class="demo-badge">✧ Sample content</span></div>
@@ -1644,7 +1666,7 @@ main {
             <section class="welcome-card"><span class="eyebrow">MAKE IT YOURS</span><h2>Your interests.<br>Your next discovery.</h2><p>Choose what sparks your curiosity. We’ll help you explore it.</p><button id="personalize">Personalize your feed <span aria-hidden="true">↗</span></button><div class="orbit" aria-hidden="true"><span>✳</span></div></section>
             <section class="rail-section"><div class="section-heading"><h2>Explore a little further</h2><span aria-hidden="true">↗</span></div><button class="explore-topic" data-topic="Technology"><span class="topic-symbol lavender">⌘</span><span><strong>Technology</strong><small>Ideas shaping what’s next</small></span><span>→</span></button><button class="explore-topic" data-topic="Science"><span class="topic-symbol peach">⚛</span><span><strong>Science</strong><small>A world of questions</small></span><span>→</span></button><button class="explore-topic" data-topic="Learning"><span class="topic-symbol mint">✳</span><span><strong>Learning</strong><small>Understand a little more</small></span><span>→</span></button></section>
             <section class="source-note"><span aria-hidden="true">◎</span><h3>Curiosity, with context.</h3><p>Every sample story links to its source. Look for the publication type and inspect the original material.</p><small>Frontend preview · Stories are illustrative summaries.</small></section>
-            <footer class="rail-footer">curio. &nbsp; Made for curious minds.</footer>
+            <footer class="rail-footer">Wonder. &nbsp; Made for curious minds.</footer>
           </aside>
         </div>
         </section>
@@ -1763,7 +1785,7 @@ function card(story) {
   const followed = state.followed.includes(story.publisher);
   return `<article class="post" data-id="${story.id}">
     <div class="post-head"><span class="publisher-icon" aria-hidden="true">${story.initials}</span><div><div class="publisher-name">${story.publisher}</div><div class="post-meta">${story.date} · ${story.minutes} min read</div></div><button class="follow-button" data-action="follow" aria-pressed="${followed}" aria-label="${followed ? 'Unfollow' : 'Follow'} ${story.publisher}">${followed ? 'Following' : '+ Follow'}</button><button class="hide-button" data-action="hide" aria-label="Show less like this story" title="Show less like this">⋯</button></div>
-    <div class="story-art art-${story.art}" aria-hidden="true"><span class="art-kicker">${story.kicker}</span><span class="art-title">${story.visual}</span><span class="art-badge">THE CURIO EDIT</span><div class="art-decoration"></div></div>
+    <div class="story-art art-${story.art}" aria-hidden="true"><span class="art-kicker">${story.kicker}</span><span class="art-title">${story.visual}</span><span class="art-badge">THE WONDER EDIT</span><div class="art-decoration"></div></div>
     <div class="post-body"><div class="source-type"><span>${story.type}</span><span>AI-written sample summary</span></div><button class="story-open" data-action="open"><h2>${story.title}</h2></button><p>${story.summary}</p><div class="tag-list">${story.tags.map(tag => `<span>#${tag.replaceAll(' ', '')}</span>`).join('')}</div></div>
     <div class="post-actions"><button class="action-button" data-action="like" aria-pressed="${liked}" aria-label="${liked ? 'Unlike' : 'Like'} story"><span aria-hidden="true">${liked ? '♥' : '♡'}</span>${liked ? 'Liked' : 'Like'}</button><button class="action-button" data-action="share"><span aria-hidden="true">↗</span>Share source</button><button class="action-button save" data-action="save" aria-pressed="${saved}"><span aria-hidden="true">${saved ? '▰' : '▱'}</span>${saved ? 'Saved' : 'Save'}</button><button class="read-link" data-action="open" aria-label="Read ${story.title}">Read →</button></div>
   </article>`;
@@ -2003,7 +2025,7 @@ function routePage() {
   render();
   document.querySelector('.search').hidden = page !== 'discover';
   document.querySelector('.breadcrumb').textContent = pageNames[page];
-  document.title = `${pageNames[page]} — Curio`;
+  document.title = `${pageNames[page]} — Wonder`;
   document.body.dataset.page = page;
   updateSettings();
   window.scrollTo(0, 0);
@@ -2122,7 +2144,7 @@ function openProfileDatabase() {
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
     request.onblocked = () => {
-      cvStatus.textContent = 'Close other Curio tabs to finish opening CV storage.';
+      cvStatus.textContent = 'Close other Wonder tabs to finish opening CV storage.';
     };
   });
 }
