@@ -2,143 +2,85 @@
 
 **We turn curiosity into understanding—and understanding into practice.**
 
-We built Wonder to bring personalized discovery, conversational learning, and
-practical exercises into one experience. Our app helps people find content that
-fits their interests and experience, understand it through questions, and apply
-what they learn.
+We built Wonder to connect personalized discovery, conversational learning,
+practical exercises, and people with shared interests. Our app helps users find
+relevant ideas, explore them through questions, and put what they learn to use.
 
-## Why we built Wonder
+## Why we built it
 
-Finding information is easy. Knowing what deserves our attention, understanding
-unfamiliar ideas, and using that knowledge takes more work. Research papers,
-technical articles, and news can introduce valuable ideas without giving readers
-a clear way to explore them at their own pace.
+Finding information is easy. Choosing what matters, understanding unfamiliar
+ideas, and applying them takes more effort. We want an interesting article or
+research paper to become the start of a learning journey, with the original
+source available throughout.
 
-We want discovery to lead somewhere. When someone finds an interesting article in
-our feed, they can move directly into a conversation about it, ask for examples,
-and create a practice plan. Our goal is to support useful skills and confidence,
-with the original source available throughout the journey.
+Our experience follows a simple path:
+
+**Create a profile → Discover → Learn → Practice → Connect**
 
 ## What we have built
 
-### Personalized discovery
-
-Our Settings page captures a user's name, profession, interests, and optional PDF
-CV. We extract readable CV text and use Gemini to generate three targeted search
-queries informed by the user's background and interests. Keenable searches the
-web, and we combine the results, remove duplicate links, and display them in our
-Discover feed.
-
-Our feed supports searching, saving, liking, hiding discoveries, and opening the
-original publication. We label the previews as source excerpts so readers can
-recognize the difference between a search result and a complete article. Query
-and result caches reduce repeated work, and profile changes refresh personalization.
-
-### Learning through conversation
-
-Selecting **Learn →** opens a conversation about the chosen source. We retrieve
-available page content through Keenable, and Gemini introduces the main ideas,
-important details, and limitations. If retrieval fails, we clearly identify that
-the lesson is based only on the search excerpt.
-
-Our learning assistant remembers earlier questions and answers within the session.
-Users can request simpler explanations, examples, comparisons, or further detail.
-We render headings, lists, code, and tables to make explanations easier to read.
-
-We provide two commands, alongside buttons and visible guidance:
-
-- **`/end`** gives a closing recap and ends the lesson. We suggest using it when
-  the learner can explain the main idea, give an example, and identify a limitation.
-- **`/practice`** creates a guided practice plan and opens the Practice page.
-  It can be used during a lesson or after the lesson ends.
-
-### Practice with a clear next step
-
-Our practice plans contain ordered tasks, what to understand, concrete actions,
-estimated time, and success criteria. Users can check off tasks as they complete
-them and return to the learning conversation for help. Completion is self-reported;
-we do not present it as proof of mastery or an accredited qualification.
-
-### Accounts, connection, and discussion
-
-We have added signup, login, and sign out. We store salted password hashes and
-revocable login sessions in SQLite. Profiles, discoveries, learning memory, and
-Connect state are associated with the signed-in account rather than an anonymous
-browser cookie. Saved and liked discoveries are separated by account in browser
-storage.
-
-Our Connect directory contains registered members only. We show their names,
-professions, and interests; we do not expose their emails or CVs. A member can
-hide their profile, limit incoming requests, or enable **Open to mentoring** in
-**Connect → Privacy & safety**. Everyone starts as a peer; members who offer
-mentoring also appear under Mentors. Mentoring and professional information are
-self-reported, not verified credentials.
-
-Connection requests appear in the recipient's Connect page, where they can be
-accepted or declined. We support follows, blocking, locally recorded reports,
-discussions, and replies. Blocking applies in both directions and removes active
-connections or pending requests between those accounts. There are no seeded people
-or sample discussions: an empty installation starts with an empty community.
-
-### Listening across devices
-
-Our interface uses browser speech synthesis to read a discovery's title and
-excerpt with a voice available on the visitor's device. Users choose when playback
-starts and can select a voice. Available voices and speech support depend on the
-browser and operating system.
-
-## How our app works
-
-```text
-CV + profession + interests
-            ↓
-Gemini generates topic queries
-            ↓
-Keenable finds relevant sources
-            ↓
-Discover → Learn → Practice
-              ↘ Connect and discuss
-```
-
-We keep Gemini prompting and response generation separate from our web-search
-integration and HTTP server. Our frontend stays in one HTML file containing its
-layout, styles, and interaction code.
-
-| File | Responsibility |
+| Area | Our implementation |
 | --- | --- |
-| `server.py` | HTTP endpoints, account authorization, profiles, and CV uploads |
-| `auth.py` | Registration, password hashing, persistent sessions, and sign out |
-| `gemini_chat.py` | Gemini prompts, learning responses, discovery queries, and practice generation |
-| `fetch_interests.py` | PDF text extraction, Keenable search and page retrieval, and discovery caches |
-| `connect_backend.py` | Connect interactions and community persistence |
-| `static/wonder.html` | Our Wonder interface |
-| `static/login.html` | Our signup and login interface |
-| `requirements.txt` | Python dependencies |
-| `.env.example` | Configuration template without credentials |
+| **Accounts** | Signup, login, sign out, hashed passwords, and account-specific data |
+| **Settings** | Name, profession, interests, and an optional PDF CV up to 20 MB |
+| **Discover** | Personalized web results based on CV text, profession, and interests; search, save, like, hide, and original source links |
+| **Learn** | A source introduction and conversational explanations that remember earlier questions and answers |
+| **Practice** | Generated tasks with steps, estimated time, completion criteria, and checkboxes |
+| **Connect** | Registered users, mentoring availability, connection requests, follows, discussions, replies, blocking, and reports |
+| **Listen** | User-controlled browser narration of a discovery's title and excerpt |
 
-Our backend uses Python, Google's Gen AI SDK, python-dotenv, and pypdf. Our frontend
-uses HTML, CSS, and JavaScript without a frontend build step.
+Gemini generates our discovery queries, learning explanations, and practice
+plans. Keenable provides web search and source-page retrieval. We combine results,
+remove duplicate URLs, and cache queries and results to reduce repeated work.
+Discovery cards show readable source excerpts, not full articles or verified summaries.
 
-## Run our project locally
+### Learning commands
 
-Use Python 3.11 or later. From the project root, create and activate a virtual
-environment:
+Click **Learn →** on a discovery to start. Ask for explanations, examples,
+comparisons, or help with unfamiliar terms. Our interface formats headings, lists,
+code, and tables for readability.
+
+- **`/end`** gives a recap and closes the lesson. We suggest using it when the
+  learner can explain the main idea, give an example, and identify a limitation.
+- **`/practice`** creates a guided checklist and opens Practice. It works during
+  a lesson or after the lesson ends.
+
+Buttons provide the same actions. Practice completion is self-reported; we do
+not present it as proof of mastery or an accredited qualification.
+
+### Real members in Connect
+
+Our directory contains registered users only—there are no dummy profiles or
+seeded discussions. Users do not see themselves in the directory.
+
+- **Peers** lists other discoverable members.
+- **Mentors** lists members who enable **Connect → Privacy & safety → Open to mentoring**.
+- Incoming connection requests can be accepted or declined.
+- Visibility and request preferences control discovery and incoming requests.
+- Blocking works in both directions and removes connections and pending requests
+  between those accounts.
+
+We share names, professions, and interests in Connect. Emails and CVs stay private.
+Professional details and mentoring availability are self-reported, not verified.
+Reports are recorded for review; external moderation and messaging are not connected.
+
+## Run our app
+
+Use Python 3.11 or later. Run these commands from the project root—the folder
+containing `server.py` and `requirements.txt`.
+
+### First-time setup
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-On Windows, create the environment with `python -m venv .venv`, then activate it
-in PowerShell with `.venv\Scripts\Activate.ps1`.
-
-Install our dependencies:
-
-```bash
 python -m pip install -r requirements.txt
 ```
 
-Create `.env` from `.env.example` if you do not already have one, and configure:
+On Windows, create the environment with `python -m venv .venv` and activate it in
+PowerShell with `.venv\Scripts\Activate.ps1`.
+
+Create `.env` from `.env.example` if you do not already have one. Configure:
 
 ```dotenv
 GEMINI_API_KEY=your_gemini_api_key
@@ -146,65 +88,75 @@ GEMINI_MODEL=your_available_gemini_model_id
 KEENABLE_API_KEY=your_keenable_api_key
 ```
 
-Start the app:
+### Start
 
 ```bash
+source .venv/bin/activate
 python server.py
 ```
 
-Open **http://127.0.0.1:8000** and create an account. Start in **Settings**, save
-a profile, and explore **Discover**. Other registered members appear in **Connect**;
-you will not see yourself in the directory. Create a second account to try
-requests between users. Use Sign out to switch accounts. Restart the server after changing Python code or `.env`; refresh the
-browser after frontend changes. API availability and usage limits depend on the
-configured providers and accounts.
+On Windows, use the PowerShell activation command above instead of `source`.
+Open **http://127.0.0.1:8000**, create an account, and complete **Settings**.
+Then explore **Discover** or **Connect**. Use Sign out to switch accounts.
+To try connections, create a second account or sign in through another browser.
 
-## How we handle data
+Restart the server after changing Python code or `.env`. Refresh the page after
+frontend changes. External API availability and limits depend on the configured
+provider accounts. Narration voices depend on the visitor's browser and device.
 
-We store accounts and hashed login sessions in `data/auth.sqlite3`. Profiles,
-uploaded CVs, discovery caches, and Connect records are stored under `data/` by
-account ID. We hash passwords with salted PBKDF2-HMAC-SHA256; session tokens are
-also stored as hashes and expire after 30 days. Signing out revokes the current
-session. An HttpOnly, SameSite cookie carries the login token.
+## Our codebase
 
-Different browsers signing in to the same account use the same server-side
-profile. Browser-local saved stories remain local to that browser and account.
-Other accounts cannot access a user's profile, CV, discovery cache, or learning
-conversation through our API. Public Connect profiles share only the selected
-member fields, and community posts explicitly share their author's name and text.
+```text
+auth.py                 Accounts, password hashing, and login sessions
+server.py               HTTP endpoints, authorization, profiles, and CV uploads
+gemini_chat.py          All Gemini prompts and response generation
+fetch_interests.py      PDF extraction, Keenable integration, and discovery caches
+connect_backend.py      Member directory, requests, discussions, and privacy rules
+static/
+  login.html            Signup and login interface
+  wonder.html           Main interface, styles, and browser interactions
+requirements.txt        Python dependencies
+.env.example            Configuration template without credentials
+README.md               Project overview and setup
+data/                   Runtime data, created as the app is used
+```
 
-Learning conversations and practice progress stay in Python memory and reset when
-the server restarts. Saved and liked discoveries stay in browser storage.
+We use Python, Google's Gen AI SDK, python-dotenv, and pypdf. Our frontend uses
+HTML, CSS, and JavaScript without a frontend build step. The old frontend copies,
+update folder, fixed voice recordings, and Mac-only narration service have been
+removed from the active codebase.
 
-Gemini receives profession, interests, and extracted CV text to generate search
-queries. We remove common contact patterns before submission, but this is not
-complete anonymization. Keenable receives the generated topic queries. Selected
-source content and conversation history are sent to Gemini for learning responses.
-We keep `.env`, `.venv/`, and `data/` out of Git.
+## Data and privacy
 
-## Our current scope
+| Data | Storage and lifetime |
+| --- | --- |
+| Accounts and login sessions | `data/auth.sqlite3`; persistent |
+| Profiles and CVs | `data/profiles/` and `data/cvs/`; persistent |
+| Discovery queries and results | `data/discovery_queries/` and `data/discovery/`; cached by account |
+| Connections and community records | `data/connect/`; persistent |
+| Learning conversations and practice progress | Python memory; cleared when the server restarts |
+| Saved, liked, and hidden discoveries | Browser storage, separated by account |
 
-We have a working local prototype with account authentication. Password reset,
-email verification, public mentor verification, and external messaging are not
-implemented. Reports are stored for review; we have not built a moderation console.
-Portfolio publishing and generated video are also outside our current implementation.
+We store salted password hashes and hashed session tokens. Login sessions expire
+after 30 days, and sign out revokes the current session. Private API access uses
+the authenticated account, not an account ID supplied by the browser.
 
-Our PDF extraction supports selectable text, up to 40,000 characters. Scanned CVs
-need OCR, which we have not integrated. Learning source retrieval is limited to
-50,000 characters, so some sources may be incomplete. AI explanations can contain
-errors; we keep original source links visible so users can check important claims.
+Gemini receives profession, interests, and extracted CV text to generate queries.
+We remove common contact patterns, but this is not complete anonymization.
+Keenable receives topic queries; selected source content and conversation history
+are sent to Gemini for learning responses. Browser speech voices may use their
+browser or operating-system provider's online services.
 
-We currently serve the app on localhost. Public hosting still requires
-HTTPS, deployment configuration, and production operational controls.
+Keep `.env`, `.venv/`, and `data/` out of version control. Removing `data/` deletes
+accounts, uploaded documents, and other persistent user records.
 
+## Current limitations
 
-### Account endpoints
+We currently run Wonder as a local prototype. Password reset, email verification,
+a moderation console, portfolio publishing, and generated video are not implemented.
+Public hosting still requires HTTPS and deployment work.
 
-- `POST /api/auth/register`: `{name, email, password}` creates an account and signs in.
-- `POST /api/auth/login`: `{email, password}` signs in.
-- `POST /api/auth/logout`: revokes the current session and clears its cookie.
-- `GET /api/auth/me`: identifies the signed-in user.
-
-Other API endpoints require a valid login. Signed-out page requests redirect to
-`/login`. Connect, profile, and learning endpoints always use the authenticated
-account ID; they do not accept a client-provided account ID for private data access.
+CV extraction supports selectable text up to 40,000 characters. Scanned PDFs need
+OCR, which we have not integrated. Learning retrieves up to 50,000 source characters;
+if retrieval fails, we label the lesson's search-excerpt fallback. AI explanations
+can contain errors, so we keep original source links visible for checking claims.
