@@ -108,6 +108,9 @@ class Handler(BaseHTTPRequestHandler):
         session = self.session()
         if self.path in ('/', '/interface', '/interface.html'):
             self.send(200, (ROOT/'static/interface.html').read_bytes(), 'text/html; charset=utf-8')
+        elif self.path in ('/static/base.css', '/static/library.css', '/static/app.js', '/static/library.js'):
+            content_type = 'text/css; charset=utf-8' if self.path.endswith('.css') else 'text/javascript; charset=utf-8'
+            self.send(200, (ROOT / self.path.lstrip('/')).read_bytes(), content_type)
         elif self.path == '/chat':
             self.send(200, (ROOT/'static/index.html').read_bytes(), 'text/html; charset=utf-8')
         elif self.path == '/settings':
@@ -287,3 +290,5 @@ if __name__ == '__main__':
         HTTPServer(('127.0.0.1', 8000), Handler).serve_forever()
     except KeyboardInterrupt:
         print('\nChat stopped. In-memory history cleared.')
+
+
